@@ -7,6 +7,7 @@ import {
 } from "../value-objects/created-rss-event";
 
 import { TwitterRssFeedShouldNotExistPolicy } from "../policies/twitter-rss-feed-should-not-exist";
+import { TwitterHandleExistsPolicy } from "../policies/twitter-handle-exists";
 
 export class TwitterRssFeeds {
   private feeds: TwitterHandleType[] = [];
@@ -37,6 +38,10 @@ export class TwitterRssFeeds {
 
   async create(twitterHandle: TwitterHandleType) {
     if (TwitterRssFeedShouldNotExistPolicy.fails(this.feeds, twitterHandle)) {
+      throw new Error();
+    }
+
+    if (await TwitterHandleExistsPolicy.fails(twitterHandle)) {
       throw new Error();
     }
 
