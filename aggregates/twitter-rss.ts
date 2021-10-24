@@ -6,6 +6,8 @@ import {
   CreatedRssEvent,
 } from "../value-objects/created-rss-event";
 
+import { TwitterRssFeedShouldNotExistPolicy } from "../policies/twitter-rss-feed-should-not-exist";
+
 export class TwitterRssFeeds {
   private feeds: TwitterHandleType[] = [];
 
@@ -45,14 +47,5 @@ export class TwitterRssFeeds {
     });
 
     await new EventRepository().save(event);
-  }
-}
-
-class TwitterRssFeedShouldNotExistPolicy {
-  static fails(
-    feeds: TwitterHandleType[],
-    twitterHandle: TwitterHandleType
-  ): boolean {
-    return feeds.some((feed) => feed === twitterHandle);
   }
 }
