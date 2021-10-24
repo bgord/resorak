@@ -11,6 +11,7 @@ import {
 } from "@bgord/node";
 
 import { Env } from "./env";
+import { Scheduler } from "./jobs";
 
 import { Home } from "./routes/home";
 import { CreateTwitterRss } from "./routes/create-twitter-rss";
@@ -31,4 +32,5 @@ const server = app.listen(Env.PORT, () =>
 
 GracefulShutdown.applyTo(server, () => {
   Reporter.info("shutting down job scheduler");
+  Scheduler.stop();
 });
