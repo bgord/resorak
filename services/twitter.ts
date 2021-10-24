@@ -5,11 +5,12 @@ import { Env } from "../env";
 import { TwitterUser, TwitterUserType } from "../value-objects/twitter-user";
 import { TwitterHandleType } from "../value-objects/twitter-handle";
 
-type ResponseTwitterUserType = TwitterUserType & {
-  screen_name: TwitterUserType["name"];
+type ShowTwitterUserResponse = {
+  id: TwitterUserType["twitterUserId"];
+  screen_name: TwitterUserType["twitterUserName"];
 };
 
-export class Twitter {
+export class TwitterService {
   private static config = {
     headers: {
       Authorization: `Bearer ${Env.TWITTER_BEARER_TOKEN}`,
@@ -20,14 +21,14 @@ export class Twitter {
     twitterHandle: TwitterHandleType
   ): Promise<TwitterUserType | null> {
     try {
-      const response = await axios.get<ResponseTwitterUserType>(
+      const response = await axios.get<ShowTwitterUserResponse>(
         `https://api.twitter.com/1.1/users/show.json?screen_name=${twitterHandle}`,
-        Twitter.config
+        TwitterService.config
       );
 
       return TwitterUser.parse({
-        id: response.data.id,
-        name: response.data.screen_name,
+        twitterUserId: response.data.id,
+        twitterUserName: response.data.screen_name,
       });
     } catch (error) {
       return null;

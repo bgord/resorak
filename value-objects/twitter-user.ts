@@ -4,8 +4,8 @@ import { TwitterId } from "./twitter-id";
 import { TwitterHandle } from "./twitter-handle";
 
 export const TwitterUser = z.object({
-  id: TwitterId,
-  name: TwitterHandle,
+  twitterUserId: TwitterId,
+  twitterUserName: TwitterHandle,
 });
 
 export type TwitterUserType = z.infer<typeof TwitterUser>;

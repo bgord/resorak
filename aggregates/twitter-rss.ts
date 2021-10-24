@@ -1,6 +1,7 @@
 import { EventRepository } from "../repositories/event-repository";
-import { Twitter } from "../services/twitter";
+import { TwitterService } from "../services/twitter";
 import { TwitterHandleType } from "../value-objects/twitter-handle";
+import { TwitterRssFeedType } from "../value-objects/twitter-rss-feed";
 import {
   CREATED_RSS_EVENT,
   CreatedRssEvent,
@@ -10,21 +11,21 @@ import { TwitterRssFeedShouldNotExistPolicy } from "../policies/twitter-rss-feed
 import { TwitterUserExistsPolicy } from "../policies/twitter-user-exists";
 
 export class TwitterRss {
-  private feeds: TwitterHandleType[] = [];
+  private feeds: TwitterRssFeedType[] = [];
 
   async build() {
     const createdRssEvents = await new EventRepository().find(
       CREATED_RSS_EVENT
     );
 
-    const feeds: TwitterHandleType[] = [];
+    const feeds = [];
 
     for (const event of createdRssEvents) {
       const { payload } = CreatedRssEvent.pick({ payload: true }).parse({
         payload: event.payload,
       });
 
-      feeds.push(payload.name);
+      feeds.push(payload);
     }
 
     this.feeds = feeds;
@@ -41,7 +42,7 @@ export class TwitterRss {
       throw new Error();
     }
 
-    const twitterUser = await Twitter.showUser(twitterHandle);
+    const twitterUser = await TwitterService.showUser(twitterHandle);
 
     if (await TwitterUserExistsPolicy.fails(twitterUser)) {
       throw new Error();
