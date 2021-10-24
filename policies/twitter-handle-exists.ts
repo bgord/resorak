@@ -1,7 +1,7 @@
-import { TwitterHandleType } from "../value-objects/twitter-handle";
+import { TwitterUserType } from "../value-objects/twitter-user";
 
 export class TwitterHandleExistsPolicy {
-  static async fails(_twitterHandle: TwitterHandleType): Promise<boolean> {
-    return true;
+  static async fails(user: TwitterUserType | null): Promise<boolean> {
+    return user !== null;
   }
 }
