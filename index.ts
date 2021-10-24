@@ -13,6 +13,7 @@ import {
 import { Env } from "./env";
 
 import { Home } from "./routes/home";
+import { CreateRss } from "./routes/create-rss";
 
 const app = express();
 
@@ -22,6 +23,7 @@ addExpressEssentials(app, {
 new Handlebars().applyTo(app);
 
 app.get("/", Home);
+app.post("/create-rss", CreateRss);
 
 const server = app.listen(Env.PORT, () =>
   Reporter.info(`Server running on port: ${Env.PORT}`)
