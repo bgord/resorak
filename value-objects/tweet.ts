@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const Tweet = z.object({
   id: z.string().nonempty(),
-  createdAt: z.date(),
+  createdAt: z.string(),
   text: z.string(),
 });
 
