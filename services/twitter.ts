@@ -10,6 +10,7 @@ import { TwitterHandleType } from "../value-objects/twitter-handle";
 type ShowUserResponse = {
   id: TwitterUserType["twitterUserId"];
   screen_name: TwitterUserType["twitterUserName"];
+  description: TwitterUserType["twitterUserDescription"];
 };
 
 type GetTweetsResponse = {
@@ -39,6 +40,7 @@ export class TwitterService {
       return TwitterUser.parse({
         twitterUserId: response.data.id,
         twitterUserName: response.data.screen_name,
+        twitterUserDescription: response.data.description,
       });
     } catch (error) {
       return null;
