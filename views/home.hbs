@@ -1,4 +1,23 @@
 <h1 data-ml="24">Resorak</h1>
+
+<form method="POST" action="/create-rss" data-mx="24">
+  <legend data-mb="24" data-fs="20">Create an RSS feed</legend>
+
+  <div data-display="flex" data-direction="column">
+    <label for="handle" data-mb="6" data-fs="16">Twitter handle</label>
+    <input
+      id="handle"
+      name="handle"
+      type="text"
+      data-mr="auto"
+      data-p="3"
+      required
+    />
+  </div>
+
+  <button type="submit" data-mt="24" data-py="6" data-px="24">Create</button>
+</form>
+
 <h2 data-ml="24" data-mt="72" data-fs="24">Existing RSS feeds</h2>
 
 {{#unless twitterRssFeeds}}
