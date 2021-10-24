@@ -33,3 +33,12 @@ export class TwitterRssFeeds {
     return this.feeds;
   }
 }
+
+class TwitterRssFeedShouldNotExistPolicy {
+  static fails(
+    feeds: TwitterHandleType[],
+    twitterHandle: TwitterHandleType
+  ): boolean {
+    return feeds.some((feed) => feed === twitterHandle);
+  }
+}
