@@ -1,5 +1,5 @@
 import { EventRepository } from "../repositories/event-repository";
-
+import { Twitter } from "../services/twitter";
 import { TwitterHandleType } from "../value-objects/twitter-handle";
 import {
   CREATED_RSS_EVENT,
@@ -24,7 +24,7 @@ export class TwitterRssFeeds {
         payload: event.payload,
       });
 
-      feeds.push(payload.twitterHandle);
+      feeds.push(payload.name);
     }
 
     this.feeds = feeds;
@@ -41,14 +41,16 @@ export class TwitterRssFeeds {
       throw new Error();
     }
 
-    if (await TwitterHandleExistsPolicy.fails(twitterHandle)) {
+    const user = await Twitter.showUser(twitterHandle);
+
+    if (await TwitterHandleExistsPolicy.fails(user)) {
       throw new Error();
     }
 
     const event = CreatedRssEvent.parse({
       name: CREATED_RSS_EVENT,
       version: 1,
-      payload: { twitterHandle },
+      payload: user,
     });
 
     await new EventRepository().save(event);
