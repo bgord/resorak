@@ -1,3 +1,4 @@
+access.log
 build/
 .contributor
 .env.local
