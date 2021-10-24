@@ -1,7 +1,7 @@
 <h1 data-ml="24">Resorak</h1>
 
 <form method="POST" action="/create-rss" data-mx="24">
-  <legend data-mb="24" data-fs="20">Create an RSS feed</legend>
+  <legend data-mb="24" data-fs="20">Create a Twitter RSS feed</legend>
 
   <div data-display="flex" data-direction="column">
     <label for="handle" data-mb="6" data-fs="16">Twitter handle</label>
@@ -18,7 +18,7 @@
   <button type="submit" data-mt="24" data-py="6" data-px="24">Create</button>
 </form>
 
-<h2 data-ml="24" data-mt="72" data-fs="24">Existing RSS feeds</h2>
+<h2 data-ml="24" data-mt="72" data-fs="24">Existing Twitter RSS feeds</h2>
 
 {{#unless feeds}}
   <small data-ml="24">Create a feed above.</small>
@@ -26,6 +26,6 @@
 
 <ul>
   {{#each feeds}}
-    <li>{{this}}</li>
+    <li>{{this.twitterUserName}} (ID: {{this.twitterUserId}})</li>
   {{/each}}
 </ul>
