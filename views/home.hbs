@@ -20,12 +20,12 @@
 
 <h2 data-ml="24" data-mt="72" data-fs="24">Existing RSS feeds</h2>
 
-{{#unless twitterRssFeeds}}
+{{#unless feeds}}
   <small data-ml="24">Create a feed above.</small>
 {{/unless}}
 
 <ul>
-  {{#each twitterRssFeeds}}
+  {{#each feeds}}
     <li>{{this}}</li>
   {{/each}}
 </ul>
