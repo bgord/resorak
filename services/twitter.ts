@@ -10,17 +10,19 @@ type ResponseTwitterUserType = TwitterUserType & {
 };
 
 export class Twitter {
+  private static config = {
+    headers: {
+      Authorization: `Bearer ${Env.TWITTER_BEARER_TOKEN}`,
+    },
+  };
+
   static async showUser(
     twitterHandle: TwitterHandleType
   ): Promise<TwitterUserType | null> {
     try {
       const response = await axios.get<ResponseTwitterUserType>(
         `https://api.twitter.com/1.1/users/show.json?screen_name=${twitterHandle}`,
-        {
-          headers: {
-            Authorization: `Bearer ${Env.TWITTER_BEARER_TOKEN}`,
-          },
-        }
+        Twitter.config
       );
 
       return TwitterUser.parse({
