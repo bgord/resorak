@@ -9,7 +9,7 @@ import {
 import { TwitterRssFeedShouldNotExistPolicy } from "../policies/twitter-rss-feed-should-not-exist";
 import { TwitterUserExistsPolicy } from "../policies/twitter-user-exists";
 
-export class TwitterRssFeeds {
+export class TwitterRss {
   private feeds: TwitterHandleType[] = [];
 
   async build() {
@@ -32,11 +32,11 @@ export class TwitterRssFeeds {
     return this;
   }
 
-  getAll(): TwitterRssFeeds["feeds"] {
+  getFeeds(): TwitterRss["feeds"] {
     return this.feeds;
   }
 
-  async create(twitterHandle: TwitterHandleType) {
+  async createFeed(twitterHandle: TwitterHandleType) {
     if (TwitterRssFeedShouldNotExistPolicy.fails(this.feeds, twitterHandle)) {
       throw new Error();
     }
