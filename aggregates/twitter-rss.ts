@@ -7,7 +7,7 @@ import {
 } from "../value-objects/created-rss-event";
 
 import { TwitterRssFeedShouldNotExistPolicy } from "../policies/twitter-rss-feed-should-not-exist";
-import { TwitterHandleExistsPolicy } from "../policies/twitter-handle-exists";
+import { TwitterUserExistsPolicy } from "../policies/twitter-user-exists";
 
 export class TwitterRssFeeds {
   private feeds: TwitterHandleType[] = [];
@@ -41,18 +41,18 @@ export class TwitterRssFeeds {
       throw new Error();
     }
 
-    const user = await Twitter.showUser(twitterHandle);
+    const twitterUser = await Twitter.showUser(twitterHandle);
 
-    if (await TwitterHandleExistsPolicy.fails(user)) {
+    if (await TwitterUserExistsPolicy.fails(twitterUser)) {
       throw new Error();
     }
 
-    const event = CreatedRssEvent.parse({
+    const createdRssEvent = CreatedRssEvent.parse({
       name: CREATED_RSS_EVENT,
       version: 1,
-      payload: user,
+      payload: twitterUser,
     });
 
-    await new EventRepository().save(event);
+    await new EventRepository().save(createdRssEvent);
   }
 }
