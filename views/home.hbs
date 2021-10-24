@@ -1,1 +1,12 @@
 <h1 data-ml="24">Resorak</h1>
+<h2 data-ml="24" data-mt="72" data-fs="24">Existing RSS feeds</h2>
+
+{{#unless twitterRssFeeds}}
+  <small data-ml="24">Create a feed above.</small>
+{{/unless}}
+
+<ul>
+  {{#each twitterRssFeeds}}
+    <li>{{this}}</li>
+  {{/each}}
+</ul>
