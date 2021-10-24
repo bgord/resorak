@@ -32,6 +32,20 @@ export class TwitterRssFeeds {
   getAll(): TwitterRssFeeds["feeds"] {
     return this.feeds;
   }
+
+  async create(twitterHandle: TwitterHandleType) {
+    if (TwitterRssFeedShouldNotExistPolicy.fails(this.feeds, twitterHandle)) {
+      throw new Error();
+    }
+
+    const event = CreatedRssEvent.parse({
+      name: CREATED_RSS_EVENT,
+      version: 1,
+      payload: { twitterHandle },
+    });
+
+    await new EventRepository().save(event);
+  }
 }
 
 class TwitterRssFeedShouldNotExistPolicy {
