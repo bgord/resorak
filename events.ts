@@ -1,15 +1,24 @@
 import Emittery from "emittery";
 import { Reporter } from "@bgord/node";
 
+import { TwitterRss } from "./aggregates/twitter-rss";
+
 import {
   CreatedRssEventType,
   CREATED_RSS_EVENT,
 } from "./value-objects/created-rss-event";
 
+import {
+  RegeneratedRssEvent,
+  RegeneratedRssEventType,
+  REGENERATED_RSS_EVENT,
+} from "./value-objects/regenerated-rss-event";
+
 Emittery.isDebugEnabled = true;
 
 export const emittery = new Emittery<{
   CREATED_RSS: CreatedRssEventType;
+  REGENERATED_RSS: RegeneratedRssEventType;
 }>();
 
 emittery.on(CREATED_RSS_EVENT, (feed) => {
@@ -24,3 +33,14 @@ emittery.on(CREATED_RSS_EVENT, (feed) => {
   emittery.emit(REGENERATED_RSS_EVENT, regeneratedRssEvent);
 });
 
+emittery.on(REGENERATED_RSS_EVENT, async (event) => {
+  Reporter.info("Regenerating Twitter RSS");
+
+  const twitterRss = await new TwitterRss().build();
+
+  for (const feed of event.payload) {
+    Reporter.info(`Processing ${feed.twitterUserName}`);
+
+    await twitterRss.generateFeed(feed);
+  }
+});
