@@ -26,6 +26,11 @@
 
 <ul>
   {{#each feeds}}
-    <li>{{this.twitterUserName}} (ID: {{this.twitterUserId}})</li>
+    <li>
+      {{this.twitterUserName}}
+      (ID:
+      {{this.twitterUserId}})
+      <a href="{{this.link}}">{{this.link}}</a>
+    </li>
   {{/each}}
 </ul>
