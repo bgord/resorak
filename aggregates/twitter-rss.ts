@@ -44,13 +44,13 @@ export class TwitterRss {
 
   async createFeed(twitterHandle: TwitterHandleType) {
     if (TwitterRssFeedShouldNotExistPolicy.fails(this.feeds, twitterHandle)) {
-      throw new Error();
+      throw new TwitterRssFeedAlreadyExistsError();
     }
 
     const twitterUser = await TwitterService.showUser(twitterHandle);
 
     if (await TwitterUserExistsPolicy.fails(twitterUser)) {
-      throw new Error();
+      throw new TwitterUserDoesNotExistsError();
     }
 
     const createdRssEvent = CreatedRssEvent.parse({
@@ -68,7 +68,7 @@ export class TwitterRss {
     content: ReturnType<Feed["rss2"]>;
   }> {
     if (TwitterRssFeedShouldExistPolicy.fails(this.feeds, feed)) {
-      throw new Error();
+      throw new TwitterRssFeedDoesNotExistError();
     }
 
     const tweets = await TwitterService.getTweets(feed.twitterUserName);
@@ -97,3 +97,7 @@ export class TwitterRss {
     };
   }
 }
+
+export class TwitterRssFeedAlreadyExistsError extends Error {}
+export class TwitterRssFeedDoesNotExistError extends Error {}
+export class TwitterUserDoesNotExistsError extends Error {}
