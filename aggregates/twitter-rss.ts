@@ -3,6 +3,7 @@ import { emittery } from "../events";
 
 import { EventRepository } from "../repositories/event-repository";
 import { TwitterService } from "../services/twitter";
+import { TwitterRssLocationGenerator } from "../services/twitter-rss-location-generator";
 import { TwitterHandleType } from "../value-objects/twitter-handle";
 import { TwitterRssFeedType } from "../value-objects/twitter-rss-feed";
 import {
@@ -62,14 +63,16 @@ export class TwitterRss {
     emittery.emit(CREATED_RSS_EVENT, createdRssEvent);
   }
 
-  async generateFeed(
-    feed: TwitterRssFeedType
-  ): Promise<ReturnType<Feed["rss2"]>> {
+  async generateFeed(feed: TwitterRssFeedType): Promise<{
+    location: ReturnType<typeof TwitterRssLocationGenerator.generate>;
+    content: ReturnType<Feed["rss2"]>;
+  }> {
     if (TwitterRssFeedShouldExistPolicy.fails(this.feeds, feed)) {
       throw new Error();
     }
 
     const tweets = await TwitterService.getTweets(feed.twitterUserName);
+    const location = TwitterRssLocationGenerator.generate(feed);
 
     const rss = new Feed({
       title: feed.twitterUserName,
@@ -87,6 +90,9 @@ export class TwitterRss {
       });
     }
 
-    return rss.rss2();
+    return {
+      location,
+      content: rss.rss2(),
+    };
   }
 }
