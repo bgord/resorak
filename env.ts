@@ -7,6 +7,7 @@ const EnvironmentSchema = z.object({
   PORT: Schema.Port,
   TWITTER_BEARER_TOKEN: TwitterBearerToken,
   TWITTER_RSS_REGENERATION_INTERVAL_IN_MINUTES: Schema.StringToNumber,
+  BASE_URL: Schema.UrlWithoutTrailingSlash,
 });
 type EnvironmentSchemaType = z.infer<typeof EnvironmentSchema>;
 
