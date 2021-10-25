@@ -1,5 +1,6 @@
 import Emittery from "emittery";
 import { Reporter } from "@bgord/node";
+import { promises as fs } from "fs";
 
 import { TwitterRss } from "./aggregates/twitter-rss";
 
@@ -41,6 +42,10 @@ emittery.on(REGENERATED_RSS_EVENT, async (event) => {
   for (const feed of event.payload) {
     Reporter.info(`Processing ${feed.twitterUserName}`);
 
-    await twitterRss.generateFeed(feed);
+    const rss = await twitterRss.generateFeed(feed);
+
+    await fs.writeFile(rss.location.path, rss.content);
+
+    Reporter.info(`Processed ${feed.twitterUserName}`);
   }
 });
