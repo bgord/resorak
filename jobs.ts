@@ -2,6 +2,7 @@ import { Reporter } from "@bgord/node";
 import { ToadScheduler, SimpleIntervalJob, AsyncTask } from "toad-scheduler";
 
 import { emittery } from "./events";
+import { Env } from "./env";
 
 import { TwitterRss } from "./aggregates/twitter-rss";
 
@@ -27,6 +28,12 @@ const task = new AsyncTask("twitter rss feed creator", async () => {
   emittery.emit(REGENERATED_RSS_EVENT, regeneratedRssEvent);
 });
 
-const job = new SimpleIntervalJob({ minutes: 1, runImmediately: true }, task);
+const job = new SimpleIntervalJob(
+  {
+    minutes: Env.TWITTER_RSS_REGENERATION_INTERVAL_IN_MINUTES,
+    runImmediately: true,
+  },
+  task
+);
 
 Scheduler.addSimpleIntervalJob(job);
