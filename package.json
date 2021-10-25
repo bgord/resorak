@@ -25,7 +25,11 @@
   "devDependencies": {
     "@commitlint/cli": "^13.2.1",
     "@commitlint/config-conventional": "^13.2.0",
+    "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "@types/express-handlebars": "^5.3.1",
+    "@types/express-session": "^1.17.4",
+    "@types/nodemailer": "^6.4.4",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
     "eslint": "^7.32.0",
