@@ -31,7 +31,9 @@
       (ID:
       {{this.twitterUserId}})
       <a href="{{this.link}}">{{this.link}}</a>
-      <button data-ml="12" type="button">Copy</button>
+      <button data-ml="12" type="button" class="copy" data-link="{{this.link}}">
+        Copy
+      </button>
     </li>
   {{/each}}
 </ul>
