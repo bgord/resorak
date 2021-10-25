@@ -1,3 +1,5 @@
+import { Feed } from "feed";
+
 import { EventRepository } from "../repositories/event-repository";
 import { TwitterService } from "../services/twitter";
 import { TwitterHandleType } from "../value-objects/twitter-handle";
@@ -8,6 +10,7 @@ import {
 } from "../value-objects/created-rss-event";
 
 import { TwitterRssFeedShouldNotExistPolicy } from "../policies/twitter-rss-feed-should-not-exist";
+import { TwitterRssFeedShouldExistPolicy } from "../policies/twitter-rss-feed-should-exist";
 import { TwitterUserExistsPolicy } from "../policies/twitter-user-exists";
 
 export class TwitterRss {
@@ -55,5 +58,33 @@ export class TwitterRss {
     });
 
     await new EventRepository().save(createdRssEvent);
+  }
+
+  async generateFeed(
+    feed: TwitterRssFeedType
+  ): Promise<ReturnType<Feed["rss2"]>> {
+    if (TwitterRssFeedShouldExistPolicy.fails(this.feeds, feed)) {
+      throw new Error();
+    }
+
+    const tweets = await TwitterService.getTweets(feed.twitterUserName);
+
+    const rss = new Feed({
+      title: feed.twitterUserName,
+      description: feed.twitterUserDescription,
+      id: String(feed.twitterUserId),
+      copyright: "All rights reserved 2013, John Doe",
+    });
+
+    for (const tweet of tweets) {
+      rss.addItem({
+        id: tweet.id,
+        title: tweet.text,
+        link: `https://twitter.com/${feed.twitterUserName}/status/${tweet.id}`,
+        date: new Date(tweet.createdAt),
+      });
+    }
+
+    return rss.rss2();
   }
 }
