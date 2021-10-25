@@ -78,7 +78,8 @@ export class TwitterRss {
       title: feed.twitterUserName,
       description: feed.twitterUserDescription,
       id: String(feed.twitterUserId),
-      copyright: "All rights reserved 2013, John Doe",
+      link: location.link,
+      copyright: "All rights reserved",
     });
 
     for (const tweet of tweets) {
