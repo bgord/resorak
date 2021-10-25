@@ -1,4 +1,5 @@
 import { Feed } from "feed";
+import { emittery } from "../events";
 
 import { EventRepository } from "../repositories/event-repository";
 import { TwitterService } from "../services/twitter";
@@ -58,6 +59,7 @@ export class TwitterRss {
     });
 
     await new EventRepository().save(createdRssEvent);
+    emittery.emit(CREATED_RSS_EVENT, createdRssEvent);
   }
 
   async generateFeed(
