@@ -1,6 +1,5 @@
 access.log
 build/
-build-cache/
 .contributor
 .env.local
 .env.prodction
