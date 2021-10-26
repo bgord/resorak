@@ -49,4 +49,9 @@ info "Copied .env.staging"
 
 # ==========================================================
 
+cp scripts/staging-server-start.sh $OUT_DIR
+info "Copied staging-server-start script"
+
+# ==========================================================
+
 success "Project built correctly!"
