@@ -44,13 +44,23 @@ info "Copied static files"
 
 # ==========================================================
 
-cp -r .env.staging $OUT_DIR
+cp .env.staging $OUT_DIR
 info "Copied .env.staging"
+
+# ==========================================================
+
+cp -r prisma/ $OUT_DIR
+info "Copied prisma files"
 
 # ==========================================================
 
 cp scripts/staging-server-start.sh $OUT_DIR
 info "Copied staging-server-start script"
+
+# ==========================================================
+
+cp -r views $OUT_DIR
+info "Copied Handlebars views"
 
 # ==========================================================
 
