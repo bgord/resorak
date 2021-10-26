@@ -16,6 +16,8 @@ import { Scheduler } from "./jobs";
 import { Home } from "./routes/home";
 import { CreateTwitterRss } from "./routes/create-twitter-rss";
 
+import { ApiKeyShield } from "./api-key-shield";
+
 const app = express();
 
 addExpressEssentials(app, {
@@ -24,7 +26,7 @@ addExpressEssentials(app, {
 new Handlebars().applyTo(app);
 
 app.get("/", Home);
-app.post("/create-rss", CreateTwitterRss);
+app.post("/create-rss", ApiKeyShield.build(Env.API_KEY), CreateTwitterRss);
 
 const server = app.listen(Env.PORT, () =>
   Reporter.info(`Server running on port: ${Env.PORT}`)
