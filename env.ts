@@ -1,11 +1,9 @@
 import { z } from "zod";
 import { Schema, EnvironmentValidator } from "@bgord/node";
 
-import { TwitterBearerToken } from "./value-objects/twitter-bearer-token";
-
 const EnvironmentSchema = z.object({
   PORT: Schema.Port,
-  TWITTER_BEARER_TOKEN: TwitterBearerToken,
+  TWITTER_BEARER_TOKEN: Schema.TwitterApiBearerToken,
   TWITTER_RSS_REGENERATION_INTERVAL_IN_MINUTES: Schema.StringToNumber,
   BASE_URL: Schema.UrlWithoutTrailingSlash,
 });
