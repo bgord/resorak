@@ -5,27 +5,27 @@
 
   <input type="hidden" name="_csrf" value="{{_csrf}}" />
 
-  <div data-display="flex" data-direction="column" data-mb="12">
-    <label for="apiKey" data-mb="6" data-fs="16">API KEY</label>
-    <input
-      id="apiKey"
-      name="apiKey"
-      type="text"
-      data-mr="auto"
-      data-p="3"
-      required
-    />
-  </div>
-
   <div data-display="flex" data-direction="column">
     <label for="handle" data-mb="6" data-fs="16">Twitter handle</label>
     <input
       id="handle"
       name="handle"
       type="text"
+      required
       data-mr="auto"
       data-p="3"
+    />
+  </div>
+
+  <div data-display="flex" data-direction="column" data-mt="12">
+    <label for="apiKey" data-mb="6" data-fs="16">API KEY</label>
+    <input
+      id="apiKey"
+      name="apiKey"
+      type="password"
       required
+      data-mr="auto"
+      data-p="3"
     />
   </div>
 
