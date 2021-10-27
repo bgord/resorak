@@ -40,6 +40,6 @@ const server = app.listen(Env.PORT, () =>
 );
 
 GracefulShutdown.applyTo(server, () => {
-  Reporter.info("shutting down job scheduler");
+  Reporter.info("Shutting down job scheduler");
   Scheduler.stop();
 });

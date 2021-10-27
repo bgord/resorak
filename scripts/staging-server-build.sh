@@ -49,7 +49,8 @@ info "Copied .env.staging"
 
 # ==========================================================
 
-cp -r prisma/ $OUT_DIR
+cp -r prisma/migrations $OUT_DIR
+cp prisma/schema.prisma $OUT_DIR
 info "Copied prisma files"
 
 # ==========================================================
