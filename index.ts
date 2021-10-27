@@ -10,6 +10,7 @@ import {
   deepMerge,
   Session,
   CsrfShield,
+  ApiKeyShield,
 } from "@bgord/node";
 
 import { Env } from "./env";
@@ -17,8 +18,6 @@ import { Scheduler } from "./jobs";
 
 import { Home } from "./routes/home";
 import { CreateTwitterRss } from "./routes/create-twitter-rss";
-
-import { ApiKeyShield } from "./api-key-shield";
 
 const app = express();
 
