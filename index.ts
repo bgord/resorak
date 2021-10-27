@@ -8,6 +8,7 @@ import {
   helmetScriptsCspConfig,
   helmetStylesCspConfig,
   deepMerge,
+  Session,
 } from "@bgord/node";
 
 import { Env } from "./env";
@@ -24,6 +25,7 @@ addExpressEssentials(app, {
   helmet: deepMerge(helmetScriptsCspConfig, helmetStylesCspConfig),
 });
 new Handlebars().applyTo(app);
+new Session({ secret: Env.COOKIE_SECRET }).applyTo(app);
 
 app.get("/", Home);
 app.post("/create-rss", ApiKeyShield.build(Env.API_KEY), CreateTwitterRss);
