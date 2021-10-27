@@ -9,6 +9,7 @@ import {
   helmetStylesCspConfig,
   deepMerge,
   Session,
+  CsrfShield,
 } from "@bgord/node";
 
 import { Env } from "./env";
@@ -27,8 +28,13 @@ addExpressEssentials(app, {
 new Handlebars().applyTo(app);
 new Session({ secret: Env.COOKIE_SECRET }).applyTo(app);
 
-app.get("/", Home);
-app.post("/create-rss", ApiKeyShield.build(Env.API_KEY), CreateTwitterRss);
+app.get("/", CsrfShield.attach, Home);
+app.post(
+  "/create-rss",
+  ApiKeyShield.build(Env.API_KEY),
+  CsrfShield.verify,
+  CreateTwitterRss
+);
 
 const server = app.listen(Env.PORT, () =>
   Reporter.info(`Server running on port: ${Env.PORT}`)

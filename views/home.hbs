@@ -3,6 +3,8 @@
 <form method="POST" action="/create-rss" data-mx="24">
   <legend data-mb="24" data-fs="20">Create a Twitter RSS feed</legend>
 
+  <input type="hidden" name="_csrf" value="{{_csrf}}" />
+
   <div data-display="flex" data-direction="column" data-mb="12">
     <label for="apiKey" data-mb="6" data-fs="16">API KEY</label>
     <input
