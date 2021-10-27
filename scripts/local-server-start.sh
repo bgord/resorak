@@ -6,8 +6,19 @@ source bgord-scripts/base.sh
 info "Environment: local"
 info "Starting project..."
 
+# ==========================================================
+
 cp node_modules/@bgord/design/dist/main.min.css static/
 cp node_modules/@bgord/design/dist/normalize.min.css static/
+info "Copied CSS from @bgord/design"
+
+# ==========================================================
+
+npx gzip static/*.js --extension=gz --extension=br
+npx gzip static/*.css --extension=gz --extension=br
+info "Compressing static files"
+
+# ==========================================================
 
 export NODE_ENV="local"
 
