@@ -64,4 +64,9 @@ info "Copied Handlebars views"
 
 # ==========================================================
 
+npx gzip build/static/*.js --extension=gz --extension=br
+npx gzip build/static/*.css --extension=gz --extension=br
+info "Compressing static files"
+
+# ==========================================================
 success "Project built correctly!"
