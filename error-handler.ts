@@ -9,6 +9,7 @@ export class ErrorHandler {
     next
     /* eslint-disable max-params */
   ) => {
+    /* eslint-disable no-console */
     console.error(error);
 
     if (
