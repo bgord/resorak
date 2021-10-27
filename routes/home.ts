@@ -11,6 +11,8 @@ export async function Home(
 ): Promise<void> {
   const twitterRss = await new TwitterRss().build();
 
+  const messages = await request.consumeFlash("error");
+
   const vars = {
     feeds: twitterRss.getFeeds().map((feed) => ({
       ...feed,
@@ -18,6 +20,8 @@ export async function Home(
     })),
 
     ...CsrfShield.extract(request),
+
+    error: messages[0],
   };
 
   return response.render("home", vars);

@@ -1,4 +1,5 @@
 import express from "express";
+import { flash } from "express-flash-message";
 
 import {
   Reporter,
@@ -15,6 +16,7 @@ import {
 
 import { Env } from "./env";
 import { Scheduler } from "./jobs";
+import { ErrorHandler } from "./error-handler";
 
 import { Home } from "./routes/home";
 import { CreateTwitterRss } from "./routes/create-twitter-rss";
@@ -27,6 +29,8 @@ addExpressEssentials(app, {
 new Handlebars().applyTo(app);
 new Session({ secret: Env.COOKIE_SECRET }).applyTo(app);
 
+app.use(flash({ sessionKeyName: "flashMessage" }));
+
 app.get("/", CsrfShield.attach, Home);
 app.post(
   "/create-rss",
@@ -34,6 +38,8 @@ app.post(
   CsrfShield.verify,
   CreateTwitterRss
 );
+
+app.use(ErrorHandler.handle);
 
 const server = app.listen(Env.PORT, () =>
   Reporter.info(`Server running on port: ${Env.PORT}`)
