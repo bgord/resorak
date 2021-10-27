@@ -9,6 +9,7 @@ const EnvironmentSchema = z.object({
   TWITTER_RSS_REGENERATION_INTERVAL_IN_MINUTES: Schema.StringToNumber,
   BASE_URL: Schema.UrlWithoutTrailingSlash,
   API_KEY: ApiKey,
+  COOKIE_SECRET: Schema.CookieSecret,
 });
 type EnvironmentSchemaType = z.infer<typeof EnvironmentSchema>;
 
