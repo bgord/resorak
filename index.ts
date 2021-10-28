@@ -12,6 +12,7 @@ import {
   Session,
   CsrfShield,
   ApiKeyShield,
+  Route,
 } from "@bgord/node";
 
 import { Env } from "./env";
@@ -36,7 +37,7 @@ app.post(
   "/create-rss",
   ApiKeyShield.build(Env.API_KEY),
   CsrfShield.verify,
-  CreateTwitterRss
+  Route(CreateTwitterRss)
 );
 
 app.use(ErrorHandler.handle);
