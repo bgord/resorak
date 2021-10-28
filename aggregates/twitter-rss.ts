@@ -98,6 +98,21 @@ export class TwitterRss {
   }
 }
 
-export class TwitterRssFeedAlreadyExistsError extends Error {}
-export class TwitterRssFeedDoesNotExistError extends Error {}
-export class TwitterUserDoesNotExistsError extends Error {}
+export class TwitterRssFeedAlreadyExistsError extends Error {
+  constructor() {
+    super();
+    Object.setPrototypeOf(this, TwitterRssFeedAlreadyExistsError.prototype);
+  }
+}
+export class TwitterRssFeedDoesNotExistError extends Error {
+  constructor() {
+    super();
+    Object.setPrototypeOf(this, TwitterRssFeedDoesNotExistError.prototype);
+  }
+}
+export class TwitterUserDoesNotExistsError extends Error {
+  constructor() {
+    super();
+    Object.setPrototypeOf(this, TwitterUserDoesNotExistsError.prototype);
+  }
+}
