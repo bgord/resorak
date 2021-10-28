@@ -84,7 +84,7 @@ export class TwitterRss {
     location: ReturnType<typeof TwitterRssLocationGenerator.generate>;
     content: ReturnType<Feed["rss2"]>;
   }> {
-    if (TwitterRssFeedShouldExistPolicy.fails(this.feeds, feed)) {
+    if (TwitterRssFeedShouldExistPolicy.fails(this.feeds, feed.twitterUserId)) {
       throw new TwitterRssFeedDoesNotExistError();
     }
 
