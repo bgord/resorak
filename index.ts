@@ -9,6 +9,7 @@ import { ErrorHandler } from "./error-handler";
 
 import { Home } from "./routes/home";
 import { CreateTwitterRss } from "./routes/create-twitter-rss";
+import { DeleteTwitterRss } from "./routes/delete-twitter-rss";
 
 const app = express();
 
@@ -23,9 +24,15 @@ app.use(flash({ sessionKeyName: "flashMessage" }));
 app.get("/", bg.CsrfShield.attach, Home);
 app.post(
   "/create-rss",
-  bg.ApiKeyShield.build(Env.API_KEY),
   bg.CsrfShield.verify,
+  bg.ApiKeyShield.build(Env.API_KEY),
   bg.Route(CreateTwitterRss)
+);
+app.delete(
+  "/delete-rss/:id",
+  bg.CsrfShield.verify,
+  bg.ApiKeyShield.build(Env.API_KEY),
+  bg.Route(DeleteTwitterRss)
 );
 
 app.use(ErrorHandler.handle);
