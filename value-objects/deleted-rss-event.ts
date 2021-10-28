@@ -10,7 +10,7 @@ export const DeletedRssEvent = EventDraft.merge(
     name: z.literal(DELETED_RSS_EVENT),
     version: z.literal(1),
     payload: z.object({
-      twitterId: TwitterId,
+      twitterUserId: TwitterId,
     }),
   })
 );

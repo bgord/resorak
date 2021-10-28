@@ -47,7 +47,7 @@ export class TwitterRss {
         payload: event.payload,
       });
 
-      _.remove(feeds, (feed) => feed.twitterUserId === payload.twitterId);
+      _.remove(feeds, (feed) => feed.twitterUserId === payload.twitterUserId);
     }
 
     this.feeds = feeds;
