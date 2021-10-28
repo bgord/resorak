@@ -16,7 +16,7 @@ export async function Home(
   const vars = {
     feeds: twitterRss.getFeeds().map((feed) => ({
       ...feed,
-      ...TwitterRssLocationGenerator.generate(feed),
+      ...TwitterRssLocationGenerator.generate(feed.twitterUserId),
     })),
 
     ...CsrfShield.extract(request),

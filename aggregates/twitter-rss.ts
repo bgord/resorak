@@ -106,7 +106,7 @@ export class TwitterRss {
     }
 
     const tweets = await TwitterService.getTweets(feed.twitterUserName);
-    const location = TwitterRssLocationGenerator.generate(feed);
+    const location = TwitterRssLocationGenerator.generate(feed.twitterUserId);
 
     const rss = new Feed({
       title: feed.twitterUserName,

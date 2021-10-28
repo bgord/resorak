@@ -3,8 +3,8 @@ import { Env } from "../env";
 import { TwitterRssFeedType } from "../value-objects/twitter-rss-feed";
 
 export class TwitterRssLocationGenerator {
-  static generate(feed: TwitterRssFeedType) {
-    const filename = `${feed.twitterUserId}.rss`;
+  static generate(twitterUserId: TwitterRssFeedType["twitterUserId"]) {
+    const filename = `${twitterUserId}.rss`;
 
     return {
       filename,
