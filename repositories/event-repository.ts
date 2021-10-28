@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { EventType, ParsedEventType } from "@bgord/node";
 
 import { CreatedRssEventType } from "../value-objects/created-rss-event";
+import { DeletedRssEventType } from "../value-objects/deleted-rss-event";
 
 const prisma = new PrismaClient();
 
@@ -15,7 +16,7 @@ export class EventRepository {
     }));
   }
 
-  async save(event: CreatedRssEventType) {
+  async save(event: CreatedRssEventType | DeletedRssEventType) {
     return prisma.event.create({
       data: { ...event, payload: JSON.stringify(event.payload) },
     });

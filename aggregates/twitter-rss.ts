@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { Feed } from "feed";
 import { emittery } from "../events";
 
@@ -10,6 +11,10 @@ import {
   CREATED_RSS_EVENT,
   CreatedRssEvent,
 } from "../value-objects/created-rss-event";
+import {
+  DELETED_RSS_EVENT,
+  DeletedRssEvent,
+} from "../value-objects/deleted-rss-event";
 
 import { TwitterRssFeedShouldNotExistPolicy } from "../policies/twitter-rss-feed-should-not-exist";
 import { TwitterRssFeedShouldExistPolicy } from "../policies/twitter-rss-feed-should-exist";
@@ -23,6 +28,10 @@ export class TwitterRss {
       CREATED_RSS_EVENT
     );
 
+    const deletedRssEvents = await new EventRepository().find(
+      DELETED_RSS_EVENT
+    );
+
     const feeds = [];
 
     for (const event of createdRssEvents) {
@@ -31,6 +40,14 @@ export class TwitterRss {
       });
 
       feeds.push(payload);
+    }
+
+    for (const event of deletedRssEvents) {
+      const { payload } = DeletedRssEvent.pick({ payload: true }).parse({
+        payload: event.payload,
+      });
+
+      _.remove(feeds, (feed) => feed.twitterUserId === payload.twitterId);
     }
 
     this.feeds = feeds;
