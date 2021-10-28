@@ -25,6 +25,11 @@ export class ErrorHandler {
       return response.redirect("/");
     }
 
+    if (error instanceof Errors.AccessDeniedError && error.reason === "csrf") {
+      await request.flash("error", "Please, try again later");
+      return response.redirect("/");
+    }
+
     if (error instanceof TwitterUserDoesNotExistsError) {
       await request.flash("error", "No Twitter user with this handle");
       return response.redirect("/");
