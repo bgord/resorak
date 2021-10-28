@@ -3,11 +3,17 @@ import { Reporter } from "@bgord/node";
 import { promises as fs } from "fs";
 
 import { TwitterRss } from "./aggregates/twitter-rss";
+import { TwitterRssLocationGenerator } from "./services/twitter-rss-location-generator";
 
 import {
   CreatedRssEventType,
   CREATED_RSS_EVENT,
 } from "./value-objects/created-rss-event";
+
+import {
+  DeletedRssEventType,
+  DELETED_RSS_EVENT,
+} from "./value-objects/deleted-rss-event";
 
 import {
   RegeneratedRssEvent,
@@ -20,6 +26,7 @@ Emittery.isDebugEnabled = true;
 export const emittery = new Emittery<{
   CREATED_RSS: CreatedRssEventType;
   REGENERATED_RSS: RegeneratedRssEventType;
+  DELETED_RSS: DeletedRssEventType;
 }>();
 
 emittery.on(CREATED_RSS_EVENT, (feed) => {
@@ -52,4 +59,17 @@ emittery.on(REGENERATED_RSS_EVENT, async (event) => {
 
     Reporter.info(`Processed ${feed.twitterUserName}`);
   }
+});
+
+emittery.on(DELETED_RSS_EVENT, async (event) => {
+  Reporter.info(`Deleted RSS for ${event.payload.twitterUserId}...`);
+
+  const location = TwitterRssLocationGenerator.generate(
+    event.payload.twitterUserId
+  );
+
+  try {
+    await fs.unlink(location.path);
+    /* eslint-disable no-empty */
+  } catch (error) {}
 });
