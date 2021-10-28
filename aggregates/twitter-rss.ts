@@ -80,6 +80,23 @@ export class TwitterRss {
     emittery.emit(CREATED_RSS_EVENT, createdRssEvent);
   }
 
+  async deleteFeed(twitterUserId: TwitterRssFeedType["twitterUserId"]) {
+    if (TwitterRssFeedShouldExistPolicy.fails(this.feeds, twitterUserId)) {
+      throw new TwitterRssFeedDoesNotExistError();
+    }
+
+    const deletedRssEvent = DeletedRssEvent.parse({
+      name: CREATED_RSS_EVENT,
+      version: 1,
+      payload: {
+        twitterUserId,
+      },
+    });
+
+    await new EventRepository().save(deletedRssEvent);
+    emittery.emit(DELETED_RSS_EVENT, deletedRssEvent);
+  }
+
   async generateFeed(feed: TwitterRssFeedType): Promise<{
     location: ReturnType<typeof TwitterRssLocationGenerator.generate>;
     content: ReturnType<Feed["rss2"]>;
