@@ -11,7 +11,15 @@ import { Home } from "./routes/home";
 import { CreateTwitterRss } from "./routes/create-twitter-rss";
 import { DeleteTwitterRss } from "./routes/delete-twitter-rss";
 
+import {
+  TwitterUserDoesNotExistsError,
+  TwitterRssFeedAlreadyExistsError,
+} from "./aggregates/twitter-rss";
+
 const app = express();
+
+const sentry = new bg.Sentry(Env.SENTRY_DSN);
+sentry.applyTo(app);
 
 bg.addExpressEssentials(app, {
   helmet: bg.deepMerge(bg.helmetScriptsCspConfig, bg.helmetStylesCspConfig),
@@ -34,6 +42,12 @@ app.delete(
   bg.ApiKeyShield.build(Env.API_KEY),
   bg.Route(DeleteTwitterRss)
 );
+
+sentry.report(app, [
+  bg.Errors.AccessDeniedError,
+  TwitterUserDoesNotExistsError,
+  TwitterRssFeedAlreadyExistsError,
+]);
 
 app.use(ErrorHandler.handle);
 
