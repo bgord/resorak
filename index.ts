@@ -18,7 +18,10 @@ import {
 
 const app = express();
 
-const sentry = new bg.Sentry(Env.SENTRY_DSN);
+const sentry = new bg.Sentry({
+  dsn: Env.SENTRY_DSN,
+  enabled: true,
+});
 sentry.applyTo(app);
 
 bg.addExpressEssentials(app, {
