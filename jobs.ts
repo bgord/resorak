@@ -4,7 +4,7 @@ import { ToadScheduler, SimpleIntervalJob, AsyncTask } from "toad-scheduler";
 import { emittery } from "./events";
 import { Env } from "./env";
 
-import { TwitterRss } from "./aggregates/twitter-rss";
+import { TwitterRssFeed } from "./aggregates/twitter-rss-feed";
 
 import {
   RegeneratedRssEvent,
@@ -16,7 +16,7 @@ export const Scheduler = new ToadScheduler();
 const task = new AsyncTask("twitter rss feed creator", async () => {
   Reporter.info("twitter rss feed creator");
 
-  const twitterRss = await new TwitterRss().build();
+  const twitterRss = await new TwitterRssFeed().build();
   const twitterRssFeeds = twitterRss.getFeeds();
 
   const regeneratedRssEvent = RegeneratedRssEvent.parse({

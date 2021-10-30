@@ -1,7 +1,7 @@
 import express from "express";
 import { CsrfShield } from "@bgord/node";
 
-import { TwitterRss } from "../aggregates/twitter-rss";
+import { TwitterRssFeed } from "../aggregates/twitter-rss-feed";
 import { TwitterRssLocationGenerator } from "../services/twitter-rss-location-generator";
 
 export async function Home(
@@ -9,7 +9,7 @@ export async function Home(
   response: express.Response,
   _next: express.NextFunction
 ): Promise<void> {
-  const twitterRss = await new TwitterRss().build();
+  const twitterRss = await new TwitterRssFeed().build();
 
   const messages = await request.consumeFlash("error");
 

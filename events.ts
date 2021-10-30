@@ -2,7 +2,7 @@ import Emittery from "emittery";
 import { Reporter } from "@bgord/node";
 import { promises as fs } from "fs";
 
-import { TwitterRss } from "./aggregates/twitter-rss";
+import { TwitterRssFeed } from "./aggregates/twitter-rss-feed";
 import { TwitterRssLocationGenerator } from "./services/twitter-rss-location-generator";
 
 import {
@@ -44,7 +44,7 @@ emittery.on(CREATED_RSS_EVENT, (feed) => {
 emittery.on(REGENERATED_RSS_EVENT, async (event) => {
   Reporter.info("Regenerating Twitter RSS...");
 
-  const twitterRss = await new TwitterRss().build();
+  const twitterRss = await new TwitterRssFeed().build();
 
   if (event.payload.length === 0) {
     Reporter.info("Nothing to regenerate now!");

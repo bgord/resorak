@@ -20,7 +20,7 @@ import { TwitterRssFeedShouldNotExistPolicy } from "../policies/twitter-rss-feed
 import { TwitterRssFeedShouldExistPolicy } from "../policies/twitter-rss-feed-should-exist";
 import { TwitterUserExistsPolicy } from "../policies/twitter-user-exists";
 
-export class TwitterRss {
+export class TwitterRssFeed {
   private feeds: TwitterRssFeedType[] = [];
 
   async build() {
@@ -49,7 +49,7 @@ export class TwitterRss {
     return this;
   }
 
-  getFeeds(): TwitterRss["feeds"] {
+  getFeeds(): TwitterRssFeed["feeds"] {
     return this.feeds;
   }
 
