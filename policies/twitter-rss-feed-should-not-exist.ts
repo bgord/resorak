@@ -1,7 +1,7 @@
 import { TwitterUserNameType } from "../value-objects/twitter-user-name";
 import { TwitterRssFeedType } from "../value-objects/twitter-rss-feed";
 
-export class TwitterRssFeedShouldNotExistPolicy {
+export class TwitterRssFeedShouldNotExist {
   static fails(
     feeds: TwitterRssFeedType[],
     twitterUserName: TwitterUserNameType

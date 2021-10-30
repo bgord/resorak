@@ -14,3 +14,9 @@ TwitterRssFeed#delete
 TwitterApiService
 TwitterApiService#getUser
 TwitterApiService#getTweetsFromUser
+
+**Policies:**
+
+TwitterRssFeedShouldNotExistPolicy
+TwitterUserExistsPolicy
+TwitterRssFeedDoesNotExistError

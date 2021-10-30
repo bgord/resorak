@@ -12,11 +12,9 @@ import {
 import { EventRepository } from "../repositories/event-repository";
 import { TwitterApiService } from "../services/twitter-api";
 import { TwitterUserNameType } from "../value-objects/twitter-user-name";
-import { TwitterRssFeedShouldExistPolicy } from "../policies/twitter-rss-feed-should-exist";
-import { TwitterRssFeedShouldNotExistPolicy } from "../policies/twitter-rss-feed-should-not-exist";
 import { TwitterRssFeedType } from "../value-objects/twitter-rss-feed";
 import { TwitterRssLocationGenerator } from "../services/twitter-rss-location-generator";
-import { TwitterUserExistsPolicy } from "../policies/twitter-user-exists";
+import * as Policy from "../policies";
 import { emittery } from "../events";
 
 export class TwitterRssFeed {
@@ -52,13 +50,13 @@ export class TwitterRssFeed {
   }
 
   async create(twitterUserName: TwitterUserNameType) {
-    if (TwitterRssFeedShouldNotExistPolicy.fails(this.list, twitterUserName)) {
+    if (Policy.TwitterRssFeedShouldNotExist.fails(this.list, twitterUserName)) {
       throw new TwitterRssFeedAlreadyExistsError();
     }
 
     const twitterUser = await TwitterApiService.getUser(twitterUserName);
 
-    if (await TwitterUserExistsPolicy.fails(twitterUser)) {
+    if (await Policy.TwitterUserExists.fails(twitterUser)) {
       throw new TwitterUserDoesNotExistsError();
     }
 
@@ -72,7 +70,7 @@ export class TwitterRssFeed {
   }
 
   async delete(twitterUserId: TwitterRssFeedType["twitterUserId"]) {
-    if (TwitterRssFeedShouldExistPolicy.fails(this.list, twitterUserId)) {
+    if (Policy.TwitterRssFeedShouldExist.fails(this.list, twitterUserId)) {
       throw new TwitterRssFeedDoesNotExistError();
     }
 
@@ -89,7 +87,7 @@ export class TwitterRssFeed {
     location: ReturnType<typeof TwitterRssLocationGenerator.generate>;
     content: ReturnType<Feed["rss2"]>;
   }> {
-    if (TwitterRssFeedShouldExistPolicy.fails(this.list, feed.twitterUserId)) {
+    if (Policy.TwitterRssFeedShouldExist.fails(this.list, feed.twitterUserId)) {
       throw new TwitterRssFeedDoesNotExistError();
     }
 
