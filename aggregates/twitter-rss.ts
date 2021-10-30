@@ -3,7 +3,7 @@ import { Feed } from "feed";
 import { emittery } from "../events";
 
 import { EventRepository } from "../repositories/event-repository";
-import { TwitterService } from "../services/twitter";
+import { TwitterApiService } from "../services/twitter-api";
 import { TwitterRssLocationGenerator } from "../services/twitter-rss-location-generator";
 import { TwitterHandleType } from "../value-objects/twitter-handle";
 import { TwitterRssFeedType } from "../value-objects/twitter-rss-feed";
@@ -58,7 +58,7 @@ export class TwitterRss {
       throw new TwitterRssFeedAlreadyExistsError();
     }
 
-    const twitterUser = await TwitterService.showUser(twitterHandle);
+    const twitterUser = await TwitterApiService.showUser(twitterHandle);
 
     if (await TwitterUserExistsPolicy.fails(twitterUser)) {
       throw new TwitterUserDoesNotExistsError();
@@ -99,7 +99,7 @@ export class TwitterRss {
       throw new TwitterRssFeedDoesNotExistError();
     }
 
-    const tweets = await TwitterService.getTweets(feed.twitterUserName);
+    const tweets = await TwitterApiService.getTweets(feed.twitterUserName);
     const location = TwitterRssLocationGenerator.generate(feed.twitterUserId);
 
     const rss = new Feed({
