@@ -25,8 +25,8 @@ export class TwitterRss {
 
   async build() {
     const events = await new EventRepository().findMany([
-      CREATED_RSS_EVENT,
-      DELETED_RSS_EVENT,
+      CreatedRssEvent,
+      DeletedRssEvent,
     ]);
 
     const feeds = [];
