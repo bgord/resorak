@@ -13,16 +13,11 @@ export class EventRepository {
   async find<T extends AcceptedEvent>(acceptedEvent: T): Promise<z.infer<T>[]> {
     const events = await prisma.event.findMany({
       where: { name: acceptedEvent._def.shape().name._def.value },
-      orderBy: {
-        createdAt: "asc",
-      },
+      orderBy: { createdAt: "asc" },
     });
 
     return events
-      .map((event) => ({
-        ...event,
-        payload: JSON.parse(event.payload),
-      }))
+      .map((event) => ({ ...event, payload: JSON.parse(event.payload) }))
       .map((event) => acceptedEvent.parse(event));
   }
 
@@ -34,21 +29,12 @@ export class EventRepository {
     );
 
     const events = await prisma.event.findMany({
-      where: {
-        name: {
-          in: acceptedEventNames,
-        },
-      },
-      orderBy: {
-        createdAt: "asc",
-      },
+      where: { name: { in: acceptedEventNames } },
+      orderBy: { createdAt: "asc" },
     });
 
     return events
-      .map((event) => ({
-        ...event,
-        payload: JSON.parse(event.payload),
-      }))
+      .map((event) => ({ ...event, payload: JSON.parse(event.payload) }))
       .map((event) => {
         const parser = acceptedEvents.find(
           (acceptedEvent) =>
