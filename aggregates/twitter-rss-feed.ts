@@ -56,7 +56,7 @@ export class TwitterRssFeed {
       throw new TwitterRssFeedAlreadyExistsError();
     }
 
-    const twitterUser = await TwitterApiService.showUser(twitterHandle);
+    const twitterUser = await TwitterApiService.getUser(twitterHandle);
 
     if (await TwitterUserExistsPolicy.fails(twitterUser)) {
       throw new TwitterUserDoesNotExistsError();
@@ -93,7 +93,9 @@ export class TwitterRssFeed {
       throw new TwitterRssFeedDoesNotExistError();
     }
 
-    const tweets = await TwitterApiService.getTweets(feed.twitterUserName);
+    const tweets = await TwitterApiService.getTweetsFromUser(
+      feed.twitterUserName
+    );
     const location = TwitterRssLocationGenerator.generate(feed.twitterUserId);
 
     const rss = new Feed({

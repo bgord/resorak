@@ -28,7 +28,7 @@ export class TwitterApiService {
     },
   };
 
-  static async showUser(
+  static async getUser(
     twitterHandle: TwitterHandleType
   ): Promise<TwitterUserType | null> {
     try {
@@ -47,7 +47,7 @@ export class TwitterApiService {
     }
   }
 
-  static async getTweets(
+  static async getTweetsFromUser(
     twitterHandle: TwitterHandleType
   ): Promise<TweetType[]> {
     try {

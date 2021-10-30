@@ -9,3 +9,10 @@ TwitterRssFeed
 TwitterRssFeed#getAll
 TwitterRssFeed#create
 TwitterRssFeed#delete
+
+**Services:**
+
+TwitterApiService
+
+TwitterApiService#getUser
+TwitterApiService#getTweetsFromUser
