@@ -11,7 +11,7 @@ import {
 } from "../value-objects/deleted-rss-event";
 import { EventRepository } from "../repositories/event-repository";
 import { TwitterApiService } from "../services/twitter-api";
-import { TwitterHandleType } from "../value-objects/twitter-handle";
+import { TwitterUserNameType } from "../value-objects/twitter-user-name";
 import { TwitterRssFeedShouldExistPolicy } from "../policies/twitter-rss-feed-should-exist";
 import { TwitterRssFeedShouldNotExistPolicy } from "../policies/twitter-rss-feed-should-not-exist";
 import { TwitterRssFeedType } from "../value-objects/twitter-rss-feed";
@@ -51,12 +51,12 @@ export class TwitterRssFeed {
     return this.list;
   }
 
-  async create(twitterHandle: TwitterHandleType) {
-    if (TwitterRssFeedShouldNotExistPolicy.fails(this.list, twitterHandle)) {
+  async create(twitterUserName: TwitterUserNameType) {
+    if (TwitterRssFeedShouldNotExistPolicy.fails(this.list, twitterUserName)) {
       throw new TwitterRssFeedAlreadyExistsError();
     }
 
-    const twitterUser = await TwitterApiService.getUser(twitterHandle);
+    const twitterUser = await TwitterApiService.getUser(twitterUserName);
 
     if (await TwitterUserExistsPolicy.fails(twitterUser)) {
       throw new TwitterUserDoesNotExistsError();

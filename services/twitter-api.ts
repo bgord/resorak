@@ -5,7 +5,7 @@ import { Env } from "../env";
 
 import { TwitterUser, TwitterUserType } from "../value-objects/twitter-user";
 import { Tweet, TweetType } from "../value-objects/tweet";
-import { TwitterHandleType } from "../value-objects/twitter-handle";
+import { TwitterUserNameType } from "../value-objects/twitter-user-name";
 
 type ShowUserResponse = {
   id: TwitterUserType["twitterUserId"];
@@ -29,11 +29,11 @@ export class TwitterApiService {
   };
 
   static async getUser(
-    twitterHandle: TwitterHandleType
+    twitterUserName: TwitterUserNameType
   ): Promise<TwitterUserType | null> {
     try {
       const response = await axios.get<ShowUserResponse>(
-        `https://api.twitter.com/1.1/users/show.json?screen_name=${twitterHandle}`,
+        `https://api.twitter.com/1.1/users/show.json?screen_name=${twitterUserName}`,
         TwitterApiService.config
       );
 
@@ -48,12 +48,12 @@ export class TwitterApiService {
   }
 
   static async getTweetsFromUser(
-    twitterHandle: TwitterHandleType
+    twitterUserName: TwitterUserNameType
   ): Promise<TweetType[]> {
     try {
       const response = await axios.get<GetTweetsResponse>(
         `https://api.twitter.com/1.1/search/tweets.json?q=${decodeURIComponent(
-          `from:${twitterHandle}`
+          `from:${twitterUserName}`
         )}`,
         TwitterApiService.config
       );

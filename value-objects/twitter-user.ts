@@ -1,12 +1,12 @@
 import { z } from "zod";
 
 import { TwitterId } from "./twitter-id";
-import { TwitterHandle } from "./twitter-handle";
+import { TwitterUserName } from "./twitter-user-name";
 import { TwitterDescription } from "./twitter-description";
 
 export const TwitterUser = z.object({
   twitterUserId: TwitterId,
-  twitterUserName: TwitterHandle,
+  twitterUserName: TwitterUserName,
   twitterUserDescription: TwitterDescription,
 });
 

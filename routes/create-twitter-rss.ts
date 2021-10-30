@@ -1,6 +1,6 @@
 import express from "express";
 
-import { TwitterHandle } from "../value-objects/twitter-handle";
+import { TwitterUserName } from "../value-objects/twitter-user-name";
 import { TwitterRssFeed } from "../aggregates/twitter-rss-feed";
 
 export async function CreateTwitterRss(
@@ -8,11 +8,10 @@ export async function CreateTwitterRss(
   response: express.Response,
   _next: express.NextFunction
 ): Promise<void> {
-  const twitterRss = await new TwitterRssFeed().build();
+  const twitterUserName = TwitterUserName.parse(request.body.twitterUserName);
 
-  const twitterHandle = TwitterHandle.parse(request.body.handle);
-
-  await twitterRss.create(twitterHandle);
+  const twitterRssFeed = await new TwitterRssFeed().build();
+  await twitterRssFeed.create(twitterUserName);
 
   return response.redirect("/");
 }

@@ -1,11 +1,11 @@
-import { TwitterHandleType } from "../value-objects/twitter-handle";
+import { TwitterUserNameType } from "../value-objects/twitter-user-name";
 import { TwitterRssFeedType } from "../value-objects/twitter-rss-feed";
 
 export class TwitterRssFeedShouldNotExistPolicy {
   static fails(
     feeds: TwitterRssFeedType[],
-    twitterHandle: TwitterHandleType
+    twitterUserName: TwitterUserNameType
   ): boolean {
-    return feeds.some((feed) => feed.twitterUserName === twitterHandle);
+    return feeds.some((feed) => feed.twitterUserName === twitterUserName);
   }
 }
