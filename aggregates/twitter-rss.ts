@@ -86,7 +86,7 @@ export class TwitterRss {
     }
 
     const deletedRssEvent = DeletedRssEvent.parse({
-      name: CREATED_RSS_EVENT,
+      name: DELETED_RSS_EVENT,
       version: 1,
       payload: {
         twitterUserId,
