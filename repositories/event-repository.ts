@@ -8,7 +8,30 @@ const prisma = new PrismaClient();
 
 export class EventRepository {
   async find(name: EventType["name"]): Promise<ParsedEventType[]> {
-    const events = await prisma.event.findMany({ where: { name } });
+    const events = await prisma.event.findMany({
+      where: { name },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    return events.map((event) => ({
+      ...event,
+      payload: JSON.parse(event.payload),
+    }));
+  }
+
+  async findMany(names: EventType["name"][]): Promise<ParsedEventType[]> {
+    const events = await prisma.event.findMany({
+      where: {
+        name: {
+          in: names,
+        },
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
 
     return events.map((event) => ({
       ...event,
