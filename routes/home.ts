@@ -14,7 +14,7 @@ export async function Home(
   const messages = await request.consumeFlash("error");
 
   const vars = {
-    feeds: twitterRss.getFeeds().map((feed) => ({
+    feeds: twitterRss.getAll().map((feed) => ({
       ...feed,
       ...TwitterRssLocationGenerator.generate(feed.twitterUserId),
     })),

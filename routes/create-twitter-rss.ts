@@ -12,7 +12,7 @@ export async function CreateTwitterRss(
 
   const twitterHandle = TwitterHandle.parse(request.body.handle);
 
-  await twitterRss.createFeed(twitterHandle);
+  await twitterRss.create(twitterHandle);
 
   return response.redirect("/");
 }

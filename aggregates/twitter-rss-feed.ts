@@ -1,12 +1,6 @@
 import _ from "lodash";
 import { Feed } from "feed";
-import { emittery } from "../events";
 
-import { EventRepository } from "../repositories/event-repository";
-import { TwitterApiService } from "../services/twitter-api";
-import { TwitterRssLocationGenerator } from "../services/twitter-rss-location-generator";
-import { TwitterHandleType } from "../value-objects/twitter-handle";
-import { TwitterRssFeedType } from "../value-objects/twitter-rss-feed";
 import {
   CREATED_RSS_EVENT,
   CreatedRssEvent,
@@ -15,13 +9,18 @@ import {
   DELETED_RSS_EVENT,
   DeletedRssEvent,
 } from "../value-objects/deleted-rss-event";
-
-import { TwitterRssFeedShouldNotExistPolicy } from "../policies/twitter-rss-feed-should-not-exist";
+import { EventRepository } from "../repositories/event-repository";
+import { TwitterApiService } from "../services/twitter-api";
+import { TwitterHandleType } from "../value-objects/twitter-handle";
 import { TwitterRssFeedShouldExistPolicy } from "../policies/twitter-rss-feed-should-exist";
+import { TwitterRssFeedShouldNotExistPolicy } from "../policies/twitter-rss-feed-should-not-exist";
+import { TwitterRssFeedType } from "../value-objects/twitter-rss-feed";
+import { TwitterRssLocationGenerator } from "../services/twitter-rss-location-generator";
 import { TwitterUserExistsPolicy } from "../policies/twitter-user-exists";
+import { emittery } from "../events";
 
 export class TwitterRssFeed {
-  private feeds: TwitterRssFeedType[] = [];
+  private list: TwitterRssFeedType[] = [];
 
   async build() {
     const events = await new EventRepository().find([
@@ -35,7 +34,6 @@ export class TwitterRssFeed {
       if (event.name === CREATED_RSS_EVENT) {
         feeds.push(event.payload);
       }
-
       if (event.name === DELETED_RSS_EVENT) {
         _.remove(
           feeds,
@@ -44,17 +42,17 @@ export class TwitterRssFeed {
       }
     }
 
-    this.feeds = feeds;
+    this.list = feeds;
 
     return this;
   }
 
-  getFeeds(): TwitterRssFeed["feeds"] {
-    return this.feeds;
+  getAll(): TwitterRssFeed["list"] {
+    return this.list;
   }
 
-  async createFeed(twitterHandle: TwitterHandleType) {
-    if (TwitterRssFeedShouldNotExistPolicy.fails(this.feeds, twitterHandle)) {
+  async create(twitterHandle: TwitterHandleType) {
+    if (TwitterRssFeedShouldNotExistPolicy.fails(this.list, twitterHandle)) {
       throw new TwitterRssFeedAlreadyExistsError();
     }
 
@@ -69,24 +67,20 @@ export class TwitterRssFeed {
       version: 1,
       payload: twitterUser,
     });
-
     await new EventRepository().save(createdRssEvent);
     emittery.emit(CREATED_RSS_EVENT, createdRssEvent);
   }
 
-  async deleteFeed(twitterUserId: TwitterRssFeedType["twitterUserId"]) {
-    if (TwitterRssFeedShouldExistPolicy.fails(this.feeds, twitterUserId)) {
+  async delete(twitterUserId: TwitterRssFeedType["twitterUserId"]) {
+    if (TwitterRssFeedShouldExistPolicy.fails(this.list, twitterUserId)) {
       throw new TwitterRssFeedDoesNotExistError();
     }
 
     const deletedRssEvent = DeletedRssEvent.parse({
       name: DELETED_RSS_EVENT,
       version: 1,
-      payload: {
-        twitterUserId,
-      },
+      payload: { twitterUserId },
     });
-
     await new EventRepository().save(deletedRssEvent);
     emittery.emit(DELETED_RSS_EVENT, deletedRssEvent);
   }
@@ -95,7 +89,7 @@ export class TwitterRssFeed {
     location: ReturnType<typeof TwitterRssLocationGenerator.generate>;
     content: ReturnType<Feed["rss2"]>;
   }> {
-    if (TwitterRssFeedShouldExistPolicy.fails(this.feeds, feed.twitterUserId)) {
+    if (TwitterRssFeedShouldExistPolicy.fails(this.list, feed.twitterUserId)) {
       throw new TwitterRssFeedDoesNotExistError();
     }
 
@@ -119,10 +113,7 @@ export class TwitterRssFeed {
       });
     }
 
-    return {
-      location,
-      content: rss.rss2(),
-    };
+    return { location, content: rss.rss2() };
   }
 }
 

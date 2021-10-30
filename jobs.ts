@@ -17,7 +17,7 @@ const task = new AsyncTask("twitter rss feed creator", async () => {
   Reporter.info("twitter rss feed creator");
 
   const twitterRss = await new TwitterRssFeed().build();
-  const twitterRssFeeds = twitterRss.getFeeds();
+  const twitterRssFeeds = twitterRss.getAll();
 
   const regeneratedRssEvent = RegeneratedRssEvent.parse({
     name: REGENERATED_RSS_EVENT,

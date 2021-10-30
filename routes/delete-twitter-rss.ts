@@ -12,7 +12,7 @@ export async function DeleteTwitterRss(
 
   const twitterId = TwitterId.parse(Number(request.params.id));
 
-  await twitterRss.deleteFeed(twitterId);
+  await twitterRss.delete(twitterId);
 
   return response.redirect("/");
 }
