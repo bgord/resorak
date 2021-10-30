@@ -10,7 +10,7 @@ export async function DeleteTwitterRss(
 ): Promise<void> {
   const twitterRss = await new TwitterRss().build();
 
-  const twitterId = TwitterId.parse(request.params.id);
+  const twitterId = TwitterId.parse(Number(request.params.id));
 
   await twitterRss.deleteFeed(twitterId);
 
