@@ -6,3 +6,11 @@ body {
 body {
   max-width: 1200px;
 }
+
+[data-status="active"] {
+  display: flex;
+}
+
+[data-status="inactive"] {
+  display: none;
+}
