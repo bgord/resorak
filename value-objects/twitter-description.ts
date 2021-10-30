@@ -1,5 +1,5 @@
 import { z } from "zod";
 
-export const TwitterDescription = z.string();
+export const TwitterUserDescription = z.string();
 
-export type TwitterDescriptionType = z.infer<typeof TwitterDescription>;
+export type TwitterUserDescriptionType = z.infer<typeof TwitterUserDescription>;
