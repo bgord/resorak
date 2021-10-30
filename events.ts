@@ -70,6 +70,7 @@ emittery.on(DELETED_RSS_EVENT, async (event) => {
 
   try {
     await fs.unlink(location.path);
+    Reporter.info(`Deleted file ${location.path}`);
     /* eslint-disable no-empty */
   } catch (error) {}
 });
