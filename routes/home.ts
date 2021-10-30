@@ -9,12 +9,12 @@ export async function Home(
   response: express.Response,
   _next: express.NextFunction
 ): Promise<void> {
-  const twitterRss = await new TwitterRssFeed().build();
+  const twitterRssFeed = await new TwitterRssFeed().build();
 
   const messages = await request.consumeFlash("error");
 
   const vars = {
-    feeds: twitterRss.getAll().map((feed) => ({
+    feeds: twitterRssFeed.getAll().map((feed) => ({
       ...feed,
       ...TwitterRssLocationGenerator.generate(feed.twitterUserId),
     })),

@@ -83,7 +83,7 @@ export class TwitterRssFeed {
     emittery.emit(DELETED_RSS_EVENT, deletedRssEvent);
   }
 
-  async generateFeed(feed: TwitterRssFeedType): Promise<{
+  async generate(feed: TwitterRssFeedType): Promise<{
     location: ReturnType<typeof TwitterRssLocationGenerator.generate>;
     content: ReturnType<Feed["rss2"]>;
   }> {

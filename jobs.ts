@@ -16,13 +16,13 @@ export const Scheduler = new ToadScheduler();
 const task = new AsyncTask("twitter rss feed creator", async () => {
   Reporter.info("twitter rss feed creator");
 
-  const twitterRss = await new TwitterRssFeed().build();
-  const twitterRssFeeds = twitterRss.getAll();
+  const twitterRssFeed = await new TwitterRssFeed().build();
+  const feeds = twitterRssFeed.getAll();
 
   const regeneratedRssEvent = RegeneratedRssEvent.parse({
     name: REGENERATED_RSS_EVENT,
     version: 1,
-    payload: twitterRssFeeds,
+    payload: feeds,
   });
 
   emittery.emit(REGENERATED_RSS_EVENT, regeneratedRssEvent);

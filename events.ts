@@ -44,7 +44,7 @@ emittery.on(CREATED_RSS_EVENT, (feed) => {
 emittery.on(REGENERATED_RSS_EVENT, async (event) => {
   Reporter.info("Regenerating Twitter RSS...");
 
-  const twitterRss = await new TwitterRssFeed().build();
+  const twitterRssFeed = await new TwitterRssFeed().build();
 
   if (event.payload.length === 0) {
     Reporter.info("Nothing to regenerate now!");
@@ -53,7 +53,7 @@ emittery.on(REGENERATED_RSS_EVENT, async (event) => {
   for (const feed of event.payload) {
     Reporter.info(`Processing ${feed.twitterUserName}`);
 
-    const rss = await twitterRss.generateFeed(feed);
+    const rss = await twitterRssFeed.generate(feed);
 
     await fs.writeFile(rss.location.path, rss.content);
 
