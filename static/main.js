@@ -20,6 +20,17 @@ for (const button of copyButtons) {
   });
 }
 
+const moreButtons = [...document.querySelectorAll("button.more")];
+
+for (const button of moreButtons) {
+  const form = document.querySelector(`form[data-id="${button.dataset.id}"]`);
+
+  button.addEventListener("click", () => {
+    form.dataset.status =
+      form.dataset.status === "active" ? "inactive" : "active";
+  });
+}
+
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }

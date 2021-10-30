@@ -50,13 +50,38 @@
       <button data-ml="12" type="button" class="copy" data-link="{{this.link}}">
         Copy
       </button>
-      <form
-        method="POST"
-        action="/delete-rss/{{this.twitterUserId}}?_method=DELETE"
+      <button
+        data-ml="12"
+        type="button"
+        class="more"
+        data-id="{{this.twitterUserId}}"
       >
-        <input type="hidden" name="_csrf" value="{{_csrf}}" />
-        <button type="submit" data-ml="12">Delete</button>
-      </form>
+        More
+      </button>
     </li>
+
+    <form
+      data-id="{{this.twitterUserId}}"
+      data-status="inactive"
+      data-cross="end"
+      method="POST"
+      action="/delete-rss/{{this.twitterUserId}}?_method=DELETE"
+    >
+      <input type="hidden" name="_csrf" value="{{_csrf}}" />
+
+      <div data-display="flex" data-direction="column">
+        <label for="apiKey" data-mb="6" data-fs="16">API KEY</label>
+        <input
+          id="apiKey"
+          name="apiKey"
+          type="password"
+          required
+          data-mr="auto"
+          data-p="3"
+        />
+      </div>
+
+      <button type="submit" data-py="3" data-px="6" data-ml="12">Delete</button>
+    </form>
   {{/each}}
 </ul>
