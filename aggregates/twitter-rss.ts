@@ -24,30 +24,32 @@ export class TwitterRss {
   private feeds: TwitterRssFeedType[] = [];
 
   async build() {
-    const createdRssEvents = await new EventRepository().find(
-      CREATED_RSS_EVENT
-    );
-
-    const deletedRssEvents = await new EventRepository().find(
-      DELETED_RSS_EVENT
+    const events = _.sortBy(
+      [
+        ...(await new EventRepository().find(CREATED_RSS_EVENT)),
+        ...(await new EventRepository().find(DELETED_RSS_EVENT)),
+      ],
+      "createdAt"
     );
 
     const feeds = [];
 
-    for (const event of createdRssEvents) {
-      const { payload } = CreatedRssEvent.pick({ payload: true }).parse({
-        payload: event.payload,
-      });
+    for (const event of events) {
+      if (event.name === CREATED_RSS_EVENT) {
+        const { payload } = CreatedRssEvent.pick({ payload: true }).parse({
+          payload: event.payload,
+        });
 
-      feeds.push(payload);
-    }
+        feeds.push(payload);
+      }
 
-    for (const event of deletedRssEvents) {
-      const { payload } = DeletedRssEvent.pick({ payload: true }).parse({
-        payload: event.payload,
-      });
+      if (event.name === DELETED_RSS_EVENT) {
+        const { payload } = DeletedRssEvent.pick({ payload: true }).parse({
+          payload: event.payload,
+        });
 
-      _.remove(feeds, (feed) => feed.twitterUserId === payload.twitterUserId);
+        _.remove(feeds, (feed) => feed.twitterUserId === payload.twitterUserId);
+      }
     }
 
     this.feeds = feeds;
