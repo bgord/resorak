@@ -10,18 +10,7 @@ type AcceptedEvent = typeof CreatedRssEvent | typeof DeletedRssEvent;
 type AcceptedEventType = z.infer<AcceptedEvent>;
 
 export class EventRepository {
-  async find<T extends AcceptedEvent>(acceptedEvent: T): Promise<z.infer<T>[]> {
-    const events = await prisma.event.findMany({
-      where: { name: acceptedEvent._def.shape().name._def.value },
-      orderBy: { createdAt: "asc" },
-    });
-
-    return events
-      .map((event) => ({ ...event, payload: JSON.parse(event.payload) }))
-      .map((event) => acceptedEvent.parse(event));
-  }
-
-  async findMany<T extends AcceptedEvent[]>(
+  async find<T extends AcceptedEvent[]>(
     acceptedEvents: T
   ): Promise<z.infer<T[0]>[]> {
     const acceptedEventNames = acceptedEvents.map(
