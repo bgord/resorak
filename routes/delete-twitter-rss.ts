@@ -1,6 +1,6 @@
 import express from "express";
 
-import { TwitterId } from "../value-objects/twitter-id";
+import { TwitterUserId } from "../value-objects/twitter-user-id";
 import { TwitterRssFeed } from "../aggregates/twitter-rss-feed";
 
 export async function DeleteTwitterRss(
@@ -8,10 +8,9 @@ export async function DeleteTwitterRss(
   response: express.Response,
   _next: express.NextFunction
 ): Promise<void> {
+  const twitterId = TwitterUserId.parse(Number(request.params.id));
+
   const twitterRss = await new TwitterRssFeed().build();
-
-  const twitterId = TwitterId.parse(Number(request.params.id));
-
   await twitterRss.delete(twitterId);
 
   return response.redirect("/");

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { EventDraft } from "@bgord/node";
 
-import { TwitterId } from "../value-objects/twitter-id";
+import { TwitterUserId } from "../value-objects/twitter-user-id";
 
 export const DELETED_RSS_EVENT = "DELETED_RSS";
 
@@ -10,7 +10,7 @@ export const DeletedRssEvent = EventDraft.merge(
     name: z.literal(DELETED_RSS_EVENT),
     version: z.literal(1),
     payload: z.object({
-      twitterUserId: TwitterId,
+      twitterUserId: TwitterUserId,
     }),
   })
 );
