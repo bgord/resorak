@@ -3,7 +3,7 @@ import { Schema, EnvironmentValidator } from "@bgord/node";
 
 const EnvironmentSchema = z.object({
   PORT: Schema.Port,
-  TWITTER_BEARER_TOKEN: Schema.TwitterApiBearerToken,
+  TWITTER_API_BEARER_TOKEN: Schema.TwitterApiBearerToken,
   TWITTER_RSS_REGENERATION_INTERVAL_IN_MINUTES: Schema.StringToNumber,
   BASE_URL: Schema.UrlWithoutTrailingSlash,
   API_KEY: Schema.ApiKey,

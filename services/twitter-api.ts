@@ -24,7 +24,7 @@ type GetTweetsResponse = {
 export class TwitterApiService {
   private static config = {
     headers: {
-      Authorization: `Bearer ${Env.TWITTER_BEARER_TOKEN}`,
+      Authorization: `Bearer ${Env.TWITTER_API_BEARER_TOKEN}`,
     },
   };
 
