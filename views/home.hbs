@@ -42,14 +42,21 @@
 
 <ul>
   {{#each feeds}}
-    <li data-mb="12">
+    <li data-display="flex" data-cross="baseline" data-mb="12">
       {{this.twitterUserName}}
       (ID:
       {{this.twitterUserId}})
-      <a href="{{this.link}}">{{this.link}}</a>
+      <a href="{{this.link}}" data-ml="12">{{this.link}}</a>
       <button data-ml="12" type="button" class="copy" data-link="{{this.link}}">
         Copy
       </button>
+      <form
+        method="POST"
+        action="/delete-rss/{{this.twitterUserId}}?_method=DELETE"
+      >
+        <input type="hidden" name="_csrf" value="{{_csrf}}" />
+        <button type="submit" data-ml="12">Delete</button>
+      </form>
     </li>
   {{/each}}
 </ul>
