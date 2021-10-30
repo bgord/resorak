@@ -9,6 +9,9 @@ TwitterRssFeed#getAll
 TwitterRssFeed#create
 TwitterRssFeed#delete
 
+TwitterRssFeedLocationsGenerator
+TwitterRssFeedLocationsGenerator#generate
+
 **Services:**
 
 TwitterApiService

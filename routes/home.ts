@@ -2,7 +2,7 @@ import express from "express";
 import { CsrfShield } from "@bgord/node";
 
 import { TwitterRssFeed } from "../aggregates/twitter-rss-feed";
-import { TwitterRssLocationGenerator } from "../services/twitter-rss-location-generator";
+import * as Services from "../services";
 
 export async function Home(
   request: express.Request,
@@ -16,7 +16,7 @@ export async function Home(
   const vars = {
     feeds: twitterRssFeed.getAll().map((feed) => ({
       ...feed,
-      ...TwitterRssLocationGenerator.generate(feed.twitterUserId),
+      ...Services.TwitterRssFeedLocationsGenerator.generate(feed.twitterUserId),
     })),
 
     ...CsrfShield.extract(request),

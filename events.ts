@@ -3,7 +3,7 @@ import { Reporter } from "@bgord/node";
 import { promises as fs } from "fs";
 
 import { TwitterRssFeed } from "./aggregates/twitter-rss-feed";
-import { TwitterRssLocationGenerator } from "./services/twitter-rss-location-generator";
+import * as Services from "./services";
 
 import {
   CreatedRssEventType,
@@ -64,7 +64,7 @@ emittery.on(REGENERATED_RSS_EVENT, async (event) => {
 emittery.on(DELETED_RSS_EVENT, async (event) => {
   Reporter.info(`Deleted RSS for ${event.payload.twitterUserId}...`);
 
-  const location = TwitterRssLocationGenerator.generate(
+  const location = Services.TwitterRssFeedLocationsGenerator.generate(
     event.payload.twitterUserId
   );
 

@@ -10,11 +10,10 @@ import {
   DeletedRssEvent,
 } from "../value-objects/deleted-rss-event";
 import { EventRepository } from "../repositories/event-repository";
-import { TwitterApiService } from "../services/twitter-api";
 import { TwitterUserNameType } from "../value-objects/twitter-user-name";
 import { TwitterRssFeedType } from "../value-objects/twitter-rss-feed";
-import { TwitterRssLocationGenerator } from "../services/twitter-rss-location-generator";
 import * as Policy from "../policies";
+import * as Services from "../services";
 import { emittery } from "../events";
 
 export class TwitterRssFeed {
@@ -54,7 +53,7 @@ export class TwitterRssFeed {
       throw new TwitterRssFeedAlreadyExistsError();
     }
 
-    const twitterUser = await TwitterApiService.getUser(twitterUserName);
+    const twitterUser = await Services.TwitterApi.getUser(twitterUserName);
 
     if (await Policy.TwitterUserExists.fails(twitterUser)) {
       throw new TwitterUserDoesNotExistsError();
@@ -84,17 +83,21 @@ export class TwitterRssFeed {
   }
 
   async generate(feed: TwitterRssFeedType): Promise<{
-    location: ReturnType<typeof TwitterRssLocationGenerator.generate>;
+    location: ReturnType<
+      typeof Services.TwitterRssFeedLocationsGenerator.generate
+    >;
     content: ReturnType<Feed["rss2"]>;
   }> {
     if (Policy.TwitterRssFeedShouldExist.fails(this.list, feed.twitterUserId)) {
       throw new TwitterRssFeedDoesNotExistError();
     }
 
-    const tweets = await TwitterApiService.getTweetsFromUser(
+    const tweets = await Services.TwitterApi.getTweetsFromUser(
       feed.twitterUserName
     );
-    const location = TwitterRssLocationGenerator.generate(feed.twitterUserId);
+    const location = Services.TwitterRssFeedLocationsGenerator.generate(
+      feed.twitterUserId
+    );
 
     const rss = new Feed({
       title: feed.twitterUserName,

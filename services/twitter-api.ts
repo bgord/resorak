@@ -21,7 +21,7 @@ type GetTweetsResponse = {
   }[];
 };
 
-export class TwitterApiService {
+export class TwitterApi {
   private static config = {
     headers: {
       Authorization: `Bearer ${Env.TWITTER_API_BEARER_TOKEN}`,
@@ -34,7 +34,7 @@ export class TwitterApiService {
     try {
       const response = await axios.get<ShowUserResponse>(
         `https://api.twitter.com/1.1/users/show.json?screen_name=${twitterUserName}`,
-        TwitterApiService.config
+        TwitterApi.config
       );
 
       return TwitterUser.parse({
@@ -55,7 +55,7 @@ export class TwitterApiService {
         `https://api.twitter.com/1.1/search/tweets.json?q=${decodeURIComponent(
           `from:${twitterUserName}`
         )}`,
-        TwitterApiService.config
+        TwitterApi.config
       );
 
       return z.array(Tweet).parse(
