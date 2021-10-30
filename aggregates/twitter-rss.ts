@@ -24,13 +24,10 @@ export class TwitterRss {
   private feeds: TwitterRssFeedType[] = [];
 
   async build() {
-    const events = _.sortBy(
-      [
-        ...(await new EventRepository().find(CREATED_RSS_EVENT)),
-        ...(await new EventRepository().find(DELETED_RSS_EVENT)),
-      ],
-      "createdAt"
-    );
+    const events = await new EventRepository().findMany([
+      CREATED_RSS_EVENT,
+      DELETED_RSS_EVENT,
+    ]);
 
     const feeds = [];
 
