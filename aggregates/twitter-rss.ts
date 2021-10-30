@@ -33,19 +33,14 @@ export class TwitterRss {
 
     for (const event of events) {
       if (event.name === CREATED_RSS_EVENT) {
-        const { payload } = CreatedRssEvent.pick({ payload: true }).parse({
-          payload: event.payload,
-        });
-
-        feeds.push(payload);
+        feeds.push(event.payload);
       }
 
       if (event.name === DELETED_RSS_EVENT) {
-        const { payload } = DeletedRssEvent.pick({ payload: true }).parse({
-          payload: event.payload,
-        });
-
-        _.remove(feeds, (feed) => feed.twitterUserId === payload.twitterUserId);
+        _.remove(
+          feeds,
+          (feed) => feed.twitterUserId === event.payload.twitterUserId
+        );
       }
     }
 
