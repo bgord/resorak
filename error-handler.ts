@@ -4,7 +4,7 @@ import { Errors } from "@bgord/node";
 import {
   TwitterUserDoesNotExistsError,
   TwitterRssFeedAlreadyExistsError,
-} from "./aggregates/twitter-rss";
+} from "./aggregates/twitter-rss-feed";
 
 export class ErrorHandler {
   static handle: express.ErrorRequestHandler = async (

@@ -14,7 +14,7 @@ import { DeleteTwitterRss } from "./routes/delete-twitter-rss";
 import {
   TwitterUserDoesNotExistsError,
   TwitterRssFeedAlreadyExistsError,
-} from "./aggregates/twitter-rss";
+} from "./aggregates/twitter-rss-feed";
 
 const app = express();
 
