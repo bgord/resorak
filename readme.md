@@ -23,6 +23,9 @@ TwitterRssFeedFileCreator#build
 TwitterRssFeedFileCreator#save
 TwitterRssFeedFileCreator#delete
 
+TwitterRssFeedLocationsGenerator
+TwitterRssFeedLocationsGenerator#generate
+
 **Policies:**
 
 TwitterRssFeedShouldNotExistPolicy
