@@ -18,6 +18,11 @@ TwitterApiService
 TwitterApiService#getUser
 TwitterApiService#getTweetsFromUser
 
+TwitterRssFeedCreator
+TwitterRssFeedCreator#build
+TwitterRssFeedCreator#save
+TwitterRssFeedCreator#delete
+
 **Policies:**
 
 TwitterRssFeedShouldNotExistPolicy
