@@ -93,7 +93,9 @@ export class TwitterRssFeed {
       feed.twitterUserId
     );
 
-    const twitterRssFeedCreator = new Services.TwitterRssFeedCreator(locations);
+    const twitterRssFeedCreator = new Services.TwitterRssFeedFileCreator(
+      locations
+    );
     const twitterRssFeedContent = await twitterRssFeedCreator.build({
       tweets,
       feed,

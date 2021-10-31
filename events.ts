@@ -63,7 +63,7 @@ emittery.on(DELETED_RSS_EVENT, async (event) => {
     event.payload.twitterUserId
   );
 
-  await Services.TwitterRssFeedCreator.delete(locations);
+  await Services.TwitterRssFeedFileCreator.delete(locations);
 
   Reporter.info(`Deleted file ${locations.path}`);
 });

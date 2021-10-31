@@ -6,7 +6,7 @@ import { TwitterRssFeedType } from "../value-objects/twitter-rss-feed";
 
 import * as Services from "../services";
 
-export class TwitterRssFeedCreator {
+export class TwitterRssFeedFileCreator {
   locations: Services.TwitterRssFeedLocationsType;
 
   constructor(locations: Services.TwitterRssFeedLocationsType) {
