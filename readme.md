@@ -9,9 +9,6 @@ TwitterRssFeed#getAll
 TwitterRssFeed#create
 TwitterRssFeed#delete
 
-TwitterRssFeedLocationsGenerator
-TwitterRssFeedLocationsGenerator#generate
-
 **Services:**
 
 TwitterApiService
@@ -35,8 +32,11 @@ TwitterRssFeedDoesNotExistError
 **Value objects:**
 
 TwitterUser
+
 TwitterUserId
+
 TwitterUserName
+
 TwitterUserDescription
 
 Tweet
@@ -46,5 +46,7 @@ TwitterRssFeed
 **Events:**
 
 CREATED_RSS_EVENT
+
 DELETED_RSS_EVENT
+
 REGENERATED_RSS_EVENT
