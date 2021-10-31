@@ -1,12 +1,13 @@
 import { z } from "zod";
 import { PrismaClient } from "@prisma/client";
 
-import { CreatedRssEvent } from "../value-objects/created-rss-event";
-import { DeletedRssEvent } from "../value-objects/deleted-rss-event";
+import * as Events from "../events";
 
 const prisma = new PrismaClient();
 
-type AcceptedEvent = typeof CreatedRssEvent | typeof DeletedRssEvent;
+type AcceptedEvent =
+  | typeof Events.CreatedRssEvent
+  | typeof Events.DeletedRssEvent;
 type AcceptedEventType = z.infer<AcceptedEvent>;
 
 export class EventRepository {

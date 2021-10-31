@@ -1,15 +1,12 @@
 import { Reporter } from "@bgord/node";
 import { ToadScheduler, SimpleIntervalJob, AsyncTask } from "toad-scheduler";
 
+import * as Events from "./events";
+
 import { emittery } from "./events";
 import { Env } from "./env";
 
 import { TwitterRssFeed } from "./aggregates/twitter-rss-feed";
-
-import {
-  RegeneratedRssEvent,
-  REGENERATED_RSS_EVENT,
-} from "./value-objects/regenerated-rss-event";
 
 export const Scheduler = new ToadScheduler();
 
@@ -19,13 +16,13 @@ const task = new AsyncTask("twitter rss feed creator", async () => {
   const twitterRssFeed = await new TwitterRssFeed().build();
   const feeds = twitterRssFeed.getAll();
 
-  const regeneratedRssEvent = RegeneratedRssEvent.parse({
-    name: REGENERATED_RSS_EVENT,
+  const regeneratedRssEvent = Events.RegeneratedRssEvent.parse({
+    name: Events.REGENERATED_RSS_EVENT,
     version: 1,
     payload: feeds,
   });
 
-  emittery.emit(REGENERATED_RSS_EVENT, regeneratedRssEvent);
+  emittery.emit(Events.REGENERATED_RSS_EVENT, regeneratedRssEvent);
 });
 
 const job = new SimpleIntervalJob(

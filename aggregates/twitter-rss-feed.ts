@@ -1,35 +1,28 @@
 import _ from "lodash";
 
-import {
-  CREATED_RSS_EVENT,
-  CreatedRssEvent,
-} from "../value-objects/created-rss-event";
-import {
-  DELETED_RSS_EVENT,
-  DeletedRssEvent,
-} from "../value-objects/deleted-rss-event";
-import { EventRepository } from "../repositories/event-repository";
 import * as VO from "../value-objects";
 import * as Policy from "../policies";
 import * as Services from "../services";
-import { emittery } from "../events";
+import * as Events from "../events";
+
+import { EventRepository } from "../repositories/event-repository";
 
 export class TwitterRssFeed {
   private list: VO.TwitterRssFeedType[] = [];
 
   async build() {
     const events = await new EventRepository().find([
-      CreatedRssEvent,
-      DeletedRssEvent,
+      Events.CreatedRssEvent,
+      Events.DeletedRssEvent,
     ]);
 
     const feeds = [];
 
     for (const event of events) {
-      if (event.name === CREATED_RSS_EVENT) {
+      if (event.name === Events.CREATED_RSS_EVENT) {
         feeds.push(event.payload);
       }
-      if (event.name === DELETED_RSS_EVENT) {
+      if (event.name === Events.DELETED_RSS_EVENT) {
         _.remove(
           feeds,
           (feed) => feed.twitterUserId === event.payload.twitterUserId
@@ -57,13 +50,13 @@ export class TwitterRssFeed {
       throw new TwitterUserDoesNotExistsError();
     }
 
-    const createdRssEvent = CreatedRssEvent.parse({
-      name: CREATED_RSS_EVENT,
+    const createdRssEvent = Events.CreatedRssEvent.parse({
+      name: Events.CREATED_RSS_EVENT,
       version: 1,
       payload: twitterUser,
     });
     await new EventRepository().save(createdRssEvent);
-    emittery.emit(CREATED_RSS_EVENT, createdRssEvent);
+    Events.emittery.emit(Events.CREATED_RSS_EVENT, createdRssEvent);
   }
 
   async delete(twitterUserId: VO.TwitterRssFeedType["twitterUserId"]) {
@@ -71,13 +64,13 @@ export class TwitterRssFeed {
       throw new TwitterRssFeedDoesNotExistError();
     }
 
-    const deletedRssEvent = DeletedRssEvent.parse({
-      name: DELETED_RSS_EVENT,
+    const deletedRssEvent = Events.DeletedRssEvent.parse({
+      name: Events.DELETED_RSS_EVENT,
       version: 1,
       payload: { twitterUserId },
     });
     await new EventRepository().save(deletedRssEvent);
-    emittery.emit(DELETED_RSS_EVENT, deletedRssEvent);
+    Events.emittery.emit(Events.DELETED_RSS_EVENT, deletedRssEvent);
   }
 
   async generate(feed: VO.TwitterRssFeedType) {

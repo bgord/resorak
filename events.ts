@@ -1,24 +1,42 @@
+import { z } from "zod";
 import Emittery from "emittery";
-import { Reporter } from "@bgord/node";
+import { Reporter, EventDraft } from "@bgord/node";
 
 import { TwitterRssFeed } from "./aggregates/twitter-rss-feed";
 import * as Services from "./services";
+import * as VO from "./value-objects";
 
-import {
-  CreatedRssEventType,
-  CREATED_RSS_EVENT,
-} from "./value-objects/created-rss-event";
+export const CREATED_RSS_EVENT = "CREATED_RSS";
+export const CreatedRssEvent = EventDraft.merge(
+  z.object({
+    name: z.literal(CREATED_RSS_EVENT),
+    version: z.literal(1),
+    payload: VO.TwitterUser,
+  })
+);
+export type CreatedRssEventType = z.infer<typeof CreatedRssEvent>;
 
-import {
-  DeletedRssEventType,
-  DELETED_RSS_EVENT,
-} from "./value-objects/deleted-rss-event";
+export const DELETED_RSS_EVENT = "DELETED_RSS";
+export const DeletedRssEvent = EventDraft.merge(
+  z.object({
+    name: z.literal(DELETED_RSS_EVENT),
+    version: z.literal(1),
+    payload: z.object({
+      twitterUserId: VO.TwitterUserId,
+    }),
+  })
+);
+export type DeletedRssEventType = z.infer<typeof DeletedRssEvent>;
 
-import {
-  RegeneratedRssEvent,
-  RegeneratedRssEventType,
-  REGENERATED_RSS_EVENT,
-} from "./value-objects/regenerated-rss-event";
+export const REGENERATED_RSS_EVENT = "REGENERATED_RSS";
+export const RegeneratedRssEvent = EventDraft.merge(
+  z.object({
+    name: z.literal(REGENERATED_RSS_EVENT),
+    version: z.literal(1),
+    payload: z.array(VO.TwitterRssFeed),
+  })
+);
+export type RegeneratedRssEventType = z.infer<typeof RegeneratedRssEvent>;
 
 Emittery.isDebugEnabled = true;
 
