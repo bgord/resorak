@@ -28,6 +28,8 @@ export class TwitterRssFeedFileCreator {
       description: this.feed.twitterUserDescription,
       id: String(this.feed.twitterUserId),
       link: this.locations.link,
+      image: this.feed.twitterUserThumbnail,
+      favicon: this.feed.twitterUserThumbnail,
       copyright: "All rights reserved",
     });
 
