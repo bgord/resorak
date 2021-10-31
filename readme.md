@@ -39,6 +39,8 @@ TwitterUserName
 
 TwitterUserDescription
 
+TwitterUserThumbnail
+
 Tweet
 
 TwitterRssFeed
