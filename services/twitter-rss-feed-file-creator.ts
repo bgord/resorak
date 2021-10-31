@@ -1,8 +1,7 @@
 import { Feed } from "feed";
 import { promises as fs } from "fs";
 
-import { TwitterRssFeedType } from "../value-objects/twitter-rss-feed";
-
+import * as VO from "../value-objects";
 import * as Services from "../services";
 
 type TwitterRssFeedFileContent = ReturnType<Feed["rss2"]>;
@@ -10,9 +9,9 @@ type TwitterRssFeedFileContent = ReturnType<Feed["rss2"]>;
 export class TwitterRssFeedFileCreator {
   locations: Services.TwitterRssFeedLocationsType;
 
-  feed: TwitterRssFeedType;
+  feed: VO.TwitterRssFeedType;
 
-  constructor(feed: TwitterRssFeedType) {
+  constructor(feed: VO.TwitterRssFeedType) {
     this.feed = feed;
     this.locations = Services.TwitterRssFeedLocationsGenerator.generate(
       feed.twitterUserId

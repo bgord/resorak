@@ -1,10 +1,9 @@
-import { TwitterUserNameType } from "../value-objects/twitter-user-name";
-import { TwitterRssFeedType } from "../value-objects/twitter-rss-feed";
+import * as VO from "../value-objects";
 
 export class TwitterRssFeedShouldNotExist {
   static fails(
-    feeds: TwitterRssFeedType[],
-    twitterUserName: TwitterUserNameType
+    feeds: VO.TwitterRssFeedType[],
+    twitterUserName: VO.TwitterUserNameType
   ): boolean {
     return feeds.some((feed) => feed.twitterUserName === twitterUserName);
   }

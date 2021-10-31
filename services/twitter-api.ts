@@ -3,14 +3,12 @@ import { z } from "zod";
 
 import { Env } from "../env";
 
-import { TwitterUser, TwitterUserType } from "../value-objects/twitter-user";
-import { Tweet, TweetType } from "../value-objects/tweet";
-import { TwitterUserNameType } from "../value-objects/twitter-user-name";
+import * as VO from "../value-objects";
 
 type ShowUserResponse = {
-  id: TwitterUserType["twitterUserId"];
-  screen_name: TwitterUserType["twitterUserName"];
-  description: TwitterUserType["twitterUserDescription"];
+  id: VO.TwitterUserType["twitterUserId"];
+  screen_name: VO.TwitterUserType["twitterUserName"];
+  description: VO.TwitterUserType["twitterUserDescription"];
 };
 
 type GetTweetsResponse = {
@@ -29,15 +27,15 @@ export class TwitterApi {
   };
 
   static async getUser(
-    twitterUserName: TwitterUserNameType
-  ): Promise<TwitterUserType | null> {
+    twitterUserName: VO.TwitterUserNameType
+  ): Promise<VO.TwitterUserType | null> {
     try {
       const response = await axios.get<ShowUserResponse>(
         `https://api.twitter.com/1.1/users/show.json?screen_name=${twitterUserName}`,
         TwitterApi.config
       );
 
-      return TwitterUser.parse({
+      return VO.TwitterUser.parse({
         twitterUserId: response.data.id,
         twitterUserName: response.data.screen_name,
         twitterUserDescription: response.data.description,
@@ -48,8 +46,8 @@ export class TwitterApi {
   }
 
   static async getTweetsFromUser(
-    twitterUserName: TwitterUserNameType
-  ): Promise<TweetType[]> {
+    twitterUserName: VO.TwitterUserNameType
+  ): Promise<VO.TweetType[]> {
     try {
       const response = await axios.get<GetTweetsResponse>(
         `https://api.twitter.com/1.1/search/tweets.json?q=${decodeURIComponent(
@@ -58,7 +56,7 @@ export class TwitterApi {
         TwitterApi.config
       );
 
-      return z.array(Tweet).parse(
+      return z.array(VO.Tweet).parse(
         response.data.statuses.map((status) => ({
           id: status.id_str,
           createdAt: status.created_at,

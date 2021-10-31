@@ -1,6 +1,6 @@
 import { Env } from "../env";
 
-import { TwitterRssFeedType } from "../value-objects/twitter-rss-feed";
+import * as VO from "../value-objects";
 
 export type TwitterRssFeedLocationsType = {
   filename: string;
@@ -10,7 +10,7 @@ export type TwitterRssFeedLocationsType = {
 
 export class TwitterRssFeedLocationsGenerator {
   static generate(
-    twitterUserId: TwitterRssFeedType["twitterUserId"]
+    twitterUserId: VO.TwitterRssFeedType["twitterUserId"]
   ): TwitterRssFeedLocationsType {
     const filename = `${twitterUserId}.rss`;
 

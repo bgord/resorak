@@ -9,14 +9,13 @@ import {
   DeletedRssEvent,
 } from "../value-objects/deleted-rss-event";
 import { EventRepository } from "../repositories/event-repository";
-import { TwitterUserNameType } from "../value-objects/twitter-user-name";
-import { TwitterRssFeedType } from "../value-objects/twitter-rss-feed";
+import * as VO from "../value-objects";
 import * as Policy from "../policies";
 import * as Services from "../services";
 import { emittery } from "../events";
 
 export class TwitterRssFeed {
-  private list: TwitterRssFeedType[] = [];
+  private list: VO.TwitterRssFeedType[] = [];
 
   async build() {
     const events = await new EventRepository().find([
@@ -47,7 +46,7 @@ export class TwitterRssFeed {
     return this.list;
   }
 
-  async create(twitterUserName: TwitterUserNameType) {
+  async create(twitterUserName: VO.TwitterUserNameType) {
     if (Policy.TwitterRssFeedShouldNotExist.fails(this.list, twitterUserName)) {
       throw new TwitterRssFeedAlreadyExistsError();
     }
@@ -67,7 +66,7 @@ export class TwitterRssFeed {
     emittery.emit(CREATED_RSS_EVENT, createdRssEvent);
   }
 
-  async delete(twitterUserId: TwitterRssFeedType["twitterUserId"]) {
+  async delete(twitterUserId: VO.TwitterRssFeedType["twitterUserId"]) {
     if (Policy.TwitterRssFeedShouldExist.fails(this.list, twitterUserId)) {
       throw new TwitterRssFeedDoesNotExistError();
     }
@@ -81,7 +80,7 @@ export class TwitterRssFeed {
     emittery.emit(DELETED_RSS_EVENT, deletedRssEvent);
   }
 
-  async generate(feed: TwitterRssFeedType) {
+  async generate(feed: VO.TwitterRssFeedType) {
     if (Policy.TwitterRssFeedShouldExist.fails(this.list, feed.twitterUserId)) {
       throw new TwitterRssFeedDoesNotExistError();
     }
