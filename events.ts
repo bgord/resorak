@@ -1,6 +1,5 @@
 import Emittery from "emittery";
 import { Reporter } from "@bgord/node";
-import { promises as fs } from "fs";
 
 import { TwitterRssFeed } from "./aggregates/twitter-rss-feed";
 import * as Services from "./services";
@@ -52,11 +51,7 @@ emittery.on(REGENERATED_RSS_EVENT, async (event) => {
 
   for (const feed of event.payload) {
     Reporter.info(`Processing ${feed.twitterUserName}`);
-
-    const rss = await twitterRssFeed.generate(feed);
-
-    await fs.writeFile(rss.location.path, rss.content);
-
+    await twitterRssFeed.generate(feed);
     Reporter.info(`Processed ${feed.twitterUserName}`);
   }
 });
@@ -64,13 +59,11 @@ emittery.on(REGENERATED_RSS_EVENT, async (event) => {
 emittery.on(DELETED_RSS_EVENT, async (event) => {
   Reporter.info(`Deleted RSS for ${event.payload.twitterUserId}...`);
 
-  const location = Services.TwitterRssFeedLocationsGenerator.generate(
+  const locations = Services.TwitterRssFeedLocationsGenerator.generate(
     event.payload.twitterUserId
   );
 
-  try {
-    await fs.unlink(location.path);
-    Reporter.info(`Deleted file ${location.path}`);
-    /* eslint-disable no-empty */
-  } catch (error) {}
+  await Services.TwitterRssFeedCreator.delete(locations);
+
+  Reporter.info(`Deleted file ${locations.path}`);
 });

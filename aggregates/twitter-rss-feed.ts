@@ -1,5 +1,4 @@
 import _ from "lodash";
-import { Feed } from "feed";
 
 import {
   CREATED_RSS_EVENT,
@@ -82,12 +81,7 @@ export class TwitterRssFeed {
     emittery.emit(DELETED_RSS_EVENT, deletedRssEvent);
   }
 
-  async generate(feed: TwitterRssFeedType): Promise<{
-    location: ReturnType<
-      typeof Services.TwitterRssFeedLocationsGenerator.generate
-    >;
-    content: ReturnType<Feed["rss2"]>;
-  }> {
+  async generate(feed: TwitterRssFeedType) {
     if (Policy.TwitterRssFeedShouldExist.fails(this.list, feed.twitterUserId)) {
       throw new TwitterRssFeedDoesNotExistError();
     }
@@ -95,28 +89,16 @@ export class TwitterRssFeed {
     const tweets = await Services.TwitterApi.getTweetsFromUser(
       feed.twitterUserName
     );
-    const location = Services.TwitterRssFeedLocationsGenerator.generate(
+    const locations = Services.TwitterRssFeedLocationsGenerator.generate(
       feed.twitterUserId
     );
 
-    const rss = new Feed({
-      title: feed.twitterUserName,
-      description: feed.twitterUserDescription,
-      id: String(feed.twitterUserId),
-      link: location.link,
-      copyright: "All rights reserved",
+    const twitterRssFeedCreator = new Services.TwitterRssFeedCreator(locations);
+    const twitterRssFeedContent = await twitterRssFeedCreator.build({
+      tweets,
+      feed,
     });
-
-    for (const tweet of tweets) {
-      rss.addItem({
-        id: tweet.id,
-        title: tweet.text,
-        link: `https://twitter.com/${feed.twitterUserName}/status/${tweet.id}`,
-        date: new Date(tweet.createdAt),
-      });
-    }
-
-    return { location, content: rss.rss2() };
+    await twitterRssFeedCreator.save(twitterRssFeedContent);
   }
 }
 
