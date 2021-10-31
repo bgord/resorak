@@ -44,7 +44,15 @@
 
 <ul>
   {{#each feeds}}
-  <li data-display="flex" data-cross="baseline" data-mb="12">
+  <li data-display="flex" data-cross="center" data-mb="12">
+    <div
+      class="twitter-user-thumbnail"
+      data-mr="12"
+      data-display="flex"
+      style="background-image: url('{{
+        this.twitterUserThumbnail
+      }}'), url('{{../twitterUserThumbnailPlaceholder}}')"
+    ></div>
     {{ this.twitterUserName }}
     <a href="{{ this.link }}" data-ml="12">{{ this.link }}</a>
     <button data-ml="12" type="button" class="copy" data-link="{{ this.link }}">

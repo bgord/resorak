@@ -14,3 +14,9 @@ body {
 [data-status="inactive"] {
   display: none;
 }
+
+.twitter-user-thumbnail {
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+}
