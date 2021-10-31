@@ -3,6 +3,7 @@ import { CsrfShield } from "@bgord/node";
 
 import { TwitterRssFeed } from "../aggregates/twitter-rss-feed";
 import * as Services from "../services";
+import * as VO from "../value-objects";
 
 export async function Home(
   request: express.Request,
@@ -20,7 +21,7 @@ export async function Home(
     })),
 
     ...CsrfShield.extract(request),
-
+    twitterUserThumbnailPlaceholder: VO.TwitterUserThumbnailPlaceholder,
     error: messages[0],
   };
 

@@ -25,7 +25,9 @@ const sentry = new bg.Sentry({
 sentry.applyTo(app);
 
 bg.addExpressEssentials(app, {
-  helmet: bg.deepMerge(bg.helmetScriptsCspConfig, bg.helmetStylesCspConfig),
+  helmet: {
+    contentSecurityPolicy: false,
+  },
 });
 new bg.Handlebars().applyTo(app);
 new bg.Session({ secret: Env.COOKIE_SECRET }).applyTo(app);
