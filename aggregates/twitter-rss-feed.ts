@@ -86,21 +86,11 @@ export class TwitterRssFeed {
       throw new TwitterRssFeedDoesNotExistError();
     }
 
-    const tweets = await Services.TwitterApi.getTweetsFromUser(
-      feed.twitterUserName
+    const twitterRssFeedFileCreator = new Services.TwitterRssFeedFileCreator(
+      feed
     );
-    const locations = Services.TwitterRssFeedLocationsGenerator.generate(
-      feed.twitterUserId
-    );
-
-    const twitterRssFeedCreator = new Services.TwitterRssFeedFileCreator(
-      locations
-    );
-    const twitterRssFeedContent = await twitterRssFeedCreator.build({
-      tweets,
-      feed,
-    });
-    await twitterRssFeedCreator.save(twitterRssFeedContent);
+    const twitterRssFeedContent = await twitterRssFeedFileCreator.build();
+    await twitterRssFeedFileCreator.save(twitterRssFeedContent);
   }
 }
 

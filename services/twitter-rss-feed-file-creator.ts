@@ -1,31 +1,38 @@
 import { Feed } from "feed";
 import { promises as fs } from "fs";
 
-import { TweetType } from "../value-objects/tweet";
 import { TwitterRssFeedType } from "../value-objects/twitter-rss-feed";
 
 import * as Services from "../services";
 
+type TwitterRssFeedFileContent = ReturnType<Feed["rss2"]>;
+
 export class TwitterRssFeedFileCreator {
   locations: Services.TwitterRssFeedLocationsType;
 
-  constructor(locations: Services.TwitterRssFeedLocationsType) {
-    this.locations = locations;
+  feed: TwitterRssFeedType;
+
+  constructor(feed: TwitterRssFeedType) {
+    this.feed = feed;
+    this.locations = Services.TwitterRssFeedLocationsGenerator.generate(
+      feed.twitterUserId
+    );
   }
 
-  async build(data: {
-    tweets: TweetType[];
-    feed: TwitterRssFeedType;
-  }): Promise<ReturnType<Feed["rss2"]>> {
+  async build(): Promise<TwitterRssFeedFileContent> {
+    const tweets = await Services.TwitterApi.getTweetsFromUser(
+      this.feed.twitterUserName
+    );
+
     const rss = new Feed({
-      title: data.feed.twitterUserName,
-      description: data.feed.twitterUserDescription,
-      id: String(data.feed.twitterUserId),
+      title: this.feed.twitterUserName,
+      description: this.feed.twitterUserDescription,
+      id: String(this.feed.twitterUserId),
       link: this.locations.link,
       copyright: "All rights reserved",
     });
 
-    for (const tweet of data.tweets) {
+    for (const tweet of tweets) {
       rss.addItem({
         id: tweet.id,
         title: tweet.text,
@@ -37,15 +44,17 @@ export class TwitterRssFeedFileCreator {
     return rss.rss2();
   }
 
-  async save(content: ReturnType<Feed["rss2"]>) {
+  async save(content: TwitterRssFeedFileContent) {
     try {
       await fs.writeFile(this.locations.path, content);
+      /* eslint-disable no-empty */
     } catch (error) {}
   }
 
   static async delete(locations: Services.TwitterRssFeedLocationsType) {
     try {
       await fs.unlink(locations.path);
+      /* eslint-disable no-empty */
     } catch (error) {}
   }
 }
