@@ -35,7 +35,7 @@ export class TwitterRssFeedFileCreator {
       rss.addItem({
         id: tweet.id,
         title: tweet.text,
-        link: `https://twitter.com/$content.{feed.twitterUserName}/status/${tweet.id}`,
+        link: `https://twitter.com/${this.feed.twitterUserName}/status/${tweet.id}`,
         date: new Date(tweet.createdAt),
       });
     }
