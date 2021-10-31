@@ -9,6 +9,7 @@ type ShowUserResponse = {
   id: VO.TwitterUserType["twitterUserId"];
   screen_name: VO.TwitterUserType["twitterUserName"];
   description: VO.TwitterUserType["twitterUserDescription"];
+  profile_image_url_https: VO.TwitterUserType["twitterUserThumbnail"];
 };
 
 type GetTweetsResponse = {
@@ -39,6 +40,7 @@ export class TwitterApi {
         twitterUserId: response.data.id,
         twitterUserName: response.data.screen_name,
         twitterUserDescription: response.data.description,
+        twitterUserThumbnail: response.data.profile_image_url_https,
       });
     } catch (error) {
       return null;
