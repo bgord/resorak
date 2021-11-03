@@ -4,6 +4,7 @@ import { Reporter, EventDraft } from "@bgord/node";
 
 import * as Services from "./services";
 import * as VO from "./value-objects";
+import { Env } from "./env";
 
 import { EventRepository } from "./repositories/event-repository";
 import { TwitterRssFeed } from "./aggregates/twitter-rss-feed";
@@ -73,6 +74,11 @@ emittery.on(CREATED_RSS_EVENT, (feed) => {
 });
 
 emittery.on(REGENERATED_RSS_EVENT, async (event) => {
+  if (Env.SUPPRESS_RSS_REGENERATION === "yes") {
+    Reporter.info("Suppressing RSS regeneration.");
+    return;
+  }
+
   Reporter.info("Regenerating Twitter RSS...");
 
   const twitterRssFeed = await new TwitterRssFeed().build();

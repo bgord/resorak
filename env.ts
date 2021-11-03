@@ -9,6 +9,7 @@ const EnvironmentSchema = z.object({
   API_KEY: Schema.ApiKey,
   COOKIE_SECRET: Schema.CookieSecret,
   SENTRY_DSN: Schema.SentryDsn,
+  SUPPRESS_RSS_REGENERATION: Schema.FeatureFlag,
 });
 type EnvironmentSchemaType = z.infer<typeof EnvironmentSchema>;
 
