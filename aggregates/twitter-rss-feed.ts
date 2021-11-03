@@ -11,7 +11,7 @@ export class TwitterRssFeed {
   private list: VO.TwitterRssFeedType[] = [];
 
   async build() {
-    const events = await new EventRepository().find([
+    const events = await EventRepository.find([
       Events.CreatedRssEvent,
       Events.DeletedRssEvent,
       Events.UpdatedRssEvent,
@@ -63,7 +63,7 @@ export class TwitterRssFeed {
       version: 1,
       payload: twitterUser,
     });
-    await new EventRepository().save(createdRssEvent);
+    await EventRepository.save(createdRssEvent);
     Events.emittery.emit(Events.CREATED_RSS_EVENT, createdRssEvent);
   }
 
@@ -77,7 +77,7 @@ export class TwitterRssFeed {
       version: 1,
       payload: { twitterUserId },
     });
-    await new EventRepository().save(deletedRssEvent);
+    await EventRepository.save(deletedRssEvent);
     Events.emittery.emit(Events.DELETED_RSS_EVENT, deletedRssEvent);
   }
 

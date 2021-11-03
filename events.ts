@@ -97,7 +97,7 @@ emittery.on(REGENERATED_RSS_EVENT, async (event) => {
     },
   });
 
-  await new EventRepository().save(updatedRssEvent);
+  await EventRepository.save(updatedRssEvent);
   emittery.emit(UPDATED_RSS_EVENT, updatedRssEvent);
 });
 

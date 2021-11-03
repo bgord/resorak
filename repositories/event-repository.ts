@@ -12,7 +12,7 @@ type AcceptedEvent =
 type AcceptedEventType = z.infer<AcceptedEvent>;
 
 export class EventRepository {
-  async find<T extends AcceptedEvent[]>(
+  static async find<T extends AcceptedEvent[]>(
     acceptedEvents: T
   ): Promise<z.infer<T[0]>[]> {
     const acceptedEventNames = acceptedEvents.map(
@@ -42,7 +42,7 @@ export class EventRepository {
       );
   }
 
-  async save(event: AcceptedEventType) {
+  static async save(event: AcceptedEventType) {
     return prisma.event.create({
       data: { ...event, payload: JSON.stringify(event.payload) },
     });
