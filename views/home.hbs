@@ -36,7 +36,9 @@
   <div data-mt="12">{{ error }}</div>
 </form>
 
-<h2 data-ml="24" data-mt="72" data-fs="24">Existing Twitter RSS feeds</h2>
+<h2 data-ml="24" data-mt="72" data-fs="24" data-mb="48">
+  Existing Twitter RSS feeds
+</h2>
 
 {{#unless feeds}}
 <small data-ml="24">Create a feed above.</small>
@@ -44,7 +46,7 @@
 
 <ul>
   {{#each feeds}}
-  <li data-display="flex" data-mb="12">
+  <li data-display="flex" data-mb="24">
     <div
       class="twitter-user-thumbnail"
       data-mr="12"
@@ -90,6 +92,7 @@
     data-id="{{ this.twitterUserId }}"
     data-status="inactive"
     data-cross="end"
+    data-mb="48"
     method="POST"
     action="/delete-rss/{{ this.twitterUserId }}?_method=DELETE"
   >
