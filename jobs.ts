@@ -28,7 +28,7 @@ const task = new AsyncTask("twitter rss feed creator", async () => {
 const job = new SimpleIntervalJob(
   {
     minutes: Env.TWITTER_RSS_REGENERATION_INTERVAL_IN_MINUTES,
-    runImmediately: true,
+    runImmediately: false,
   },
   task
 );
