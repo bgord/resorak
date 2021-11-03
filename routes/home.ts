@@ -18,6 +18,9 @@ export async function Home(
     feeds: twitterRssFeed.getAll().map((feed) => ({
       ...feed,
       ...Services.TwitterRssFeedLocationsGenerator.generate(feed.twitterUserId),
+      lastUpdatedAtTimestamp: feed.lastUpdatedAtTimestamp
+        ? new Date(feed.lastUpdatedAtTimestamp)
+        : null,
     })),
 
     ...CsrfShield.extract(request),

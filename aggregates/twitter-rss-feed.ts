@@ -14,19 +14,27 @@ export class TwitterRssFeed {
     const events = await new EventRepository().find([
       Events.CreatedRssEvent,
       Events.DeletedRssEvent,
+      Events.UpdatedRssEvent,
     ]);
 
-    const feeds = [];
+    const feeds: VO.TwitterRssFeedType[] = [];
 
     for (const event of events) {
       if (event.name === Events.CREATED_RSS_EVENT) {
-        feeds.push(event.payload);
+        feeds.push({ ...event.payload, lastUpdatedAtTimestamp: null });
       }
       if (event.name === Events.DELETED_RSS_EVENT) {
         _.remove(
           feeds,
           (feed) => feed.twitterUserId === event.payload.twitterUserId
         );
+      }
+      if (event.name === Events.UPDATED_RSS_EVENT) {
+        for (const feed of feeds) {
+          if (event.payload.ids.includes(feed.twitterUserId)) {
+            feed.lastUpdatedAtTimestamp = event.payload.lastUpdatedAtTimestamp;
+          }
+        }
       }
     }
 
