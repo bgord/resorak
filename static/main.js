@@ -34,3 +34,12 @@ for (const button of moreButtons) {
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+const timestamps = [...document.querySelectorAll(".timestamp")];
+
+for (const timestamp of timestamps) {
+  timestamp.insertAdjacentHTML(
+    "beforeend",
+    new Date(Number(timestamp.dataset.timestamp)).toLocaleString()
+  );
+}

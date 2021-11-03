@@ -44,7 +44,7 @@
 
 <ul>
   {{#each feeds}}
-  <li data-display="flex" data-cross="center" data-mb="12">
+  <li data-display="flex" data-mb="12">
     <div
       class="twitter-user-thumbnail"
       data-mr="12"
@@ -53,23 +53,38 @@
         this.twitterUserThumbnail
       }}'), url('{{../twitterUserThumbnailPlaceholder}}')"
     ></div>
-    {{ this.twitterUserName }}
-    <a href="{{ this.link }}" data-ml="12">{{ this.link }}</a>
-    <button data-ml="12" type="button" class="copy" data-link="{{ this.link }}">
-      Copy
-    </button>
-    <button
-      data-ml="12"
-      type="button"
-      class="more"
-      data-id="{{ this.twitterUserId }}"
-    >
-      More
-    </button>
+
+    <div data-display="flex" data-direction="column">
+      <div data-display="flex" data-cross="center">
+        {{ this.twitterUserName }}
+        <a href="{{ this.link }}" data-ml="12">{{ this.link }}</a>
+        <button
+          data-ml="12"
+          type="button"
+          class="copy"
+          data-link="{{ this.link }}"
+        >
+          Copy
+        </button>
+        <button
+          data-ml="12"
+          type="button"
+          class="more"
+          data-id="{{ this.twitterUserId }}"
+        >
+          More
+        </button>
+      </div>
+
+      <small
+        class="timestamp"
+        data-display="block"
+        data-timestamp="{{ this.lastUpdatedAtTimestamp }}"
+      >
+        Last updated at
+      </small>
+    </div>
   </li>
-  <small data-display="block" data-mb="24"
-    >Last updated at {{datetime this.lastUpdatedAtTimestamp }}</small
-  >
 
   <form
     data-id="{{ this.twitterUserId }}"
