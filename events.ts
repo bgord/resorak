@@ -65,6 +65,7 @@ emittery.on(REGENERATED_RSS_EVENT, async (event) => {
 
   if (event.payload.length === 0) {
     Reporter.info("Nothing to regenerate now!");
+    return;
   }
 
   for (const feed of event.payload) {
