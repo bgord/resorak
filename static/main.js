@@ -38,8 +38,12 @@ function sleep(ms) {
 const timestamps = [...document.querySelectorAll(".timestamp")];
 
 for (const timestamp of timestamps) {
-  timestamp.insertAdjacentHTML(
-    "beforeend",
-    new Date(Number(timestamp.dataset.timestamp)).toLocaleString()
-  );
+  if (timestamp.dataset.timestamp) {
+    timestamp.insertAdjacentHTML(
+      "beforeend",
+      new Date(Number(timestamp.dataset.timestamp)).toLocaleString()
+    );
+  } else {
+    timestamp.insertAdjacentHTML("beforeend", "N/A");
+  }
 }
