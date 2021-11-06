@@ -10,6 +10,7 @@ import { ErrorHandler } from "./error-handler";
 import { Home } from "./routes/home";
 import { CreateTwitterRss } from "./routes/create-twitter-rss";
 import { DeleteTwitterRss } from "./routes/delete-twitter-rss";
+import { RegenerateTwitterRss } from "./routes/regenerate-twitter-rss";
 
 import {
   TwitterUserDoesNotExistsError,
@@ -46,6 +47,12 @@ app.delete(
   bg.CsrfShield.verify,
   bg.ApiKeyShield.build(Env.API_KEY),
   bg.Route(DeleteTwitterRss)
+);
+app.post(
+  "/regenerate-rss/:id",
+  bg.CsrfShield.verify,
+  bg.ApiKeyShield.build(Env.API_KEY),
+  bg.Route(RegenerateTwitterRss)
 );
 
 sentry.report(app, [
