@@ -61,16 +61,11 @@ export const emittery = new Emittery<{
   UPDATED_RSS: UpdatedRssEventType;
 }>();
 
-emittery.on(CREATED_RSS_EVENT, (feed) => {
-  Reporter.info(`Created Twitter RSS for: ${feed.payload.twitterUserName}`);
+emittery.on(CREATED_RSS_EVENT, async (event) => {
+  Reporter.info(`Created Twitter RSS for: ${event.payload.twitterUserName}`);
 
-  const regeneratedRssEvent = RegeneratedRssEvent.parse({
-    name: REGENERATED_RSS_EVENT,
-    version: 1,
-    payload: [feed.payload],
-  });
-
-  emittery.emit(REGENERATED_RSS_EVENT, regeneratedRssEvent);
+  const twitterRssFeed = await new TwitterRssFeed().build();
+  await twitterRssFeed.regenerate(event.payload.twitterUserId);
 });
 
 emittery.on(REGENERATED_RSS_EVENT, async (event) => {

@@ -92,6 +92,24 @@ export class TwitterRssFeed {
     const twitterRssFeedContent = await twitterRssFeedFileCreator.build();
     await twitterRssFeedFileCreator.save(twitterRssFeedContent);
   }
+
+  async regenerate(id: VO.TwitterUserIdType) {
+    if (Policy.TwitterRssFeedShouldExist.fails(this.list, id)) {
+      throw new TwitterRssFeedDoesNotExistError();
+    }
+
+    const feed = this.list.find(
+      (feed) => feed.twitterUserId === id
+    ) as VO.TwitterRssFeedType;
+
+    const regeneratedRssEvent = Events.RegeneratedRssEvent.parse({
+      name: Events.REGENERATED_RSS_EVENT,
+      version: 1,
+      payload: [feed],
+    });
+
+    Events.emittery.emit(Events.REGENERATED_RSS_EVENT, regeneratedRssEvent);
+  }
 }
 
 export class TwitterRssFeedAlreadyExistsError extends Error {
