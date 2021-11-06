@@ -110,7 +110,22 @@
       />
     </div>
 
-    <button type="submit" data-py="3" data-px="6" data-ml="12">Delete</button>
+    <div data-display="flex" data-direction="column" data-ml="12">
+      <label for="action" data-mb="6" data-fs="16">Action</label>
+      <select
+        data-id="{{ this.twitterUserId }}"
+        class="action"
+        name="action"
+        required
+        data-mr="auto"
+        data-p="3"
+      >
+        <option value="delete">Delete</option>
+        <option value="regenerate">Regenerate</option>
+      </select>
+    </div>
+
+    <button type="submit" data-py="3" data-px="6" data-ml="12">Perform</button>
   </form>
   {{/each}}
 </ul>

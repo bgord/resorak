@@ -49,3 +49,23 @@ for (const timestamp of timestamps) {
     timestamp.insertAdjacentHTML("beforeend", "N/A");
   }
 }
+
+const selects = [...document.querySelectorAll("select.action")];
+for (const select of selects) {
+  const { id } = select.dataset;
+
+  updateFormValue(id, select.value);
+
+  select.addEventListener("change", (event) =>
+    updateFormValue(id, event.target.value)
+  );
+
+  function updateFormValue(id, value) {
+    const form = document.querySelector(`form[data-id="${id}"]`);
+
+    form.action =
+      value === "delete"
+        ? `/delete-rss/${id}?_method=DELETE`
+        : `/regenerate-rss/${id}`;
+  }
+}
