@@ -28,6 +28,8 @@ for (const button of moreButtons) {
   button.addEventListener("click", () => {
     form.dataset.status =
       form.dataset.status === "active" ? "inactive" : "active";
+
+    button.innerHTML = form.dataset.status === "active" ? "Less" : "More";
   });
 }
 
