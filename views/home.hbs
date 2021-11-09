@@ -80,10 +80,18 @@
 
       <small
         class="timestamp"
-        data-display="block"
         data-timestamp="{{ this.lastUpdatedAtTimestamp }}"
       >
         Last updated at
+      </small>
+
+      <small data-mt="12"
+        >Active filters:
+        {{#if this.skipReplyTweets}}
+        skip reply tweets.
+        {{else}}
+        none.
+        {{/if}}
       </small>
     </div>
   </li>
