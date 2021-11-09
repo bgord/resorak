@@ -19,8 +19,16 @@ export class TwitterRssFeedFileCreator {
   }
 
   async build(): Promise<TwitterRssFeedFileContent> {
+    const settings: Services.TweetFiltersSettings = {
+      skipReplyTweets: this.feed.skipReplyTweets,
+    };
+
     const tweets = await Services.TwitterApi.getTweetsFromUser(
       this.feed.twitterUserName
+    );
+
+    const filteredTweets = tweets.filter(
+      Services.TweetFilters.passesAllFilters(settings)
     );
 
     const rss = new Feed({
@@ -33,7 +41,7 @@ export class TwitterRssFeedFileCreator {
       copyright: "All rights reserved",
     });
 
-    for (const tweet of tweets) {
+    for (const tweet of filteredTweets) {
       rss.addItem({
         id: tweet.id,
         title: tweet.text,

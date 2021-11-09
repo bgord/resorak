@@ -17,6 +17,7 @@ type GetTweetsResponse = {
     id_str: string;
     created_at: string;
     text: string;
+    in_reply_to_status_id: number | null;
   }[];
 };
 
@@ -63,6 +64,7 @@ export class TwitterApi {
           id: status.id_str,
           createdAt: status.created_at,
           text: status.text,
+          isReplyTweet: status.in_reply_to_status_id !== null,
         }))
       );
     } catch (error) {
