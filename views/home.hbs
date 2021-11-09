@@ -122,6 +122,16 @@
       >
         <option value="delete">Delete</option>
         <option value="regenerate">Regenerate</option>
+        <option disabled>------</option>
+        {{#if this.skipReplyTweets}}
+        <option value="include-reply-tweets">Include reply tweets</option>
+        <option disabled value="skip-reply-tweets">Include reply tweets</option>
+        {{else}}
+        <option disabled value="include-reply-tweets">
+          Include reply tweets
+        </option>
+        <option value="skip-reply-tweets">Skip reply tweets</option>
+        {{/if}}
       </select>
     </div>
 

@@ -63,9 +63,17 @@ for (const select of selects) {
   function updateFormValue(id, value) {
     const form = document.querySelector(`form[data-id="${id}"]`);
 
-    form.action =
-      value === "delete"
-        ? `/delete-rss/${id}?_method=DELETE`
-        : `/regenerate-rss/${id}`;
+    if (value === "delete") {
+      form.action = `/delete-rss/${id}?_method=DELETE`;
+    }
+    if (value === "regenerate") {
+      form.action = `/regenerate-rss/${id}`;
+    }
+    if (value === "include-reply-tweets") {
+      form.action = "#";
+    }
+    if (value === "skip-reply-tweets") {
+      form.action = `/skip-reply-tweets-in-rss/${id}`;
+    }
   }
 }
