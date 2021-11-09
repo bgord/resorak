@@ -12,6 +12,7 @@ import { CreateTwitterRss } from "./routes/create-twitter-rss";
 import { DeleteTwitterRss } from "./routes/delete-twitter-rss";
 import { RegenerateTwitterRss } from "./routes/regenerate-twitter-rss";
 import { SkipReplyTweetsInRss } from "./routes/skip-reply-tweets-in-rss";
+import { IncludeReplyTweetsInRss } from "./routes/include-reply-tweets-in-rss";
 
 import {
   TwitterUserDoesNotExistsError,
@@ -61,6 +62,13 @@ app.post(
   bg.CsrfShield.verify,
   bg.ApiKeyShield.build(Env.API_KEY),
   bg.Route(SkipReplyTweetsInRss)
+);
+
+app.post(
+  "/include-reply-tweets-in-rss/:id",
+  bg.CsrfShield.verify,
+  bg.ApiKeyShield.build(Env.API_KEY),
+  bg.Route(IncludeReplyTweetsInRss)
 );
 
 sentry.report(app, [

@@ -16,6 +16,7 @@ export class TwitterRssFeed {
       Events.DeletedRssEvent,
       Events.UpdatedRssEvent,
       Events.SkipReplyTweetsInRssEvent,
+      Events.IncludeReplyTweetsInRssEvent,
     ]);
 
     const feeds: VO.TwitterRssFeedType[] = [];
@@ -48,6 +49,14 @@ export class TwitterRssFeed {
         for (const feed of feeds) {
           if (feed.twitterUserId === event.payload.id) {
             feed.skipReplyTweets = true;
+          }
+        }
+      }
+
+      if (event.name === Events.INCLUDE_REPLY_TWEETS_IN_RSS_EVENT) {
+        for (const feed of feeds) {
+          if (feed.twitterUserId === event.payload.id) {
+            feed.skipReplyTweets = false;
           }
         }
       }
@@ -114,7 +123,7 @@ export class TwitterRssFeed {
     }
 
     const feed = this.list.find(
-      (feed) => feed.twitterUserId === id
+      (a) => a.twitterUserId === id
     ) as VO.TwitterRssFeedType;
 
     const regeneratedRssEvent = Events.RegeneratedRssEvent.parse({
@@ -138,6 +147,21 @@ export class TwitterRssFeed {
     });
 
     await EventRepository.save(regeneratedRssEvent);
+  }
+
+  async includeReplyTweets(id: VO.TwitterUserIdType) {
+    if (Policy.TwitterRssFeedShouldExist.fails(this.list, id)) {
+      throw new TwitterRssFeedDoesNotExistError();
+    }
+
+    const includeReplyTweetsInRssEvent = Events.SkipReplyTweetsInRssEvent.parse(
+      {
+        name: Events.INCLUDE_REPLY_TWEETS_IN_RSS_EVENT,
+        version: 1,
+        payload: { id },
+      }
+    );
+    await EventRepository.save(includeReplyTweetsInRssEvent);
   }
 }
 

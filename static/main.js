@@ -70,7 +70,7 @@ for (const select of selects) {
       form.action = `/regenerate-rss/${id}`;
     }
     if (value === "include-reply-tweets") {
-      form.action = "#";
+      form.action = `/include-reply-tweets-in-rss/${id}`;
     }
     if (value === "skip-reply-tweets") {
       form.action = `/skip-reply-tweets-in-rss/${id}`;
