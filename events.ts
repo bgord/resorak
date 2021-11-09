@@ -52,6 +52,18 @@ export const UpdatedRssEvent = EventDraft.merge(
 );
 export type UpdatedRssEventType = z.infer<typeof UpdatedRssEvent>;
 
+export const SKIP_REPLY_TWEETS_IN_RSS_EVENT = "SKIP_REPLY_TWEETS_IN_RSS";
+export const SkipReplyTweetsInRssEvent = EventDraft.merge(
+  z.object({
+    name: z.literal(SKIP_REPLY_TWEETS_IN_RSS_EVENT),
+    version: z.literal(1),
+    payload: z.object({ id: VO.TwitterUserId }),
+  })
+);
+export type SkipReplyTweetsInRssEventType = z.infer<
+  typeof SkipReplyTweetsInRssEvent
+>;
+
 Emittery.isDebugEnabled = true;
 
 export const emittery = new Emittery<{

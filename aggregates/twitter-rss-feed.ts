@@ -15,6 +15,7 @@ export class TwitterRssFeed {
       Events.CreatedRssEvent,
       Events.DeletedRssEvent,
       Events.UpdatedRssEvent,
+      Events.SkipReplyTweetsInRssEvent,
     ]);
 
     const feeds: VO.TwitterRssFeedType[] = [];
@@ -27,16 +28,26 @@ export class TwitterRssFeed {
           skipReplyTweets: false,
         });
       }
+
       if (event.name === Events.DELETED_RSS_EVENT) {
         _.remove(
           feeds,
           (feed) => feed.twitterUserId === event.payload.twitterUserId
         );
       }
+
       if (event.name === Events.UPDATED_RSS_EVENT) {
         for (const feed of feeds) {
           if (event.payload.ids.includes(feed.twitterUserId)) {
             feed.lastUpdatedAtTimestamp = event.payload.lastUpdatedAtTimestamp;
+          }
+        }
+      }
+
+      if (event.name === Events.SKIP_REPLY_TWEETS_IN_RSS_EVENT) {
+        for (const feed of feeds) {
+          if (feed.twitterUserId === event.payload.id) {
+            feed.skipReplyTweets = true;
           }
         }
       }
@@ -113,6 +124,20 @@ export class TwitterRssFeed {
     });
 
     Events.emittery.emit(Events.REGENERATED_RSS_EVENT, regeneratedRssEvent);
+  }
+
+  async skipReplyTweets(id: VO.TwitterUserIdType) {
+    if (Policy.TwitterRssFeedShouldExist.fails(this.list, id)) {
+      throw new TwitterRssFeedDoesNotExistError();
+    }
+
+    const regeneratedRssEvent = Events.SkipReplyTweetsInRssEvent.parse({
+      name: Events.SKIP_REPLY_TWEETS_IN_RSS_EVENT,
+      version: 1,
+      payload: { id },
+    });
+
+    await EventRepository.save(regeneratedRssEvent);
   }
 }
 

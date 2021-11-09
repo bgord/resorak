@@ -8,7 +8,8 @@ const prisma = new PrismaClient();
 type AcceptedEvent =
   | typeof Events.CreatedRssEvent
   | typeof Events.DeletedRssEvent
-  | typeof Events.UpdatedRssEvent;
+  | typeof Events.UpdatedRssEvent
+  | typeof Events.SkipReplyTweetsInRssEvent;
 type AcceptedEventType = z.infer<AcceptedEvent>;
 
 export class EventRepository {
