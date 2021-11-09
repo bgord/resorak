@@ -21,7 +21,11 @@ export class TwitterRssFeed {
 
     for (const event of events) {
       if (event.name === Events.CREATED_RSS_EVENT) {
-        feeds.push({ ...event.payload, lastUpdatedAtTimestamp: null });
+        feeds.push({
+          ...event.payload,
+          lastUpdatedAtTimestamp: null,
+          skipReplyTweets: false,
+        });
       }
       if (event.name === Events.DELETED_RSS_EVENT) {
         _.remove(
