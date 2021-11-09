@@ -17,6 +17,7 @@ import { IncludeReplyTweetsInRss } from "./routes/include-reply-tweets-in-rss";
 import {
   TwitterUserDoesNotExistsError,
   TwitterRssFeedAlreadyExistsError,
+  TwitterRssFeedFilterTransitionError,
 } from "./aggregates/twitter-rss-feed";
 
 const app = express();
@@ -75,6 +76,7 @@ sentry.report(app, [
   bg.Errors.AccessDeniedError,
   TwitterUserDoesNotExistsError,
   TwitterRssFeedAlreadyExistsError,
+  TwitterRssFeedFilterTransitionError,
 ]);
 
 app.use(ErrorHandler.handle);

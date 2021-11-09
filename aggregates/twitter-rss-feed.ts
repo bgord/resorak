@@ -140,6 +140,16 @@ export class TwitterRssFeed {
       throw new TwitterRssFeedDoesNotExistError();
     }
 
+    const feed = this.list.find(
+      (a) => a.twitterUserId === id
+    ) as VO.TwitterRssFeedType;
+
+    if (
+      Policy.TwitterRssFeedFilterTransition.fails(feed.skipReplyTweets, true)
+    ) {
+      throw new TwitterRssFeedFilterTransitionError();
+    }
+
     const regeneratedRssEvent = Events.SkipReplyTweetsInRssEvent.parse({
       name: Events.SKIP_REPLY_TWEETS_IN_RSS_EVENT,
       version: 1,
@@ -154,13 +164,22 @@ export class TwitterRssFeed {
       throw new TwitterRssFeedDoesNotExistError();
     }
 
-    const includeReplyTweetsInRssEvent = Events.SkipReplyTweetsInRssEvent.parse(
-      {
+    const feed = this.list.find(
+      (a) => a.twitterUserId === id
+    ) as VO.TwitterRssFeedType;
+
+    if (
+      Policy.TwitterRssFeedFilterTransition.fails(feed.skipReplyTweets, false)
+    ) {
+      throw new TwitterRssFeedFilterTransitionError();
+    }
+
+    const includeReplyTweetsInRssEvent =
+      Events.IncludeReplyTweetsInRssEvent.parse({
         name: Events.INCLUDE_REPLY_TWEETS_IN_RSS_EVENT,
         version: 1,
         payload: { id },
-      }
-    );
+      });
     await EventRepository.save(includeReplyTweetsInRssEvent);
   }
 }
@@ -177,6 +196,13 @@ export class TwitterRssFeedDoesNotExistError extends Error {
     Object.setPrototypeOf(this, TwitterRssFeedDoesNotExistError.prototype);
   }
 }
+export class TwitterRssFeedFilterTransitionError extends Error {
+  constructor() {
+    super();
+    Object.setPrototypeOf(this, TwitterRssFeedFilterTransitionError.prototype);
+  }
+}
+
 export class TwitterUserDoesNotExistsError extends Error {
   constructor() {
     super();
