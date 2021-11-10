@@ -1,6 +1,9 @@
 export * from "./tweet";
+
 export * from "./twitter-rss-feed";
 export * from "./twitter-rss-feed-last-updated-at";
+export * from "./twitter-rss-feed-status";
+
 export * from "./twitter-user-description";
 export * from "./twitter-user-id";
 export * from "./twitter-user-name";
