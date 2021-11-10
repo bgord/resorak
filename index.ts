@@ -72,6 +72,8 @@ app.post(
   bg.Route(IncludeReplyTweetsInRss)
 );
 
+app.get("*", (_request, response) => response.redirect("/"));
+
 sentry.report(app, [
   bg.Errors.AccessDeniedError,
   TwitterUserDoesNotExistsError,
