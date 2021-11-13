@@ -20,3 +20,14 @@ body {
   width: 48px;
   border-radius: 50%;
 }
+
+[data-feed-status] {
+  text-transform: uppercase;
+  letter-spacing: 1.25px;
+}
+[data-feed-status="active"] {
+  color: green;
+}
+[data-feed-status="suspended"] {
+  color: orange;
+}
