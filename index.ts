@@ -40,6 +40,20 @@ new bg.Session({ secret: Env.COOKIE_SECRET }).applyTo(app);
 
 app.use(flash({ sessionKeyName: "flashMessage" }));
 
+app.use((request, _response, next) => {
+  const userAgent = request.headers["user-agent"];
+
+  if (!userAgent) return next();
+
+  const isFeedly = /feedly/i.test(userAgent);
+
+  bg.Reporter.info(
+    `URL: ${request.url} UA: ${userAgent} [isFeedly=${isFeedly}]`
+  );
+
+  return next();
+});
+
 app.get("/", bg.CsrfShield.attach, Home);
 app.post(
   "/create-rss",
