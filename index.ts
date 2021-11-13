@@ -14,6 +14,7 @@ import { RegenerateTwitterRss } from "./routes/regenerate-twitter-rss";
 import { SkipReplyTweetsInRss } from "./routes/skip-reply-tweets-in-rss";
 import { IncludeReplyTweetsInRss } from "./routes/include-reply-tweets-in-rss";
 import { SuspendTwitterRss } from "./routes/suspend-twitter-rss";
+import { ActivateTwitterRss } from "./routes/activate-twitter-rss";
 
 import {
   TwitterUserDoesNotExistsError,
@@ -78,6 +79,13 @@ app.post(
   bg.CsrfShield.verify,
   bg.ApiKeyShield.build(Env.API_KEY),
   bg.Route(SuspendTwitterRss)
+);
+
+app.post(
+  "/activate-rss/:id",
+  bg.CsrfShield.verify,
+  bg.ApiKeyShield.build(Env.API_KEY),
+  bg.Route(ActivateTwitterRss)
 );
 
 app.get("*", (_request, response) => response.redirect("/"));
