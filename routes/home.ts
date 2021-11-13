@@ -18,6 +18,8 @@ export async function Home(
     feeds: twitterRssFeed.getAll().map((feed) => ({
       ...feed,
       ...Services.TwitterRssFeedLocationsGenerator.generate(feed.twitterUserId),
+      isActive: feed.status === VO.TwitterRssFeedStatusEnum.active,
+      isSuspended: feed.status === VO.TwitterRssFeedStatusEnum.suspended,
     })),
 
     ...CsrfShield.extract(request),

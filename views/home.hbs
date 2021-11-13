@@ -130,9 +130,15 @@
         data-mr="auto"
         data-p="3"
       >
-        <option value="delete">Delete</option>
         <option value="regenerate">Regenerate</option>
+        <option disabled>------</option>
+        {{#if this.isSuspended}}
+        <option value="activate">Activate</option>
+        {{/if}}
+        {{#if this.isActive}}
         <option value="suspend">Suspend</option>
+        {{/if}}
+        <option value="delete">Delete</option>
         <option disabled>------</option>
         {{#if this.skipReplyTweets}}
         <option value="include-reply-tweets">Include reply tweets</option>
