@@ -126,6 +126,15 @@ export class TwitterRssFeed {
       throw new TwitterRssFeedDoesNotExistError();
     }
 
+    if (
+      Policy.TwitterRssFeedStatus.fails(
+        VO.TwitterRssFeedStatusEnum.active,
+        feed.status
+      )
+    ) {
+      throw new TwitterRssFeedStatusError();
+    }
+
     const twitterRssFeedFileCreator = new Services.TwitterRssFeedFileCreator(
       feed
     );
@@ -141,6 +150,15 @@ export class TwitterRssFeed {
     const feed = this.list.find(
       (a) => a.twitterUserId === id
     ) as VO.TwitterRssFeedType;
+
+    if (
+      Policy.TwitterRssFeedStatus.fails(
+        VO.TwitterRssFeedStatusEnum.active,
+        feed.status
+      )
+    ) {
+      throw new TwitterRssFeedStatusError();
+    }
 
     const regeneratedRssEvent = Events.RegeneratedRssEvent.parse({
       name: Events.REGENERATED_RSS_EVENT,
@@ -257,5 +275,12 @@ export class TwitterRssFeedStatusTransitionError extends Error {
   constructor() {
     super();
     Object.setPrototypeOf(this, TwitterRssFeedStatusTransitionError.prototype);
+  }
+}
+
+export class TwitterRssFeedStatusError extends Error {
+  constructor() {
+    super();
+    Object.setPrototypeOf(this, TwitterRssFeedStatusError.prototype);
   }
 }
