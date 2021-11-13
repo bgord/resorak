@@ -11,7 +11,8 @@ type AcceptedEvent =
   | typeof Events.UpdatedRssEvent
   | typeof Events.SkipReplyTweetsInRssEvent
   | typeof Events.IncludeReplyTweetsInRssEvent
-  | typeof Events.SuspendedRssEvent;
+  | typeof Events.SuspendedRssEvent
+  | typeof Events.ActivateRssEvent;
 type AcceptedEventType = z.infer<AcceptedEvent>;
 
 export class EventRepository {

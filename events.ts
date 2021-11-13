@@ -64,6 +64,18 @@ export const SuspendedRssEvent = EventDraft.merge(
 );
 export type SuspendedRssEventType = z.infer<typeof SuspendedRssEvent>;
 
+export const ACTIVATE_RSS_EVENT = "ACTIVATE_RSS";
+export const ActivateRssEvent = EventDraft.merge(
+  z.object({
+    name: z.literal(ACTIVATE_RSS_EVENT),
+    version: z.literal(1),
+    payload: z.object({
+      id: VO.TwitterUserId,
+    }),
+  })
+);
+export type ActivateRssEventType = z.infer<typeof ActivateRssEvent>;
+
 export const SKIP_REPLY_TWEETS_IN_RSS_EVENT = "SKIP_REPLY_TWEETS_IN_RSS";
 export const SkipReplyTweetsInRssEvent = EventDraft.merge(
   z.object({
