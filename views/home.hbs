@@ -57,7 +57,9 @@
     ></div>
 
     <div data-display="flex" data-direction="column">
-      <div data-display="flex" data-cross="center">
+      <small>{{ this.status }}</small>
+
+      <div data-display="flex" data-cross="center" data-mt="3">
         {{ this.twitterUserName }}
         <a href="{{ this.link }}" data-ml="12">{{ this.link }}</a>
         <button
@@ -130,6 +132,7 @@
       >
         <option value="delete">Delete</option>
         <option value="regenerate">Regenerate</option>
+        <option value="suspend">Suspend</option>
         <option disabled>------</option>
         {{#if this.skipReplyTweets}}
         <option value="include-reply-tweets">Include reply tweets</option>

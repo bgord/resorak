@@ -75,5 +75,8 @@ for (const select of selects) {
     if (value === "skip-reply-tweets") {
       form.action = `/skip-reply-tweets-in-rss/${id}`;
     }
+    if (value === "suspend") {
+      form.action = `/suspend-rss/${id}`;
+    }
   }
 }
