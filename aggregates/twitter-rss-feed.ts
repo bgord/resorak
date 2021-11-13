@@ -18,6 +18,7 @@ export class TwitterRssFeed {
       Events.SkipReplyTweetsInRssEvent,
       Events.IncludeReplyTweetsInRssEvent,
       Events.SuspendedRssEvent,
+      Events.ActivatedRssEvent,
     ]);
 
     const feeds: VO.TwitterRssFeedType[] = [];
@@ -51,6 +52,14 @@ export class TwitterRssFeed {
         for (const feed of feeds) {
           if (event.payload.id === feed.twitterUserId) {
             feed.status = VO.TwitterRssFeedStatusEnum.suspended;
+          }
+        }
+      }
+
+      if (event.name === Events.ACTIVATED_RSS_EVENT) {
+        for (const feed of feeds) {
+          if (event.payload.id === feed.twitterUserId) {
+            feed.status = VO.TwitterRssFeedStatusEnum.active;
           }
         }
       }
@@ -194,6 +203,33 @@ export class TwitterRssFeed {
     });
     await EventRepository.save(suspendedRssEvent);
     Events.emittery.emit(Events.SUSPENDED_RSS_EVENT, suspendedRssEvent);
+  }
+
+  async activate(id: VO.TwitterRssFeedType["twitterUserId"]) {
+    if (Policy.TwitterRssFeedShouldExist.fails(this.list, id)) {
+      throw new TwitterRssFeedDoesNotExistError();
+    }
+
+    const feed = this.list.find(
+      (a) => a.twitterUserId === id
+    ) as VO.TwitterRssFeedType;
+
+    if (
+      Policy.TwitterRssFeedStatusTransition.fails(
+        feed.status,
+        VO.TwitterRssFeedStatusEnum.active
+      )
+    ) {
+      throw new TwitterRssFeedStatusTransitionError();
+    }
+
+    const activatedRssEvent = Events.ActivatedRssEvent.parse({
+      name: Events.ACTIVATED_RSS_EVENT,
+      version: 1,
+      payload: { id },
+    });
+    await EventRepository.save(activatedRssEvent);
+    Events.emittery.emit(Events.ACTIVATED_RSS_EVENT, activatedRssEvent);
   }
 
   async skipReplyTweets(id: VO.TwitterUserIdType) {
