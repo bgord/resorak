@@ -81,6 +81,12 @@ export class TwitterRssFeed {
     return this.list;
   }
 
+  getActive() {
+    return this.list.filter(
+      (item) => item.status === VO.TwitterRssFeedStatusEnum.active
+    );
+  }
+
   async create(twitterUserName: VO.TwitterUserNameType) {
     if (Policy.TwitterRssFeedShouldNotExist.fails(this.list, twitterUserName)) {
       throw new TwitterRssFeedAlreadyExistsError();
