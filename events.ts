@@ -95,6 +95,7 @@ export const emittery = new Emittery<{
   REGENERATED_RSS: RegeneratedRssEventType;
   DELETED_RSS: DeletedRssEventType;
   UPDATED_RSS: UpdatedRssEventType;
+  SUSPENDED_RSS: SuspendedRssEventType;
 }>();
 
 emittery.on(CREATED_RSS_EVENT, async (event) => {

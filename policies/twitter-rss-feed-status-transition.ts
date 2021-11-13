@@ -20,10 +20,3 @@ export class TwitterRssFeedStatusTransition {
     return !transitions[from].includes(to);
   }
 }
-
-export class TwitterRssFeedStatusTransitionError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, TwitterRssFeedStatusTransitionError.prototype);
-  }
-}

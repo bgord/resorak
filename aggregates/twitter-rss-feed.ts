@@ -17,6 +17,7 @@ export class TwitterRssFeed {
       Events.UpdatedRssEvent,
       Events.SkipReplyTweetsInRssEvent,
       Events.IncludeReplyTweetsInRssEvent,
+      Events.SuspendedRssEvent,
     ]);
 
     const feeds: VO.TwitterRssFeedType[] = [];
@@ -27,6 +28,7 @@ export class TwitterRssFeed {
           ...event.payload,
           lastUpdatedAtTimestamp: null,
           skipReplyTweets: false,
+          status: VO.TwitterRssFeedStatusEnum.active,
         });
       }
 
@@ -41,6 +43,14 @@ export class TwitterRssFeed {
         for (const feed of feeds) {
           if (event.payload.ids.includes(feed.twitterUserId)) {
             feed.lastUpdatedAtTimestamp = event.payload.lastUpdatedAtTimestamp;
+          }
+        }
+      }
+
+      if (event.name === Events.SUSPENDED_RSS_EVENT) {
+        for (const feed of feeds) {
+          if (event.payload.id === feed.twitterUserId) {
+            feed.status = VO.TwitterRssFeedStatusEnum.suspended;
           }
         }
       }
@@ -135,6 +145,33 @@ export class TwitterRssFeed {
     Events.emittery.emit(Events.REGENERATED_RSS_EVENT, regeneratedRssEvent);
   }
 
+  async suspend(id: VO.TwitterRssFeedType["twitterUserId"]) {
+    if (Policy.TwitterRssFeedShouldExist.fails(this.list, id)) {
+      throw new TwitterRssFeedDoesNotExistError();
+    }
+
+    const feed = this.list.find(
+      (a) => a.twitterUserId === id
+    ) as VO.TwitterRssFeedType;
+
+    if (
+      Policy.TwitterRssFeedStatusTransition.fails(
+        feed.status,
+        VO.TwitterRssFeedStatusEnum.suspended
+      )
+    ) {
+      throw new TwitterRssFeedStatusTransitionError();
+    }
+
+    const suspendedRssEvent = Events.SuspendedRssEvent.parse({
+      name: Events.SUSPENDED_RSS_EVENT,
+      version: 1,
+      payload: { id },
+    });
+    await EventRepository.save(suspendedRssEvent);
+    Events.emittery.emit(Events.SUSPENDED_RSS_EVENT, suspendedRssEvent);
+  }
+
   async skipReplyTweets(id: VO.TwitterUserIdType) {
     if (Policy.TwitterRssFeedShouldExist.fails(this.list, id)) {
       throw new TwitterRssFeedDoesNotExistError();
@@ -207,5 +244,12 @@ export class TwitterUserDoesNotExistsError extends Error {
   constructor() {
     super();
     Object.setPrototypeOf(this, TwitterUserDoesNotExistsError.prototype);
+  }
+}
+
+export class TwitterRssFeedStatusTransitionError extends Error {
+  constructor() {
+    super();
+    Object.setPrototypeOf(this, TwitterRssFeedStatusTransitionError.prototype);
   }
 }
