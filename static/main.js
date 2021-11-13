@@ -78,5 +78,8 @@ for (const select of selects) {
     if (value === "suspend") {
       form.action = `/suspend-rss/${id}`;
     }
+    if (value === "activate") {
+      form.action = `/activate-rss/${id}`;
+    }
   }
 }
