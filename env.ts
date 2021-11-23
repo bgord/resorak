@@ -10,6 +10,7 @@ const EnvironmentSchema = z.object({
   COOKIE_SECRET: Schema.CookieSecret,
   SENTRY_DSN: Schema.SentryDsn,
   SUPPRESS_RSS_REGENERATION: Schema.FeatureFlag,
+  ENABLE_SENTRY: Schema.FeatureFlag,
 });
 type EnvironmentSchemaType = z.infer<typeof EnvironmentSchema>;
 

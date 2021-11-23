@@ -27,7 +27,7 @@ const app = express();
 
 const sentry = new bg.Sentry({
   dsn: Env.SENTRY_DSN,
-  enabled: true,
+  enabled: Env.ENABLE_SENTRY === "yes",
 });
 sentry.applyTo(app);
 
