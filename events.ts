@@ -100,6 +100,16 @@ export type IncludeReplyTweetsInRssEventType = z.infer<
   typeof IncludeReplyTweetsInRssEvent
 >;
 
+export const FEEDLY_HIT_EVENT = "FEEDLY_HIT";
+export const FeedlyHitEvent = EventDraft.merge(
+  z.object({
+    name: z.literal(FEEDLY_HIT_EVENT),
+    version: z.literal(1),
+    payload: z.object({}),
+  })
+);
+export type FeedlyHitEventType = z.infer<typeof FeedlyHitEvent>;
+
 Emittery.isDebugEnabled = true;
 
 export const emittery = new Emittery<{
