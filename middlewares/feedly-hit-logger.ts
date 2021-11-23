@@ -1,6 +1,8 @@
 import * as bg from "@bgord/node";
 import express from "express";
 
+import { FeedlyHitRepository } from "../repositories/feedly-hit-repository";
+
 export class FeedlyHitLogger {
   static handle() {
     async function handler(
@@ -14,9 +16,9 @@ export class FeedlyHitLogger {
 
       const isFeedly = /feedly/i.test(userAgent);
 
-      bg.Reporter.info(
-        `URL: ${request.url} UA: ${userAgent} [isFeedly=${isFeedly}]`
-      );
+      if (isFeedly) {
+        await FeedlyHitRepository.save();
+      }
 
       return next();
     }
