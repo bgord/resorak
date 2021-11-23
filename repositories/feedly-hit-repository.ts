@@ -15,5 +15,15 @@ export class FeedlyHitRepository {
     await EventRepository.save(feedlyHitEvent);
   }
 
-  static async getLatest() {}
+  static async getLatest(): Promise<VO.FeedlyHitTimestampType | null> {
+    let latestFeedlyHitTimestamp = null;
+
+    const events = await EventRepository.find([Events.FeedlyHitEvent]);
+
+    for (const event of events) {
+      latestFeedlyHitTimestamp = event.payload.timestamp;
+    }
+
+    return latestFeedlyHitTimestamp;
+  }
 }
