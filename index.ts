@@ -21,6 +21,7 @@ import {
   TwitterRssFeedAlreadyExistsError,
   TwitterRssFeedFilterTransitionError,
 } from "./aggregates/twitter-rss-feed";
+import { FeedlyHitLogger } from "./middlewares/feedly-hit-logger";
 
 const app = express();
 
@@ -40,19 +41,7 @@ new bg.Session({ secret: Env.COOKIE_SECRET }).applyTo(app);
 
 app.use(flash({ sessionKeyName: "flashMessage" }));
 
-app.use((request, _response, next) => {
-  const userAgent = request.headers["user-agent"];
-
-  if (!userAgent) return next();
-
-  const isFeedly = /feedly/i.test(userAgent);
-
-  bg.Reporter.info(
-    `URL: ${request.url} UA: ${userAgent} [isFeedly=${isFeedly}]`
-  );
-
-  return next();
-});
+app.use(FeedlyHitLogger.handle);
 
 app.get("/", bg.CsrfShield.attach, Home);
 app.post(
