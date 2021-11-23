@@ -105,7 +105,7 @@ export const FeedlyHitEvent = EventDraft.merge(
   z.object({
     name: z.literal(FEEDLY_HIT_EVENT),
     version: z.literal(1),
-    payload: z.object({}),
+    payload: z.object({ timestamp: VO.FeedlyHitTimestamp }),
   })
 );
 export type FeedlyHitEventType = z.infer<typeof FeedlyHitEvent>;

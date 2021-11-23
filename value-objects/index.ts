@@ -9,3 +9,5 @@ export * from "./twitter-user-id";
 export * from "./twitter-user-name";
 export * from "./twitter-user-thumbnail";
 export * from "./twitter-user";
+
+export * from "./feedly-hit-timestamp";
