@@ -41,7 +41,7 @@ new bg.Session({ secret: Env.COOKIE_SECRET }).applyTo(app);
 
 app.use(flash({ sessionKeyName: "flashMessage" }));
 
-app.use(FeedlyHitLogger.handle);
+app.use(FeedlyHitLogger.handle());
 
 app.get("/", bg.CsrfShield.attach, Home);
 app.post(

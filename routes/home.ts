@@ -1,6 +1,7 @@
 import express from "express";
 import { CsrfShield } from "@bgord/node";
 
+import { FeedlyHitRepository } from "../repositories/feedly-hit-repository";
 import { TwitterRssFeed } from "../aggregates/twitter-rss-feed";
 import * as Services from "../services";
 import * as VO from "../value-objects";
@@ -22,9 +23,11 @@ export async function Home(
       isSuspended: feed.status === VO.TwitterRssFeedStatusEnum.suspended,
     })),
 
-    ...CsrfShield.extract(request),
     twitterUserThumbnailPlaceholder: VO.TwitterUserThumbnailPlaceholder,
+
+    lastFeedlyHitTimestamp: await FeedlyHitRepository.getLatest(),
     error: messages[0],
+    ...CsrfShield.extract(request),
   };
 
   return response.render("home", vars);

@@ -36,9 +36,19 @@
   <div data-mt="12">{{ error }}</div>
 </form>
 
-<h2 data-ml="24" data-mt="72" data-fs="24" data-mb="48">
+<h2 data-ml="24" data-mt="72" data-fs="24" data-mb="24">
   Existing Twitter RSS feeds
 </h2>
+
+<small
+  class="timestamp"
+  data-timestamp="{{ lastFeedlyHitTimestamp }}"
+  data-display="flex"
+  data-ml="24"
+  data-mb="48"
+>
+  Last Feedly hit at
+</small>
 
 {{#unless feeds}}
 <small data-ml="24">Create a feed above.</small>
