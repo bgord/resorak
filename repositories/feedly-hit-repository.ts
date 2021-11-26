@@ -4,7 +4,7 @@ import { EventRepository } from "../repositories/event-repository";
 
 export class FeedlyHitRepository {
   static async save() {
-    const feedlyHitEvent = Events.IncludeReplyTweetsInRssEvent.parse({
+    const feedlyHitEvent = Events.FeedlyHitEvent.parse({
       name: Events.FEEDLY_HIT_EVENT,
       version: 1,
       payload: {
