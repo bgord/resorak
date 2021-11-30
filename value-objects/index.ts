@@ -11,3 +11,4 @@ export * from "./twitter-user-thumbnail";
 export * from "./twitter-user";
 
 export * from "./feedly-hit-timestamp";
+export * from "./phrase-to-filter-out";
