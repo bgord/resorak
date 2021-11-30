@@ -29,6 +29,7 @@ export class TwitterRssFeed {
           ...event.payload,
           lastUpdatedAtTimestamp: null,
           skipReplyTweets: false,
+          phrasesToFilterOut: [],
           status: VO.TwitterRssFeedStatusEnum.active,
         });
       }

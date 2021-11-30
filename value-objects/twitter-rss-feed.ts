@@ -9,7 +9,7 @@ export const TwitterRssFeed = TwitterUser.merge(
   z.object({
     lastUpdatedAtTimestamp: TwitterRssFeedLastUpdatedAtTimestap,
     skipReplyTweets: z.boolean().default(false),
-    skipPhrases: z.array(PhraseToFilterOut),
+    phrasesToFilterOut: z.array(PhraseToFilterOut),
     status: TwitterRssFeedStatus,
   })
 );

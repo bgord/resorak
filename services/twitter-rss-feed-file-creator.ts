@@ -21,6 +21,7 @@ export class TwitterRssFeedFileCreator {
   async build(): Promise<TwitterRssFeedFileContent> {
     const settings: Services.TweetFiltersSettings = {
       skipReplyTweets: this.feed.skipReplyTweets,
+      phrasesToFilterOut: this.feed.phrasesToFilterOut,
     };
 
     const tweets = await Services.TwitterApi.getTweetsFromUser(
