@@ -3,6 +3,7 @@ import { promises as fs } from "fs";
 
 import * as VO from "../value-objects";
 import * as Services from "../services";
+import { PhrasesToFilterOutRepository } from "../repositories/phrases-to-filter-out-repository";
 
 type TwitterRssFeedFileContent = ReturnType<Feed["rss2"]>;
 
@@ -19,9 +20,11 @@ export class TwitterRssFeedFileCreator {
   }
 
   async build(): Promise<TwitterRssFeedFileContent> {
+    const phrasesToFilterOut = await PhrasesToFilterOutRepository.find();
+
     const settings: Services.TweetFiltersSettings = {
       skipReplyTweets: this.feed.skipReplyTweets,
-      phrasesToFilterOut: this.feed.phrasesToFilterOut,
+      phrasesToFilterOut,
     };
 
     const tweets = await Services.TwitterApi.getTweetsFromUser(
