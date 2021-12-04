@@ -168,3 +168,36 @@
   </form>
   {{/each}}
 </ul>
+
+<form
+  method="POST"
+  action="/add-pharse-to-filter-out"
+  data-mx="24"
+  data-mt="72"
+>
+  <legend data-mb="24" data-fs="20">Add a phrase to filter out</legend>
+
+  <input type="hidden" name="_csrf" value="{{ _csrf }}" />
+
+  <div data-display="flex" data-cross="end">
+    <div data-display="flex" data-direction="column">
+      <label for="phraseToFilterOut" data-mb="6" data-fs="16">Phrase</label>
+      <input
+        id="phraseToFilterOut"
+        name="phraseToFilterOut"
+        type="text"
+        required
+        data-p="3"
+      />
+    </div>
+
+    <div data-display="flex" data-direction="column" data-mx="12">
+      <label for="apiKey" data-mb="6" data-fs="16">API KEY</label>
+      <input id="apiKey" name="apiKey" type="password" required data-p="3" />
+    </div>
+
+    <button type="submit" data-mt="24" data-py="3" data-px="24">Add</button>
+  </div>
+
+  <div data-mt="12">{{ error }}</div>
+</form>
