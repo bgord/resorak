@@ -14,3 +14,9 @@ model Event {
   version   Int
   payload   String
 }
+
+model PhraseToFilterOut {
+  id        String @id @default(uuid())
+  phrase    String
+  createdAt DateTime @default(now())
+}
