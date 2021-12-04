@@ -5,33 +5,35 @@
 
   <input type="hidden" name="_csrf" value="{{ _csrf }}" />
 
-  <div data-display="flex" data-direction="column">
-    <label for="twitterUserName" data-mb="6" data-fs="16"
-      >Twitter username (e.g: jack)</label
-    >
-    <input
-      id="twitterUserName"
-      name="twitterUserName"
-      type="text"
-      required
-      data-mr="auto"
-      data-p="3"
-    />
-  </div>
+  <div data-display="flex" data-cross="end">
+    <div data-display="flex" data-direction="column">
+      <label for="twitterUserName" data-mb="6" data-fs="16"
+        >Twitter username (e.g: jack)</label
+      >
+      <input
+        id="twitterUserName"
+        name="twitterUserName"
+        type="text"
+        required
+        data-mr="auto"
+        data-p="3"
+      />
+    </div>
 
-  <div data-display="flex" data-direction="column" data-mt="12">
-    <label for="apiKey" data-mb="6" data-fs="16">API KEY</label>
-    <input
-      id="apiKey"
-      name="apiKey"
-      type="password"
-      required
-      data-mr="auto"
-      data-p="3"
-    />
-  </div>
+    <div data-display="flex" data-direction="column" data-mt="12" data-mx="12">
+      <label for="apiKey" data-mb="6" data-fs="16">API KEY</label>
+      <input
+        id="apiKey"
+        name="apiKey"
+        type="password"
+        required
+        data-mr="auto"
+        data-p="3"
+      />
+    </div>
 
-  <button type="submit" data-mt="24" data-py="6" data-px="24">Create</button>
+    <button type="submit" data-mt="24" data-py="3" data-px="24">Create</button>
+  </div>
 
   <div data-mt="12">{{ error }}</div>
 </form>
