@@ -201,3 +201,12 @@
 
   <div data-mt="12">{{ error }}</div>
 </form>
+
+{{#unless phrasesToFilterOut}}
+<small data-ml="24">No phrases added</small>
+{{/unless}}
+<ul>
+  {{#each phrasesToFilterOut}}
+  <li>{{ this }}</li>
+  {{/each}}
+</ul>
