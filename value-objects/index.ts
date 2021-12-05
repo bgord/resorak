@@ -12,3 +12,5 @@ export * from "./twitter-user";
 
 export * from "./feedly-hit-timestamp";
 export * from "./phrase-to-filter-out";
+
+export * from "./admin-username";
