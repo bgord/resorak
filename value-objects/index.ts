@@ -14,3 +14,4 @@ export * from "./feedly-hit-timestamp";
 export * from "./phrase-to-filter-out";
 
 export * from "./admin-username";
+export * from "./admin-password";
