@@ -11,6 +11,7 @@ import { AuthShield } from "./services/auth-shield";
 
 import { Home } from "./routes/home";
 import { Login } from "./routes/login";
+import { Dashboard } from "./routes/dashboard";
 import { CreateTwitterRss } from "./routes/create-twitter-rss";
 import { DeleteTwitterRss } from "./routes/delete-twitter-rss";
 import { RegenerateTwitterRss } from "./routes/regenerate-twitter-rss";
@@ -51,10 +52,8 @@ app.use(FeedlyHitLogger.handle());
 app.get("/", bg.CsrfShield.attach, Home);
 
 app.get("/login", bg.CsrfShield.attach, Login);
-app.post("/login", AuthShield.attach, (_, response) =>
-  response.redirect("/dashboard")
-);
-app.get("/dashboard", AuthShield.verify, (_, response) => response.send("ok"));
+app.post("/login", bg.CsrfShield.verify, AuthShield.attach);
+app.get("/dashboard", AuthShield.verify, Dashboard);
 
 app.post(
   "/create-rss",

@@ -30,7 +30,12 @@ export class AuthShield {
     app.use(passport.authenticate("session"));
   }
 
-  static attach = bg.Middleware(passport.authenticate("local"));
+  static attach = bg.Middleware(
+    passport.authenticate("local", {
+      successRedirect: "/dashboard",
+      failureRedirect: "/login",
+    })
+  );
 
   static verify = bg.Middleware(AuthShield._verify);
 
