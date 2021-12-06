@@ -7,6 +7,8 @@ import { Env } from "./env";
 import { Scheduler } from "./jobs";
 import { ErrorHandler } from "./error-handler";
 
+import { AuthShield } from "./services/auth-shield";
+
 import { Home } from "./routes/home";
 import { CreateTwitterRss } from "./routes/create-twitter-rss";
 import { DeleteTwitterRss } from "./routes/delete-twitter-rss";
@@ -41,10 +43,17 @@ new bg.Handlebars().applyTo(app);
 new bg.Session({ secret: Env.COOKIE_SECRET }).applyTo(app);
 
 app.use(flash({ sessionKeyName: "flashMessage" }));
+AuthShield.applyTo(app);
 
 app.use(FeedlyHitLogger.handle());
 
 app.get("/", bg.CsrfShield.attach, Home);
+
+app.post("/login", AuthShield.attach, (_, response) =>
+  response.redirect("/dashboard")
+);
+app.get("/dashboard", AuthShield.verify, (_, response) => response.send("ok"));
+
 app.post(
   "/create-rss",
   bg.CsrfShield.verify,
