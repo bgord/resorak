@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-export const TwitterUserThumbnailPlaceholder = `/twitter-user-thumbnail-placeholder.png`;
+export const TwitterUserThumbnailPlaceholder =
+  "/twitter-user-thumbnail-placeholder.png";
 
 export const TwitterUserThumbnail = z
   .string()
