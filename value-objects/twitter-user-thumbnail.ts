@@ -5,7 +5,6 @@ export const TwitterUserThumbnailPlaceholder =
 
 export const TwitterUserThumbnail = z
   .string()
-  .url()
   .default(TwitterUserThumbnailPlaceholder);
 
 export type TwitterUserThumbnailType = z.infer<typeof TwitterUserThumbnail>;
