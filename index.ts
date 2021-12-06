@@ -10,6 +10,7 @@ import { ErrorHandler } from "./error-handler";
 import { AuthShield } from "./services/auth-shield";
 
 import { Home } from "./routes/home";
+import { Login } from "./routes/login";
 import { CreateTwitterRss } from "./routes/create-twitter-rss";
 import { DeleteTwitterRss } from "./routes/delete-twitter-rss";
 import { RegenerateTwitterRss } from "./routes/regenerate-twitter-rss";
@@ -49,6 +50,7 @@ app.use(FeedlyHitLogger.handle());
 
 app.get("/", bg.CsrfShield.attach, Home);
 
+app.get("/login", bg.CsrfShield.attach, Login);
 app.post("/login", AuthShield.attach, (_, response) =>
   response.redirect("/dashboard")
 );
