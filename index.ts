@@ -58,54 +58,54 @@ app.get("/dashboard", AuthShield.verify, Dashboard);
 app.post(
   "/create-rss",
   bg.CsrfShield.verify,
-  bg.ApiKeyShield.build(Env.API_KEY),
+  AuthShield.verify,
   bg.Route(CreateTwitterRss)
 );
 app.delete(
   "/delete-rss/:id",
   bg.CsrfShield.verify,
-  bg.ApiKeyShield.build(Env.API_KEY),
+  AuthShield.verify,
   bg.Route(DeleteTwitterRss)
 );
 app.post(
   "/regenerate-rss/:id",
   bg.CsrfShield.verify,
-  bg.ApiKeyShield.build(Env.API_KEY),
+  AuthShield.verify,
   bg.Route(RegenerateTwitterRss)
 );
 
 app.post(
   "/skip-reply-tweets-in-rss/:id",
   bg.CsrfShield.verify,
-  bg.ApiKeyShield.build(Env.API_KEY),
+  AuthShield.verify,
   bg.Route(SkipReplyTweetsInRss)
 );
 
 app.post(
   "/include-reply-tweets-in-rss/:id",
   bg.CsrfShield.verify,
-  bg.ApiKeyShield.build(Env.API_KEY),
+  AuthShield.verify,
   bg.Route(IncludeReplyTweetsInRss)
 );
 
 app.post(
   "/suspend-rss/:id",
   bg.CsrfShield.verify,
-  bg.ApiKeyShield.build(Env.API_KEY),
+  AuthShield.verify,
   bg.Route(SuspendTwitterRss)
 );
 
 app.post(
   "/activate-rss/:id",
   bg.CsrfShield.verify,
-  bg.ApiKeyShield.build(Env.API_KEY),
+  AuthShield.verify,
   bg.Route(ActivateTwitterRss)
 );
 
 app.post(
   "/add-pharse-to-filter-out",
   bg.CsrfShield.verify,
-  bg.ApiKeyShield.build(Env.API_KEY),
+  AuthShield.verify,
   bg.Route(AddPhraseToFilterOut)
 );
 
