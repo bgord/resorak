@@ -54,6 +54,10 @@ app.get("/", bg.CsrfShield.attach, Home);
 app.get("/login", bg.CsrfShield.attach, Login);
 app.post("/login", bg.CsrfShield.verify, AuthShield.attach);
 app.get("/dashboard", AuthShield.verify, Dashboard);
+app.get("/logout", (request, response) => {
+  request.logout();
+  return response.redirect("/login");
+});
 
 app.post(
   "/create-rss",
