@@ -68,19 +68,3 @@
   </li>
   {{/each}}
 </ul>
-
-{{#unless phrasesToFilterOut}}
-<small data-ml="24">No phrases to filter out</small>
-{{/unless}}
-
-{{#if phrasesToFilterOut}}
-<strong data-display="flex" data-mt="48" data-ml="24">
-  Phrases to filter out
-</strong>
-{{/if}}
-
-<ul>
-  {{#each phrasesToFilterOut}}
-  <li>{{ this }}</li>
-  {{/each}}
-</ul>
