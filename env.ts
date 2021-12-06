@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { Schema, EnvironmentValidator } from "@bgord/node";
 
+import * as VO from "./value-objects";
+
 const EnvironmentSchema = z.object({
   PORT: Schema.Port,
   TWITTER_API_BEARER_TOKEN: Schema.TwitterApiBearerToken,
@@ -11,6 +13,8 @@ const EnvironmentSchema = z.object({
   SENTRY_DSN: Schema.SentryDsn,
   SUPPRESS_RSS_REGENERATION: Schema.FeatureFlag,
   ENABLE_SENTRY: Schema.FeatureFlag,
+  ADMIN_USERNAME: VO.AdminUsername,
+  ADMIN_PASSWORD: VO.AdminPassword,
 });
 type EnvironmentSchemaType = z.infer<typeof EnvironmentSchema>;
 
