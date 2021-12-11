@@ -113,7 +113,6 @@ export class TwitterRssFeed {
       payload: twitterUser,
     });
     await EventRepository.save(createdRssEvent);
-    Events.emittery.emit(Events.CREATED_RSS_EVENT, createdRssEvent);
   }
 
   async delete(twitterUserId: VO.TwitterRssFeedType["twitterUserId"]) {
@@ -127,7 +126,6 @@ export class TwitterRssFeed {
       payload: { twitterUserId },
     });
     await EventRepository.save(deletedRssEvent);
-    Events.emittery.emit(Events.DELETED_RSS_EVENT, deletedRssEvent);
   }
 
   async generate(feed: VO.TwitterRssFeedType) {
@@ -174,8 +172,7 @@ export class TwitterRssFeed {
       version: 1,
       payload: [feed],
     });
-
-    Events.emittery.emit(Events.REGENERATED_RSS_EVENT, regeneratedRssEvent);
+    await EventRepository.save(regeneratedRssEvent);
   }
 
   async suspend(id: VO.TwitterRssFeedType["twitterUserId"]) {
@@ -202,7 +199,6 @@ export class TwitterRssFeed {
       payload: { id },
     });
     await EventRepository.save(suspendedRssEvent);
-    Events.emittery.emit(Events.SUSPENDED_RSS_EVENT, suspendedRssEvent);
   }
 
   async activate(id: VO.TwitterRssFeedType["twitterUserId"]) {
@@ -229,7 +225,6 @@ export class TwitterRssFeed {
       payload: { id },
     });
     await EventRepository.save(activatedRssEvent);
-    Events.emittery.emit(Events.ACTIVATED_RSS_EVENT, activatedRssEvent);
   }
 
   async skipReplyTweets(id: VO.TwitterUserIdType) {

@@ -13,7 +13,8 @@ type AcceptedEvent =
   | typeof Events.IncludeReplyTweetsInRssEvent
   | typeof Events.SuspendedRssEvent
   | typeof Events.ActivatedRssEvent
-  | typeof Events.FeedlyHitEvent;
+  | typeof Events.FeedlyHitEvent
+  | typeof Events.RegeneratedRssEvent;
 type AcceptedEventType = z.infer<AcceptedEvent>;
 
 export class EventRepository {
@@ -48,8 +49,10 @@ export class EventRepository {
   }
 
   static async save(event: AcceptedEventType) {
-    return prisma.event.create({
+    await prisma.event.create({
       data: { ...event, payload: JSON.stringify(event.payload) },
     });
+
+    Events.emittery.emit(event.name, event);
   }
 }

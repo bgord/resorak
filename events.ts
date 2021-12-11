@@ -119,6 +119,9 @@ export const emittery = new Emittery<{
   UPDATED_RSS: UpdatedRssEventType;
   SUSPENDED_RSS: SuspendedRssEventType;
   ACTIVATE_RSS: ActivatedRssEventType;
+  FEEDLY_HIT: FeedlyHitEventType;
+  SKIP_REPLY_TWEETS_IN_RSS: SkipReplyTweetsInRssEventType;
+  INCLUDE_REPLY_TWEETS_IN_RSS: IncludeReplyTweetsInRssEventType;
 }>();
 
 emittery.on(CREATED_RSS_EVENT, async (event) => {
