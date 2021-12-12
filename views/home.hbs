@@ -1,27 +1,24 @@
-<header data-display="flex">
-  <h1 data-ml="24">Resorak</h1>
+<header data-display="flex" data-mt="24">
+  <h1>Resorak</h1>
   <a data-my="auto" data-ml="auto" href="/login">Dashboard</a>
 </header>
 
-<h2 data-ml="24" data-mt="48" data-fs="24" data-mb="24">
-  Existing Twitter RSS feeds
-</h2>
+<h2 data-mt="48" data-fs="24" data-mb="24">Existing Twitter RSS feeds</h2>
 
 <small
   class="timestamp"
   data-timestamp="{{ lastFeedlyHitTimestamp }}"
   data-display="flex"
-  data-ml="24"
   data-mb="48"
 >
   Last Feedly hit at
 </small>
 
 {{#unless feeds}}
-<small data-ml="24">Create a feed above.</small>
+<small>Create a feed above.</small>
 {{/unless}}
 
-<ul data-pl="24">
+<ul>
   {{#each feeds}}
   <li data-display="flex" data-mb="24">
     <div
