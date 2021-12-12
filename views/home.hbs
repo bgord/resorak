@@ -10,19 +10,21 @@
   <a data-color="gray-600" data-mr="12" href="/login"> Dashboard </a>
 </header>
 
-<h2 data-mt="48" data-fs="24" data-mb="24">Existing Twitter RSS feeds</h2>
-
-<small
-  class="timestamp"
-  data-timestamp="{{ lastFeedlyHitTimestamp }}"
+<section
   data-display="flex"
-  data-mb="48"
+  data-cross="center"
+  data-main="between"
+  data-mt="48"
+  data-px="12"
 >
-  Last Feedly hit at
-</small>
+  <h2 data-fs="20" data-fw="500">Twitter RSS feeds</h2>
+  <small data-timestamp="{{ lastFeedlyHitTimestamp }}" class="timestamp">
+    Last Feedly hit at
+  </small>
+</section>
 
 {{#unless feeds}}
-<small>Create a feed above.</small>
+<small data-px="12" data-mt="24">No feeds added at the moment</small>
 {{/unless}}
 
 <ul>
