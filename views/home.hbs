@@ -12,10 +12,9 @@
 
 <section
   data-display="flex"
-  data-cross="center"
+  data-cross="baseline"
   data-main="between"
-  data-mt="48"
-  data-px="12"
+  data-mt="72"
 >
   <h2 data-fs="20" data-fw="500">Twitter RSS feeds</h2>
   <small data-timestamp="{{ lastFeedlyHitTimestamp }}" class="timestamp">
@@ -30,17 +29,20 @@
 <ul
   data-display="flex"
   data-direction="column"
-  data-mt="72"
+  data-mt="24"
   data-px="24"
   data-pb="24"
   data-bg="gray-100"
+  style="
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  "
 >
   {{#each feeds}}
   <li data-display="flex" data-mt="24">
     <div
       class="twitter-user-thumbnail"
-      data-mr="12"
       data-display="flex"
+      data-mr="24"
       style="background-image: url('{{
         this.twitterUserThumbnail
       }}'), url('{{../twitterUserThumbnailPlaceholder}}')"
@@ -49,34 +51,40 @@
     <div data-display="flex" data-direction="column">
       <small data-feed-status="{{ this.status }}">{{ this.status }}</small>
 
-      <div data-display="flex" data-cross="center" data-mt="3">
-        {{ this.twitterUserName }}
-        <a href="{{ this.link }}" data-ml="12">{{ this.link }}</a>
+      <div data-display="flex" data-cross="baseline">
+        <span data-mr="12">{{ this.twitterUserName }}</span>
+        <a href="{{ this.link }}" data-color="gray-700" data-mr="24">
+          {{ this.link }}
+        </a>
         <button
-          data-ml="12"
           type="button"
           class="copy"
           data-link="{{ this.link }}"
+          data-px="6"
+          data-py="3"
         >
           Copy
         </button>
       </div>
 
-      <small
-        class="timestamp"
-        data-timestamp="{{ this.lastUpdatedAtTimestamp }}"
-      >
-        Last updated at
-      </small>
+      <div data-display="flex" data-cross="center">
+        <small
+          class="timestamp"
+          data-timestamp="{{ this.lastUpdatedAtTimestamp }}"
+          data-mr="48"
+        >
+          Last updated at
+        </small>
 
-      <small data-mt="12"
-        >Active filters:
-        {{#if this.skipReplyTweets}}
-        skip reply tweets.
-        {{else}}
-        none.
-        {{/if}}
-      </small>
+        <small>
+          Active filters:
+          {{#if this.skipReplyTweets}}
+          skip reply tweets.
+          {{else}}
+          none.
+          {{/if}}
+        </small>
+      </div>
     </div>
   </li>
   {{/each}}
