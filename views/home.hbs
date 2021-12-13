@@ -2,7 +2,6 @@
   data-display="flex"
   data-main="between"
   data-cross="center"
-  data-mt="24"
   data-px="12"
   data-bg="gray-200"
 >
@@ -10,118 +9,120 @@
   <a data-color="gray-600" data-mr="12" href="/login"> Dashboard </a>
 </header>
 
-<section
-  data-display="flex"
-  data-cross="baseline"
-  data-main="between"
-  data-mt="72"
-  data-md-mt="48"
-  data-md-px="12"
->
-  <h2 data-fs="20" data-fw="500" data-mr="24">Twitter RSS feeds</h2>
-  <small
-    data-md-mt="6"
-    data-timestamp="{{ lastFeedlyHitTimestamp }}"
-    class="timestamp"
-  >
-    Last Feedly hit at
-  </small>
-</section>
-
-{{#unless feeds}}
-<small data-px="12" data-mt="24">No feeds added at the moment</small>
-{{/unless}}
-
-<ul
-  data-display="flex"
-  data-direction="column"
-  data-mt="24"
-  data-md-mx="12"
-  data-bg="gray-100"
-  style="
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    border: 1px solid #e5e7eb;
-  "
->
-  {{#each feeds}}
-  <li
+<main data-mx="auto">
+  <section
     data-display="flex"
-    data-md-main="center"
-    data-mb="24"
-    data-pt="24"
-    data-px="24"
+    data-cross="baseline"
+    data-main="between"
+    data-mt="48"
+    data-md-mt="48"
     data-md-px="12"
-    style="border-top: 1px solid #d1d5db"
   >
-    <div
+    <h2 data-fs="20" data-fw="500" data-mr="24">Twitter RSS feeds</h2>
+    <small
+      data-md-mt="6"
+      data-timestamp="{{ lastFeedlyHitTimestamp }}"
+      class="timestamp"
+    >
+      Last Feedly hit at
+    </small>
+  </section>
+
+  {{#unless feeds}}
+  <small data-px="12" data-mt="24">No feeds added at the moment</small>
+  {{/unless}}
+
+  <ul
+    data-display="flex"
+    data-direction="column"
+    data-mt="24"
+    data-md-mx="12"
+    data-bg="gray-100"
+    style="
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      border: 1px solid #e5e7eb;
+    "
+  >
+    {{#each feeds}}
+    <li
       data-display="flex"
-      data-cross="center"
       data-md-main="center"
-      data-width="100%"
+      data-mb="24"
+      data-pt="24"
+      data-px="24"
+      data-md-px="12"
+      style="border-top: 1px solid #d1d5db"
     >
       <div
-        class="twitter-user-thumbnail"
         data-display="flex"
-        data-mr="24"
-        data-md-mr="12"
-        style="background-image: url('{{
-          this.twitterUserThumbnail
-        }}'), url('{{../twitterUserThumbnailPlaceholder}}')"
-      ></div>
-
-      <div
-        data-display="flex"
-        data-md-direction="column"
-        data-cross="baseline"
-        data-md-mr="24"
+        data-cross="center"
+        data-md-main="center"
+        data-width="100%"
       >
-        <small data-feed-status="{{ this.status }}">{{ this.status }}</small>
-        <span data-mx="12" data-md-mx="0">{{ this.twitterUserName }}</span>
-      </div>
+        <div
+          class="twitter-user-thumbnail"
+          data-display="flex"
+          data-mr="24"
+          data-md-mr="12"
+          style="background-image: url('{{
+            this.twitterUserThumbnail
+          }}'), url('{{../twitterUserThumbnailPlaceholder}}')"
+        ></div>
 
-      <div
-        data-display="flex"
-        data-direction="row"
-        data-ml="auto"
-        data-md-ml="unset"
-        data-md-mt="12"
-        data-md-mb="6"
-      >
-        <button
-          type="button"
-          class="copy"
-          data-link="{{ this.link }}"
-          data-ml="auto"
-          data-px="6"
-          data-py="3"
+        <div
+          data-display="flex"
+          data-md-direction="column"
+          data-cross="baseline"
+          data-md-mr="24"
         >
-          Copy link
-        </button>
-        <button type="button" data-ml="12" data-px="6" data-py="3">
-          Download RSS
-        </button>
+          <small data-feed-status="{{ this.status }}">{{ this.status }}</small>
+          <span data-mx="12" data-md-mx="0">{{ this.twitterUserName }}</span>
+        </div>
+
+        <div
+          data-display="flex"
+          data-direction="row"
+          data-ml="auto"
+          data-md-ml="unset"
+          data-md-mt="12"
+          data-md-mb="6"
+        >
+          <button
+            type="button"
+            class="copy"
+            data-link="{{ this.link }}"
+            data-ml="auto"
+            data-px="6"
+            data-py="3"
+          >
+            Copy link
+          </button>
+          <button type="button" data-ml="12" data-px="6" data-py="3">
+            Download RSS
+          </button>
+        </div>
       </div>
-    </div>
 
-    <div data-display="flex" data-cross="center" data-mt="6">
-      <small
-        class="timestamp"
-        data-timestamp="{{ this.lastUpdatedAtTimestamp }}"
-        data-mr="48"
-        data-md-mr="24"
-      >
-        Last updated at
-      </small>
+      <div data-display="flex" data-cross="center" data-mt="6">
+        <small
+          class="timestamp"
+          data-timestamp="{{ this.lastUpdatedAtTimestamp }}"
+          data-mr="48"
+          data-md-mr="24"
+        >
+          Last updated at
+        </small>
 
-      <small>
-        Active filters:
-        {{#if this.skipReplyTweets}}
-        skip reply tweets.
-        {{else}}
-        none.
-        {{/if}}
-      </small>
-    </div>
-  </li>
-  {{/each}}
-</ul>
+        <small>
+          Active filters:
+          {{#if this.skipReplyTweets}}
+          skip reply tweets.
+          {{else}}
+          none.
+          {{/if}}
+        </small>
+      </div>
+    </li>
+    {{/each}}
+  </ul>
+</main>
