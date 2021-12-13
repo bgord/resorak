@@ -8,12 +8,12 @@ for (const button of copyButtons) {
       await navigator.clipboard.writeText(link);
 
       button.disabled = true;
-      button.innerHTML = "Copied!";
+      button.innerHTML = "Link copied!";
 
       await sleep(2500);
 
       button.disabled = false;
-      button.innerHTML = "Copy";
+      button.innerHTML = "Copy link";
     } catch (error) {
       console.error("Copy to clipboard not supported.");
     }
