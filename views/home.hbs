@@ -73,7 +73,7 @@
 
         <div
           data-display="flex"
-          data-md-direction="column"
+          data-direction="column"
           data-cross="baseline"
           data-md-mr="24"
         >
@@ -83,7 +83,7 @@
             data-feed-status="{{ this.status }}"
             >{{ this.status }}</small
           >
-          <span data-mx="12" data-md-mx="0">{{ this.twitterUserName }}</span>
+          <span data-mr="12" data-md-mx="0">{{ this.twitterUserName }}</span>
         </div>
 
         <div
@@ -91,22 +91,22 @@
           data-direction="row"
           data-ml="auto"
           data-md-ml="unset"
-          data-md-mt="12"
-          data-md-mb="6"
+          data-md-my="24"
         >
+          <a href="{{ this.link }}" download data-mr="12" tabindex="-1">
+            <button class="c-button" data-variant="secondary" type="button">
+              Download
+            </button>
+          </a>
           <button
+            class="c-button copy"
             type="button"
-            class="copy"
             data-link="{{ this.link }}"
             data-ml="auto"
-            data-px="6"
-            data-py="3"
+            data-variant="primary"
           >
             Copy link
           </button>
-          <a href="{{ this.link }}" download data-ml="12" tabindex="-1">
-            <button type="button" data-px="6" data-py="3">Download RSS</button>
-          </a>
         </div>
       </div>
 
