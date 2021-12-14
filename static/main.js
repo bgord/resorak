@@ -43,7 +43,7 @@ for (const timestamp of timestamps) {
   if (timestamp.dataset.timestamp) {
     timestamp.insertAdjacentHTML(
       "beforeend",
-      new Date(Number(timestamp.dataset.timestamp)).toLocaleString()
+      new Date(Number(timestamp.dataset.timestamp)).toLocaleString("en-GB")
     );
   } else {
     timestamp.insertAdjacentHTML("beforeend", "N/A");
