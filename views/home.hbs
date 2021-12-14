@@ -16,20 +16,21 @@
 <main data-mx="auto">
   <section
     data-display="flex"
-    data-cross="baseline"
     data-main="between"
     data-mt="48"
     data-md-mt="24"
-    data-md-px="12"
+    data-md-px="6"
   >
     <h2 data-fs="20" data-fw="500" data-mr="24">Twitter RSS feeds</h2>
-    <small
-      data-md-mt="6"
+    <span
+      data-fs="14"
+      data-color="gray-600"
+      data-md-mt="12"
       data-timestamp="{{ lastFeedlyHitTimestamp }}"
       class="timestamp"
     >
       Last Feedly hit at
-    </small>
+    </span>
   </section>
 
   {{#unless feeds}}
