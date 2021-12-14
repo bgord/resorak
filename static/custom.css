@@ -43,7 +43,6 @@ main {
 
 [data-feed-status] {
   text-transform: uppercase;
-  letter-spacing: 1.25px;
 }
 [data-feed-status="active"] {
   color: green;

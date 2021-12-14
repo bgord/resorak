@@ -41,23 +41,19 @@
     data-display="flex"
     data-direction="column"
     data-my="24"
-    data-md-my="12"
+    data-md-my="36"
     data-md-mx="12"
-    data-bg="gray-100"
-    style="
-      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-      border: 1px solid #e5e7eb;
-    "
   >
     {{#each feeds}}
     <li
       data-display="flex"
       data-md-main="center"
       data-mb="24"
-      data-pt="24"
+      data-py="12"
       data-px="24"
       data-md-px="12"
-      style="border-top: 1px solid #d1d5db"
+      data-bg="gray-100"
+      style="border: 1px solid #e5e7eb; margin-top: -2px"
     >
       <div
         data-display="flex"
@@ -81,7 +77,12 @@
           data-cross="baseline"
           data-md-mr="24"
         >
-          <small data-feed-status="{{ this.status }}">{{ this.status }}</small>
+          <small
+            data-ls="1"
+            data-fw="500"
+            data-feed-status="{{ this.status }}"
+            >{{ this.status }}</small
+          >
           <span data-mx="12" data-md-mx="0">{{ this.twitterUserName }}</span>
         </div>
 
@@ -109,23 +110,38 @@
         </div>
       </div>
 
-      <div data-display="flex" data-cross="center" data-mt="6">
+      <div
+        data-display="flex"
+        data-cross="center"
+        data-width="100%"
+        data-mt="12"
+        data-md-mt="0"
+      >
+        <div data-display="flex" data-cross="center" data-md-mx="auto">
+          <img
+            style="transform: rotate(270deg)"
+            height="20px"
+            width="20px"
+            src="/filter-icon.svg"
+            alt=""
+          />
+          <small data-ml="12" data-color="gray-900">
+            {{#if this.skipReplyTweets}}
+            Skip reply tweets filter
+            {{else}}
+            No active filters
+            {{/if}}
+          </small>
+        </div>
+
         <small
           class="timestamp"
           data-timestamp="{{ this.lastUpdatedAtTimestamp }}"
-          data-mr="48"
-          data-md-mr="24"
+          data-ml="auto"
+          data-md-mx="auto"
+          data-color="gray-600"
         >
-          Last updated at
-        </small>
-
-        <small>
-          Active filters:
-          {{#if this.skipReplyTweets}}
-          skip reply tweets.
-          {{else}}
-          none.
-          {{/if}}
+          Updated at
         </small>
       </div>
     </li>
