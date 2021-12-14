@@ -1,5 +1,6 @@
 import express from "express";
 import { CsrfShield } from "@bgord/node";
+import { formatDistanceToNow } from "date-fns";
 
 import { FeedlyHitRepository } from "../repositories/feedly-hit-repository";
 import { PhrasesToFilterOutRepository } from "../repositories/phrases-to-filter-out-repository";
@@ -15,6 +16,7 @@ export async function Home(
   const twitterRssFeed = await new TwitterRssFeed().build();
 
   const messages = await request.consumeFlash("error");
+  const lastFeedlyHitTimestamp = await FeedlyHitRepository.getLatest();
 
   const vars = {
     feeds: twitterRssFeed.getAll().map((feed) => ({
@@ -26,7 +28,9 @@ export async function Home(
 
     twitterUserThumbnailPlaceholder: VO.TwitterUserThumbnailPlaceholder,
 
-    lastFeedlyHitTimestamp: await FeedlyHitRepository.getLatest(),
+    lastFeedlyHitTimestamp: lastFeedlyHitTimestamp
+      ? formatDistanceToNow(lastFeedlyHitTimestamp)
+      : null,
 
     phrasesToFilterOut: await PhrasesToFilterOutRepository.find(),
 

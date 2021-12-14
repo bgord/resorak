@@ -22,14 +22,13 @@
     data-md-px="6"
   >
     <h2 data-fs="20" data-fw="500" data-mr="24">Twitter RSS feeds</h2>
-    <span
-      data-fs="14"
-      data-color="gray-600"
-      data-md-mt="12"
-      data-timestamp="{{ lastFeedlyHitTimestamp }}"
-      class="timestamp"
-    >
-      Last Feedly hit at
+
+    <span data-fs="14" data-color="gray-600" data-md-mt="12">
+      {{#if lastFeedlyHitTimestamp}}
+      Last Feedly hit {{ lastFeedlyHitTimestamp }} ago
+      {{else}}
+      No recorded Feedly hit
+      {{/if}}
     </span>
   </section>
 
