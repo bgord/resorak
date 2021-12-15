@@ -13,13 +13,27 @@
   </a>
 </header>
 
-<main data-mx="auto" style="max-width: 400px">
-  <h1 data-mt="72">Login</h1>
+<main data-p="24" data-pt="72" data-mx="auto">
+  <form
+    data-display="flex"
+    data-direction="column"
+    data-cross="center"
+    data-mx="auto"
+    data-p="24"
+    data-bg="gray-100"
+    method="POST"
+    action="/login"
+    style="
+      max-width: 400px;
+      border: 1px solid #e5e7eb;
+      border-top: 12px solid #6b7280;
+    "
+  >
+    <h2 data-fs="24" data-ls="1.5" data-fw="500" data-mb="48">Login</h2>
 
-  <form data-mt="72" method="POST" action="/login">
     <input type="hidden" name="_csrf" value="{{_csrf}}" />
 
-    <div data-display="flex" data-direction="column" data-mx="auto">
+    <div data-display="flex" data-direction="column" data-width="100%">
       <div data-display="flex" data-direction="column">
         <label for="username" data-mb="6" data-fs="16">Admin username</label>
         <input id="username" name="username" type="text" required data-p="3" />
@@ -36,9 +50,17 @@
         />
       </div>
 
-      <button type="submit" data-mt="24" data-py="3" data-px="24">Login</button>
+      <button
+        class="c-button"
+        data-variant="primary"
+        type="submit"
+        data-mt="24"
+      >
+        Login
+      </button>
     </div>
-  </form>
 
-  <a data-display="block" data-mt="48" href="/">Go to homepage</a>
+    <a data-color="gray-600" data-ls="0.5" data-mt="48" href="/">Back to
+      homepage</a>
+  </form>
 </main>
