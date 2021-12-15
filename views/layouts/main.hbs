@@ -75,5 +75,11 @@
     {{{body}}}
 
     <script async src="/main.js"></script>
+    <script
+      src="https://unpkg.com/quicklink@2.2.0/dist/quicklink.umd.js"
+    ></script>
+    <script>
+      quicklink.listen({ ignores: [/\\\*.rss$/], delay: 5 });
+    </script>
   </body>
 </html>
