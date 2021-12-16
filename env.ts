@@ -14,6 +14,7 @@ const EnvironmentSchema = z.object({
   ENABLE_SENTRY: Schema.FeatureFlag,
   ADMIN_USERNAME: VO.AdminUsername,
   ADMIN_PASSWORD: VO.AdminPassword,
+  GITHUB_WEBHOOK_SECRET: Schema.ApiKey,
 });
 type EnvironmentSchemaType = z.infer<typeof EnvironmentSchema>;
 
