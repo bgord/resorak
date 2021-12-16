@@ -49,3 +49,20 @@ for (const timestamp of timestamps) {
     timestamp.insertAdjacentHTML("beforeend", "N/A");
   }
 }
+
+const actionButtons = [
+  ...document.querySelectorAll('button[data-role="action-trigger"]'),
+];
+
+for (const actionButton of actionButtons) {
+  actionButton.addEventListener("click", () => {
+    const id = actionButton.dataset.actionsId;
+
+    const responder = document.querySelector(
+      `[data-role="action-target"][data-actions-id="${id}"]`
+    );
+
+    responder.dataset.status =
+      responder.dataset.status === "active" ? "inactive" : "active";
+  });
+}

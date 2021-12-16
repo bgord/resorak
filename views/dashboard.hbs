@@ -306,6 +306,8 @@
           </small>
 
           <button
+            data-role="action-trigger"
+            data-actions-id="{{this.twitterUserId}}"
             class="c-button"
             data-variant="with-icon"
             data-ml="24"
@@ -317,6 +319,9 @@
         </div>
 
         <div
+          data-role="action-target"
+          data-actions-id="{{this.twitterUserId}}"
+          data-status="inactive"
           data-display="flex"
           data-pt="12"
           data-pb="24"
