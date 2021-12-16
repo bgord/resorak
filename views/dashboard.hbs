@@ -19,188 +19,192 @@
   </a>
 </header>
 
-<form
-  data-display="flex"
-  method="POST"
-  action="/create-rss"
-  data-mx="24"
-  data-mt="48"
->
-  <input type="hidden" name="_csrf" value="{{ _csrf }}" />
-
-  <div data-display="flex" data-direction="column" data-mr="24">
-    <label for="twitterUserName" data-mb="6" data-fs="16">
-      Twitter username (e.g: jack)
-    </label>
-    <input
-      id="twitterUserName"
-      name="twitterUserName"
-      type="text"
-      required
-      data-mr="auto"
-      data-p="3"
-    />
-  </div>
-
-  <button type="submit" data-mt="24" data-py="3" data-px="24">
-    Create RSS
-  </button>
-
-  <div data-mt="12">{{ error }}</div>
-</form>
-
-<h2 data-ml="24" data-mt="48" data-fs="24" data-mb="24">
-  Existing Twitter RSS feeds
-</h2>
-
-<small
-  class="timestamp"
-  data-timestamp="{{ lastFeedlyHitTimestamp }}"
-  data-display="flex"
-  data-ml="24"
-  data-mb="48"
->
-  Last Feedly hit at
-</small>
-
-{{#unless feeds}}
-<small data-ml="24">Create a feed above.</small>
-{{/unless}}
-
-<ul data-pl="24">
-  {{#each feeds}}
-  <li data-display="flex" data-mb="24">
-    <div
-      class="twitter-user-thumbnail"
-      data-mr="12"
-      data-display="flex"
-      style="background-image: url('{{
-        this.twitterUserThumbnail
-      }}'), url('{{../twitterUserThumbnailPlaceholder}}')"
-    ></div>
-
-    <div data-display="flex" data-direction="column">
-      <small data-feed-status="{{ this.status }}">{{ this.status }}</small>
-
-      <div data-display="flex" data-cross="center" data-mt="3">
-        {{ this.twitterUserName }}
-        <a href="{{ this.link }}" data-ml="12">{{ this.link }}</a>
-        <button
-          data-ml="12"
-          type="button"
-          class="copy"
-          data-link="{{ this.link }}"
-        >
-          Copy
-        </button>
-        <button
-          data-ml="12"
-          type="button"
-          class="more"
-          data-id="{{ this.twitterUserId }}"
-        >
-          More
-        </button>
-      </div>
-
-      <small
-        class="timestamp"
-        data-timestamp="{{ this.lastUpdatedAtTimestamp }}"
-      >
-        Last updated at
-      </small>
-
-      <small data-mt="12"
-        >Active filters:
-        {{#if this.skipReplyTweets}}
-        skip reply tweets.
-        {{else}}
-        none.
-        {{/if}}
-      </small>
-    </div>
-  </li>
-
+<main>
   <form
-    data-id="{{ this.twitterUserId }}"
-    data-status="inactive"
-    data-cross="end"
-    data-mb="48"
+    data-display="flex"
     method="POST"
-    action="/delete-rss/{{ this.twitterUserId }}?_method=DELETE"
+    action="/create-rss"
+    data-mx="24"
+    data-mt="48"
   >
-    <input type="hidden" name="_csrf" value="{{../_csrf}}" />
+    <input type="hidden" name="_csrf" value="{{ _csrf }}" />
 
-    <div data-display="flex" data-direction="column" data-ml="12">
-      <label for="action" data-mb="6" data-fs="16">Action</label>
-      <select
-        data-id="{{ this.twitterUserId }}"
-        class="action"
-        name="action"
-        required
-        data-mr="auto"
-        data-p="3"
-      >
-        <option value="regenerate">Regenerate</option>
-        <option disabled>------</option>
-        {{#if this.isSuspended}}
-        <option value="activate">Activate</option>
-        {{/if}}
-        {{#if this.isActive}}
-        <option value="suspend">Suspend</option>
-        {{/if}}
-        <option value="delete">Delete</option>
-        <option disabled>------</option>
-        {{#if this.skipReplyTweets}}
-        <option value="include-reply-tweets">Include reply tweets</option>
-        <option disabled value="skip-reply-tweets">Skip reply tweets</option>
-        {{else}}
-        <option disabled value="include-reply-tweets">
-          Include reply tweets
-        </option>
-        <option value="skip-reply-tweets">Skip reply tweets</option>
-        {{/if}}
-      </select>
-    </div>
-
-    <button type="submit" data-py="3" data-px="6" data-ml="12">Perform</button>
-  </form>
-  {{/each}}
-</ul>
-
-<form
-  method="POST"
-  action="/add-pharse-to-filter-out"
-  data-mx="24"
-  data-mt="48"
->
-  <input type="hidden" name="_csrf" value="{{ _csrf }}" />
-
-  <div data-display="flex" data-cross="end">
     <div data-display="flex" data-direction="column" data-mr="24">
-      <label for="phraseToFilterOut" data-mb="6" data-fs="16">
-        Phrase to filter out
+      <label for="twitterUserName" data-mb="6" data-fs="16">
+        Twitter username (e.g: jack)
       </label>
       <input
-        id="phraseToFilterOut"
-        name="phraseToFilterOut"
+        id="twitterUserName"
+        name="twitterUserName"
         type="text"
         required
+        data-mr="auto"
         data-p="3"
       />
     </div>
 
-    <button type="submit" data-mt="24" data-py="3" data-px="24">Add</button>
-  </div>
+    <button type="submit" data-mt="24" data-py="3" data-px="24">
+      Create RSS
+    </button>
 
-  <div data-mt="12">{{ error }}</div>
-</form>
+    <div data-mt="12">{{ error }}</div>
+  </form>
 
-{{#unless phrasesToFilterOut}}
-<small data-ml="24">No phrases added</small>
-{{/unless}}
-<ul>
-  {{#each phrasesToFilterOut}}
-  <li>{{ this }}</li>
-  {{/each}}
-</ul>
+  <h2 data-ml="24" data-mt="48" data-fs="24" data-mb="24">
+    Existing Twitter RSS feeds
+  </h2>
+
+  <small
+    class="timestamp"
+    data-timestamp="{{ lastFeedlyHitTimestamp }}"
+    data-display="flex"
+    data-ml="24"
+    data-mb="48"
+  >
+    Last Feedly hit at
+  </small>
+
+  {{#unless feeds}}
+  <small data-ml="24">Create a feed above.</small>
+  {{/unless}}
+
+  <ul data-pl="24">
+    {{#each feeds}}
+    <li data-display="flex" data-mb="24">
+      <div
+        class="twitter-user-thumbnail"
+        data-mr="12"
+        data-display="flex"
+        style="background-image: url('{{
+          this.twitterUserThumbnail
+        }}'), url('{{../twitterUserThumbnailPlaceholder}}')"
+      ></div>
+
+      <div data-display="flex" data-direction="column">
+        <small data-feed-status="{{ this.status }}">{{ this.status }}</small>
+
+        <div data-display="flex" data-cross="center" data-mt="3">
+          {{ this.twitterUserName }}
+          <a href="{{ this.link }}" data-ml="12">{{ this.link }}</a>
+          <button
+            data-ml="12"
+            type="button"
+            class="copy"
+            data-link="{{ this.link }}"
+          >
+            Copy
+          </button>
+          <button
+            data-ml="12"
+            type="button"
+            class="more"
+            data-id="{{ this.twitterUserId }}"
+          >
+            More
+          </button>
+        </div>
+
+        <small
+          class="timestamp"
+          data-timestamp="{{ this.lastUpdatedAtTimestamp }}"
+        >
+          Last updated at
+        </small>
+
+        <small data-mt="12"
+          >Active filters:
+          {{#if this.skipReplyTweets}}
+          skip reply tweets.
+          {{else}}
+          none.
+          {{/if}}
+        </small>
+      </div>
+    </li>
+
+    <form
+      data-id="{{ this.twitterUserId }}"
+      data-status="inactive"
+      data-cross="end"
+      data-mb="48"
+      method="POST"
+      action="/delete-rss/{{ this.twitterUserId }}?_method=DELETE"
+    >
+      <input type="hidden" name="_csrf" value="{{../_csrf}}" />
+
+      <div data-display="flex" data-direction="column" data-ml="12">
+        <label for="action" data-mb="6" data-fs="16">Action</label>
+        <select
+          data-id="{{ this.twitterUserId }}"
+          class="action"
+          name="action"
+          required
+          data-mr="auto"
+          data-p="3"
+        >
+          <option value="regenerate">Regenerate</option>
+          <option disabled>------</option>
+          {{#if this.isSuspended}}
+          <option value="activate">Activate</option>
+          {{/if}}
+          {{#if this.isActive}}
+          <option value="suspend">Suspend</option>
+          {{/if}}
+          <option value="delete">Delete</option>
+          <option disabled>------</option>
+          {{#if this.skipReplyTweets}}
+          <option value="include-reply-tweets">Include reply tweets</option>
+          <option disabled value="skip-reply-tweets">Skip reply tweets</option>
+          {{else}}
+          <option disabled value="include-reply-tweets">
+            Include reply tweets
+          </option>
+          <option value="skip-reply-tweets">Skip reply tweets</option>
+          {{/if}}
+        </select>
+      </div>
+
+      <button type="submit" data-py="3" data-px="6" data-ml="12">
+        Perform
+      </button>
+    </form>
+    {{/each}}
+  </ul>
+
+  <form
+    method="POST"
+    action="/add-pharse-to-filter-out"
+    data-mx="24"
+    data-mt="48"
+  >
+    <input type="hidden" name="_csrf" value="{{ _csrf }}" />
+
+    <div data-display="flex" data-cross="end">
+      <div data-display="flex" data-direction="column" data-mr="24">
+        <label for="phraseToFilterOut" data-mb="6" data-fs="16">
+          Phrase to filter out
+        </label>
+        <input
+          id="phraseToFilterOut"
+          name="phraseToFilterOut"
+          type="text"
+          required
+          data-p="3"
+        />
+      </div>
+
+      <button type="submit" data-mt="24" data-py="3" data-px="24">Add</button>
+    </div>
+
+    <div data-mt="12">{{ error }}</div>
+  </form>
+
+  {{#unless phrasesToFilterOut}}
+  <small data-ml="24">No phrases added</small>
+  {{/unless}}
+  <ul>
+    {{#each phrasesToFilterOut}}
+    <li>{{ this }}</li>
+    {{/each}}
+  </ul>
+</main>
