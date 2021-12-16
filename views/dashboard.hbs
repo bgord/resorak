@@ -315,6 +315,69 @@
             <img height="16px" width="16px" src="/arrow-down-icon.svg" />
           </button>
         </div>
+
+        <div
+          data-display="flex"
+          data-pt="12"
+          data-pb="24"
+          data-mt="12"
+          data-width="100%"
+          style="border-top: 1px solid #d1d5db"
+        >
+          <div>
+            <h3
+              data-mt="12"
+              data-fw="400"
+              data-fs="16"
+              data-ls="0.5"
+              data-color="gray-700"
+            >
+              Feed actions
+            </h3>
+            <div data-mt="12">
+              <button data-variant="secondary" class="c-button" data-mr="12">
+                Suspend
+              </button>
+              <button
+                style="width: 88px"
+                data-variant="secondary"
+                class="c-button"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+
+          <div data-ml="auto">
+            <h3
+              data-mt="12"
+              data-fw="400"
+              data-fs="16"
+              data-ls="0.5"
+              data-color="gray-700"
+            >
+              Filter actions
+            </h3>
+            <div data-mt="12">
+              <button
+                {{#if this.skipReplyTweets}}
+                disabled
+                {{/if}}
+                data-variant="secondary" class="c-button" data-mr="12">
+                Skip reply tweets
+              </button>
+              <button
+                {{#if this.skipReplyTweets}}
+                {{else}}
+                disabled
+                {{/if}}
+                data-variant="secondary" class="c-button"
+              >
+                Include reply tweets
+              </button>
+            </div>
+          </div>
+        </div>
       </li>
       {{/each}}
     </ul>
