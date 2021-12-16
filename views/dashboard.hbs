@@ -19,7 +19,7 @@
   </a>
 </header>
 
-<main>
+<main data-mx="auto">
   <form
     data-display="flex"
     method="POST"
@@ -50,124 +50,145 @@
     <div data-mt="12">{{ error }}</div>
   </form>
 
-  <h2 data-ml="24" data-mt="48" data-fs="24" data-mb="24">
-    Existing Twitter RSS feeds
-  </h2>
-
-  <small
-    class="timestamp"
-    data-timestamp="{{ lastFeedlyHitTimestamp }}"
+  <section
     data-display="flex"
-    data-ml="24"
-    data-mb="48"
+    data-main="between"
+    data-mt="48"
+    data-md-mt="24"
+    data-md-px="6"
   >
-    Last Feedly hit at
-  </small>
+    <h2 data-fs="20" data-fw="500" data-mr="24">Twitter RSS feeds</h2>
 
-  {{#unless feeds}}
-  <small data-ml="24">Create a feed above.</small>
-  {{/unless}}
+    <span
+      data-fs="14"
+      data-color="gray-600"
+      data-md-mt="12"
+      title="Feedly Hit happens when Feedly bots request RSS files from resorak, so your Feedly feed can be updated."
+    >
+      {{#if lastFeedlyHitTimestamp}}
+      Last Feedly hit {{ lastFeedlyHitTimestamp }} ago
+      {{else}}
+      No recorded Feedly hit
+      {{/if}}
+    </span>
+  </section>
 
-  <ul data-pl="24">
+  <ul
+    data-display="flex"
+    data-direction="column"
+    data-my="24"
+    data-md-my="36"
+    data-md-mx="12"
+  >
     {{#each feeds}}
-    <li data-display="flex" data-mb="24">
+    <li
+      data-display="flex"
+      data-md-main="center"
+      data-mb="24"
+      data-py="12"
+      data-px="24"
+      data-md-px="12"
+      data-bg="gray-100"
+      style="border: 1px solid #e5e7eb; margin-top: -2px"
+    >
       <div
-        class="twitter-user-thumbnail"
-        data-mr="12"
         data-display="flex"
-        style="background-image: url('{{
-          this.twitterUserThumbnail
-        }}'), url('{{../twitterUserThumbnailPlaceholder}}')"
-      ></div>
+        data-cross="center"
+        data-md-main="center"
+        data-width="100%"
+      >
+        <div
+          class="twitter-user-thumbnail"
+          data-display="flex"
+          data-mr="24"
+          data-md-mr="12"
+          height="48px"
+          width="48px"
+          style="background-image: url('{{
+            this.twitterUserThumbnail
+          }}'), url('{{../twitterUserThumbnailPlaceholder}}')"
+        ></div>
 
-      <div data-display="flex" data-direction="column">
-        <small data-feed-status="{{ this.status }}">{{ this.status }}</small>
+        <div
+          data-display="flex"
+          data-direction="column"
+          data-cross="baseline"
+          data-md-mr="24"
+        >
+          <small
+            data-ls="1"
+            data-fw="500"
+            data-feed-status="{{ this.status }}"
+            >{{ this.status }}</small
+          >
+          <span data-mr="12" data-md-mx="0">{{ this.twitterUserName }}</span>
+        </div>
 
-        <div data-display="flex" data-cross="center" data-mt="3">
-          {{ this.twitterUserName }}
-          <a href="{{ this.link }}" data-ml="12">{{ this.link }}</a>
+        <div
+          data-display="flex"
+          data-direction="row"
+          data-ml="auto"
+          data-md-ml="unset"
+          data-md-my="24"
+        >
+          <a href="{{ this.link }}" download data-mr="12" tabindex="-1">
+            <button
+              class="c-button"
+              data-variant="secondary"
+              type="button"
+              style="width: 120px"
+            >
+              Download
+            </button>
+          </a>
           <button
-            data-ml="12"
+            style="width: 120px"
+            class="c-button copy"
             type="button"
-            class="copy"
             data-link="{{ this.link }}"
+            data-ml="auto"
+            data-variant="primary"
           >
-            Copy
+            Copy link
           </button>
-          <button
-            data-ml="12"
-            type="button"
-            class="more"
-            data-id="{{ this.twitterUserId }}"
-          >
-            More
-          </button>
+        </div>
+      </div>
+
+      <div
+        data-display="flex"
+        data-cross="center"
+        data-width="100%"
+        data-mt="12"
+        data-md-mt="0"
+      >
+        <div data-display="flex" data-cross="center" data-md-mx="auto">
+          <img
+            style="transform: rotate(270deg)"
+            height="20px"
+            width="20px"
+            src="/filter-icon.svg"
+            alt=""
+          />
+          <small data-ml="12" data-color="gray-900">
+            {{#if this.skipReplyTweets}}
+            Skipping reply tweets
+            {{else}}
+            No active filters
+            {{/if}}
+          </small>
         </div>
 
         <small
           class="timestamp"
           data-timestamp="{{ this.lastUpdatedAtTimestamp }}"
+          data-ml="auto"
+          data-md-mx="auto"
+          data-color="gray-600"
         >
-          Last updated at
-        </small>
-
-        <small data-mt="12"
-          >Active filters:
-          {{#if this.skipReplyTweets}}
-          skip reply tweets.
-          {{else}}
-          none.
-          {{/if}}
+          Updated at
         </small>
       </div>
     </li>
-
-    <form
-      data-id="{{ this.twitterUserId }}"
-      data-status="inactive"
-      data-cross="end"
-      data-mb="48"
-      method="POST"
-      action="/delete-rss/{{ this.twitterUserId }}?_method=DELETE"
-    >
-      <input type="hidden" name="_csrf" value="{{../_csrf}}" />
-
-      <div data-display="flex" data-direction="column" data-ml="12">
-        <label for="action" data-mb="6" data-fs="16">Action</label>
-        <select
-          data-id="{{ this.twitterUserId }}"
-          class="action"
-          name="action"
-          required
-          data-mr="auto"
-          data-p="3"
-        >
-          <option value="regenerate">Regenerate</option>
-          <option disabled>------</option>
-          {{#if this.isSuspended}}
-          <option value="activate">Activate</option>
-          {{/if}}
-          {{#if this.isActive}}
-          <option value="suspend">Suspend</option>
-          {{/if}}
-          <option value="delete">Delete</option>
-          <option disabled>------</option>
-          {{#if this.skipReplyTweets}}
-          <option value="include-reply-tweets">Include reply tweets</option>
-          <option disabled value="skip-reply-tweets">Skip reply tweets</option>
-          {{else}}
-          <option disabled value="include-reply-tweets">
-            Include reply tweets
-          </option>
-          <option value="skip-reply-tweets">Skip reply tweets</option>
-          {{/if}}
-        </select>
-      </div>
-
-      <button type="submit" data-py="3" data-px="6" data-ml="12">
-        Perform
-      </button>
-    </form>
     {{/each}}
   </ul>
 
