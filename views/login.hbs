@@ -13,20 +13,22 @@
   </a>
 </header>
 
-<main data-p="24" data-pt="72" data-mx="auto">
+<main data-p="24" data-md-p="12" data-pt="72" data-md-pt="48" data-mx="auto">
   <form
     data-display="flex"
     data-direction="column"
     data-cross="center"
     data-mx="auto"
     data-p="24"
+    data-md-py="24"
+    data-md-px="12"
     data-bg="gray-100"
     method="POST"
     action="/login"
     style="
-      max-width: 400px;
+      max-width: 450px;
       border: 1px solid #e5e7eb;
-      border-top: 12px solid #6b7280;
+      border-top: 12px solid #374151;
     "
   >
     <h2 data-fs="24" data-ls="1.5" data-fw="500" data-mb="48">Login</h2>
@@ -35,13 +37,29 @@
 
     <div data-display="flex" data-direction="column" data-width="100%">
       <div data-display="flex" data-direction="column">
-        <label for="username" data-mb="6" data-fs="16">Admin username</label>
-        <input id="username" name="username" type="text" required data-p="3" />
+        <label class="c-label" for="username" data-fs="16" data-mb="6">
+          Admin username
+        </label>
+        <input
+          placeholder="john@example.com"
+          class="c-input"
+          id="username"
+          name="username"
+          pattern=".{3,}"
+          title="Minimum 3 characters"
+          autocomplete="off"
+          required
+          data-p="3"
+        />
       </div>
 
-      <div data-display="flex" data-direction="column" data-mt="12">
-        <label for="password" data-mb="6" data-fs="16">Admin password</label>
+      <div data-display="flex" data-direction="column" data-mt="24">
+        <label class="c-label" for="password" data-fs="16" data-mb="6">
+          Admin password
+        </label>
         <input
+          placeholder="*********"
+          class="c-input"
           id="password"
           name="password"
           type="password"
@@ -60,7 +78,14 @@
       </button>
     </div>
 
-    <a data-color="gray-600" data-ls="0.5" data-mt="48" href="/">Back to
-      homepage</a>
+    <a
+      data-color="gray-600"
+      data-ls="0.5"
+      data-mt="48"
+      data-md-mt="24"
+      href="/"
+    >
+      Back to homepage
+    </a>
   </form>
 </main>
