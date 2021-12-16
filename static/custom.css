@@ -43,3 +43,7 @@ main {
 [data-feed-status="suspended"] {
   color: orange;
 }
+
+li {
+  list-style: none;
+}

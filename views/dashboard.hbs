@@ -19,213 +19,286 @@
   </a>
 </header>
 
-<main data-mx="auto">
-  <form
-    data-display="flex"
-    method="POST"
-    action="/create-rss"
-    data-mx="24"
-    data-mt="48"
-  >
-    <input type="hidden" name="_csrf" value="{{ _csrf }}" />
-
-    <div data-display="flex" data-direction="column" data-mr="24">
-      <label for="twitterUserName" data-mb="6" data-fs="16">
-        Twitter username (e.g: jack)
-      </label>
-      <input
-        id="twitterUserName"
-        name="twitterUserName"
-        type="text"
-        required
-        data-mr="auto"
-        data-p="3"
-      />
-    </div>
-
-    <button type="submit" data-mt="24" data-py="3" data-px="24">
-      Create RSS
-    </button>
-
-    <div data-mt="12">{{ error }}</div>
-  </form>
-
-  <section
-    data-display="flex"
-    data-main="between"
-    data-mt="48"
-    data-md-mt="24"
-    data-md-px="6"
-  >
-    <h2 data-fs="20" data-fw="500" data-mr="24">Twitter RSS feeds</h2>
-
-    <span
-      data-fs="14"
-      data-color="gray-600"
-      data-md-mt="12"
-      title="Feedly Hit happens when Feedly bots request RSS files from resorak, so your Feedly feed can be updated."
-    >
-      {{#if lastFeedlyHitTimestamp}}
-      Last Feedly hit {{ lastFeedlyHitTimestamp }} ago
-      {{else}}
-      No recorded Feedly hit
-      {{/if}}
-    </span>
-  </section>
-
-  <ul
-    data-display="flex"
-    data-direction="column"
-    data-my="24"
-    data-md-my="36"
-    data-md-mx="12"
-  >
-    {{#each feeds}}
-    <li
+<main data-display="flex" data-mx="auto" style="max-width: 1296px">
+  <section>
+    <form
       data-display="flex"
-      data-md-main="center"
-      data-mb="24"
-      data-py="12"
-      data-px="24"
-      data-md-px="12"
+      data-direction="column"
+      method="POST"
+      action="/create-rss"
+      data-mt="48"
+      data-mr="48"
       data-bg="gray-100"
-      style="border: 1px solid #e5e7eb; margin-top: -2px"
+      data-p="12"
+      data-mb="auto"
+      style="border: 1px solid #e5e7eb"
     >
-      <div
-        data-display="flex"
-        data-cross="center"
-        data-md-main="center"
-        data-width="100%"
-      >
-        <div
-          class="twitter-user-thumbnail"
-          data-display="flex"
-          data-mr="24"
-          data-md-mr="12"
-          height="48px"
-          width="48px"
-          style="background-image: url('{{
-            this.twitterUserThumbnail
-          }}'), url('{{../twitterUserThumbnailPlaceholder}}')"
-        ></div>
+      <input type="hidden" name="_csrf" value="{{ _csrf }}" />
 
-        <div
-          data-display="flex"
-          data-direction="column"
-          data-cross="baseline"
-          data-md-mr="24"
-        >
-          <small
-            data-ls="1"
-            data-fw="500"
-            data-feed-status="{{ this.status }}"
-            >{{ this.status }}</small
-          >
-          <span data-mr="12" data-md-mx="0">{{ this.twitterUserName }}</span>
+      <h2 data-fs="20" data-fw="500" data-mr="24" data-mb="24">
+        Create Twitter RSS feed
+      </h2>
+
+      <div data-display="flex" data-cross="end">
+        <div data-display="flex" data-direction="column" data-mr="24">
+          <label class="c-label" for="twitterUserName" data-mb="6" data-fs="16">
+            Twitter username
+          </label>
+          <input
+            placeholder="@username"
+            id="twitterUserName"
+            name="twitterUserName"
+            type="text"
+            class="c-input"
+            required
+            data-mr="auto"
+            data-p="3"
+            style="min-width: 336px"
+          />
         </div>
 
-        <div
-          data-display="flex"
-          data-direction="row"
-          data-ml="auto"
-          data-md-ml="unset"
-          data-md-my="24"
+        <button
+          class="c-button"
+          data-variant="primary"
+          type="submit"
+          data-mt="24"
+          data-py="3"
+          data-px="24"
+          style="min-width: 80px"
         >
-          <a href="{{ this.link }}" download data-mr="12" tabindex="-1">
-            <button
-              class="c-button"
-              data-variant="secondary"
-              type="button"
-              style="width: 120px"
+          Create
+        </button>
+      </div>
+
+      <div data-mt="12">{{ error }}</div>
+    </form>
+
+    <div
+      data-mt="48"
+      data-mr="48"
+      data-bg="gray-100"
+      data-p="12"
+      data-pb="0"
+      style="border: 1px solid #e5e7eb"
+    >
+      <form method="POST" action="/add-pharse-to-filter-out">
+        <input type="hidden" name="_csrf" value="{{ _csrf }}" />
+
+        <h2 data-fs="20" data-fw="500" data-mr="24" data-mb="24">
+          Phrases to filter out
+        </h2>
+
+        <div data-display="flex" data-cross="end">
+          <div data-display="flex" data-direction="column" data-mr="24">
+            <label
+              class="c-label"
+              for="phraseToFilterOut"
+              data-mb="6"
+              data-fs="16"
             >
-              Download
-            </button>
-          </a>
+              Phrase
+            </label>
+            <input
+              class="c-input"
+              placeholder="Java"
+              id="phraseToFilterOut"
+              name="phraseToFilterOut"
+              type="text"
+              required
+              data-p="3"
+              style="min-width: 336px"
+            />
+          </div>
+
           <button
-            style="width: 120px"
-            class="c-button copy"
-            type="button"
-            data-link="{{ this.link }}"
-            data-ml="auto"
             data-variant="primary"
+            class="c-button"
+            type="submit"
+            data-mt="24"
+            data-py="3"
+            data-px="24"
+            style="min-width: 80px"
           >
-            Copy link
+            Add
           </button>
         </div>
-      </div>
 
-      <div
-        data-display="flex"
-        data-cross="center"
-        data-width="100%"
-        data-mt="12"
-        data-md-mt="0"
-      >
-        <div data-display="flex" data-cross="center" data-md-mx="auto">
-          <img
-            style="transform: rotate(270deg)"
-            height="20px"
-            width="20px"
-            src="/filter-icon.svg"
-            alt=""
-          />
-          <small data-ml="12" data-color="gray-900">
-            {{#if this.skipReplyTweets}}
-            Skipping reply tweets
-            {{else}}
-            No active filters
-            {{/if}}
-          </small>
-        </div>
+        <div data-mt="12">{{ error }}</div>
+      </form>
 
-        <small
-          class="timestamp"
-          data-timestamp="{{ this.lastUpdatedAtTimestamp }}"
-          data-ml="auto"
-          data-md-mx="auto"
-          data-color="gray-600"
+      {{#unless phrasesToFilterOut}}
+      <small data-ml="24">No phrases added</small>
+      {{/unless}}
+
+      <ul data-mt="36">
+        {{#each phrasesToFilterOut}}
+        <li
+          data-display="flex"
+          data-cross="center"
+          data-my="12"
+          data-pb="12"
+          data-pl="12"
+          style="
+            border-bottom: 1px solid #e5e7eb;
+            border-left: 1px solid #e5e7eb;
+          "
         >
-          Updated at
-        </small>
-      </div>
-    </li>
-    {{/each}}
-  </ul>
+          <span>{{ this }}</span>
+          <button
+            class="c-button"
+            type="button"
+            data-variant="bare"
+            data-ml="auto"
+          >
+            Remove
+          </button>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </section>
 
-  <form
-    method="POST"
-    action="/add-pharse-to-filter-out"
-    data-mx="24"
-    data-mt="48"
-  >
-    <input type="hidden" name="_csrf" value="{{ _csrf }}" />
+  <section data-display="flex" data-direction="column" style="max-width: 768px">
+    <div
+      data-display="flex"
+      data-main="between"
+      data-mt="48"
+      data-md-mt="24"
+      data-md-px="6"
+    >
+      <h2 data-fs="20" data-fw="500" data-mr="24">Twitter RSS feeds</h2>
 
-    <div data-display="flex" data-cross="end">
-      <div data-display="flex" data-direction="column" data-mr="24">
-        <label for="phraseToFilterOut" data-mb="6" data-fs="16">
-          Phrase to filter out
-        </label>
-        <input
-          id="phraseToFilterOut"
-          name="phraseToFilterOut"
-          type="text"
-          required
-          data-p="3"
-        />
-      </div>
-
-      <button type="submit" data-mt="24" data-py="3" data-px="24">Add</button>
+      <span
+        data-fs="14"
+        data-color="gray-600"
+        data-md-mt="12"
+        title="Feedly Hit happens when Feedly bots request RSS files from resorak, so your Feedly feed can be updated."
+      >
+        {{#if lastFeedlyHitTimestamp}}
+        Last Feedly hit {{ lastFeedlyHitTimestamp }} ago
+        {{else}}
+        No recorded Feedly hit
+        {{/if}}
+      </span>
     </div>
 
-    <div data-mt="12">{{ error }}</div>
-  </form>
+    <ul
+      data-display="flex"
+      data-direction="column"
+      data-my="24"
+      data-md-my="36"
+      data-md-mx="12"
+    >
+      {{#each feeds}}
+      <li
+        data-display="flex"
+        data-md-main="center"
+        data-mb="24"
+        data-py="12"
+        data-px="24"
+        data-md-px="12"
+        data-bg="gray-100"
+        style="border: 1px solid #e5e7eb; margin-top: -2px"
+      >
+        <div
+          data-display="flex"
+          data-cross="center"
+          data-md-main="center"
+          data-width="100%"
+        >
+          <div
+            class="twitter-user-thumbnail"
+            data-display="flex"
+            data-mr="24"
+            data-md-mr="12"
+            height="48px"
+            width="48px"
+            style="background-image: url('{{
+              this.twitterUserThumbnail
+            }}'), url('{{../twitterUserThumbnailPlaceholder}}')"
+          ></div>
 
-  {{#unless phrasesToFilterOut}}
-  <small data-ml="24">No phrases added</small>
-  {{/unless}}
-  <ul>
-    {{#each phrasesToFilterOut}}
-    <li>{{ this }}</li>
-    {{/each}}
-  </ul>
+          <div
+            data-display="flex"
+            data-direction="column"
+            data-cross="baseline"
+            data-md-mr="24"
+          >
+            <small
+              data-ls="1"
+              data-fw="500"
+              data-feed-status="{{ this.status }}"
+              >{{ this.status }}</small
+            >
+            <span data-mr="12" data-md-mx="0">{{ this.twitterUserName }}</span>
+          </div>
+
+          <div
+            data-display="flex"
+            data-direction="row"
+            data-ml="auto"
+            data-md-ml="unset"
+            data-md-my="24"
+          >
+            <a href="{{ this.link }}" download data-mr="12" tabindex="-1">
+              <button
+                class="c-button"
+                data-variant="secondary"
+                type="button"
+                style="width: 120px"
+              >
+                Download
+              </button>
+            </a>
+            <button
+              style="width: 120px"
+              class="c-button copy"
+              type="button"
+              data-link="{{ this.link }}"
+              data-ml="auto"
+              data-variant="primary"
+            >
+              Copy link
+            </button>
+          </div>
+        </div>
+
+        <div
+          data-display="flex"
+          data-cross="center"
+          data-width="100%"
+          data-mt="12"
+          data-md-mt="0"
+        >
+          <div data-display="flex" data-cross="center" data-md-mx="auto">
+            <img
+              style="transform: rotate(270deg)"
+              height="20px"
+              width="20px"
+              src="/filter-icon.svg"
+              alt=""
+            />
+            <small data-ml="12" data-color="gray-900">
+              {{#if this.skipReplyTweets}}
+              Skipping reply tweets
+              {{else}}
+              No active filters
+              {{/if}}
+            </small>
+          </div>
+
+          <small
+            class="timestamp"
+            data-timestamp="{{ this.lastUpdatedAtTimestamp }}"
+            data-ml="auto"
+            data-md-mx="auto"
+            data-color="gray-600"
+          >
+            Updated at
+          </small>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+  </section>
 </main>
