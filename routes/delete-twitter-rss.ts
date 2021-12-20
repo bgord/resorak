@@ -13,5 +13,5 @@ export async function DeleteTwitterRss(
   const twitterRssFeed = await new TwitterRssFeed().build();
   await twitterRssFeed.delete(twitterId);
 
-  return response.redirect("/");
+  return response.redirect("/dashboard");
 }

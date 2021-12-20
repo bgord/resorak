@@ -13,5 +13,5 @@ export async function SuspendTwitterRss(
   const twitterRssFeed = await new TwitterRssFeed().build();
   await twitterRssFeed.suspend(twitterId);
 
-  return response.redirect("/");
+  return response.redirect("/dashboard");
 }

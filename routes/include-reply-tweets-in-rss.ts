@@ -13,5 +13,5 @@ export async function IncludeReplyTweetsInRss(
   const twitterRssFeed = await new TwitterRssFeed().build();
   await twitterRssFeed.includeReplyTweets(twitterId);
 
-  return response.redirect("/");
+  return response.redirect("/dashboard");
 }

@@ -14,5 +14,5 @@ export async function AddPhraseToFilterOut(
 
   await PhrasesToFilterOutRepository.save(phraseToFilterOut);
 
-  return response.redirect("/");
+  return response.redirect("/dashboard");
 }

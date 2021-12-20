@@ -15,5 +15,5 @@ export async function CreateTwitterRss(
   const twitterRssFeed = await new TwitterRssFeed().build();
   await twitterRssFeed.create(twitterUserName);
 
-  return response.redirect("/");
+  return response.redirect("/dashboard");
 }

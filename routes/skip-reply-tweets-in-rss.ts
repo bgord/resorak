@@ -13,5 +13,5 @@ export async function SkipReplyTweetsInRss(
   const twitterRssFeed = await new TwitterRssFeed().build();
   await twitterRssFeed.skipReplyTweets(twitterId);
 
-  return response.redirect("/");
+  return response.redirect("/dashboard");
 }
