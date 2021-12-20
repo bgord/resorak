@@ -343,15 +343,6 @@
               Feed actions
             </h3>
             <div data-display="flex" data-mt="12">
-              {{#if this.isActive }}
-                <form action="/suspend-rss/{{this.twitterUserId}}" method="POST">
-                  <input type="hidden" name="_csrf" value="{{ ../_csrf }}" />
-                  <button type="submit" data-variant="secondary" class="c-button" data-mr="12">
-                    Suspend
-                  </button>
-                </form>
-              {{/if}}
-
               {{#if this.isSuspended }}
                 <form action="/activate-rss/{{this.twitterUserId}}" method="POST">
                   <input type="hidden" name="_csrf" value="{{ ../_csrf }}" />
@@ -372,6 +363,15 @@
                   Delete
                 </button>
               </form>
+
+              {{#if this.isActive }}
+                <form action="/suspend-rss/{{this.twitterUserId}}" method="POST">
+                  <input type="hidden" name="_csrf" value="{{ ../_csrf }}" />
+                  <button type="submit" data-variant="bare" class="c-button" data-ml="12">
+                    Suspend
+                  </button>
+                </form>
+              {{/if}}
             </div>
           </div>
 
