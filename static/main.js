@@ -64,6 +64,8 @@ for (const actionButton of actionButtons) {
 
     responder.dataset.status =
       responder.dataset.status === "active" ? "inactive" : "active";
+    actionButton.dataset.status =
+      actionButton.dataset.status === "active" ? "inactive" : "active";
 
     const queryString = new URLSearchParams(window.location.search);
 
@@ -80,7 +82,12 @@ const id = queryString.get("id");
 const actionResponder = document.querySelector(
   `[data-role="action-target"][data-actions-id="${id}"]`
 );
+const actionTrigger = document.querySelector(
+  `[data-role="action-trigger"][data-actions-id="${id}"]`
+);
 
 if (actionResponder) {
   actionResponder.dataset.status = "active";
+  actionTrigger.dataset.status =
+    actionTrigger.dataset.status === "active" ? "inactive" : "active";
 }

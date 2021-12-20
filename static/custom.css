@@ -23,8 +23,21 @@ main {
 [data-status="active"] {
   display: flex;
 }
-
 [data-status="inactive"] {
+  display: none;
+}
+
+button[data-status="active"] > img[src="/arrow-down-icon.svg"] {
+  display: none;
+}
+button[data-status="active"] > img[src="/arrow-up-icon.svg"] {
+  display: unset;
+}
+
+button[data-status="inactive"] > img[src="/arrow-down-icon.svg"] {
+  display: unset;
+}
+button[data-status="inactive"] > img[src="/arrow-up-icon.svg"] {
   display: none;
 }
 
