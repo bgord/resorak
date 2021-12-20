@@ -11,7 +11,7 @@
   "author": "Bartosz Gordon",
   "license": "ISC",
   "dependencies": {
-    "@bgord/design": "^0.17.0",
+    "@bgord/design": "^0.18.0",
     "@bgord/node": "^0.53.0",
     "@prisma/client": "^3.3.0",
     "argon2": "^0.28.3",
