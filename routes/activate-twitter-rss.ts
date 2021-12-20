@@ -13,5 +13,5 @@ export async function ActivateTwitterRss(
   const twitterRssFeed = await new TwitterRssFeed().build();
   await twitterRssFeed.activate(twitterId);
 
-  return response.redirect("/dashboard");
+  return response.redirect(`/dashboard?tab=actions&id=${twitterId}`);
 }
