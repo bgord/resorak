@@ -8,7 +8,7 @@ export async function AddPhraseToFilterOut(
   response: express.Response,
   _next: express.NextFunction
 ): Promise<void> {
-  const phraseToFilterOut = VO.PhraseToFilterOut.parse(
+  const phraseToFilterOut = VO.PhraseToFilterOutContent.parse(
     request.body.phraseToFilterOut
   );
 

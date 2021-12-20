@@ -31,7 +31,7 @@ export class TweetFilters {
     settings: TweetFiltersSettings
   ): boolean {
     return settings.phrasesToFilterOut.every(
-      (phrase) => !tweet.text.toLowerCase().includes(phrase.toLowerCase())
+      (phrase) => !tweet.text.toLowerCase().includes(phrase.content)
     );
   }
 

@@ -17,6 +17,6 @@ model Event {
 
 model PhraseToFilterOut {
   id        String @id @default(uuid())
-  phrase    String
+  content   String
   createdAt DateTime @default(now())
 }

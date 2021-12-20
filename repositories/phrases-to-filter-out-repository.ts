@@ -5,15 +5,13 @@ import * as VO from "../value-objects";
 const prisma = new PrismaClient();
 
 export class PhrasesToFilterOutRepository {
-  static async save(phrase: VO.PhraseToFilterOutType) {
-    await prisma.phraseToFilterOut.create({ data: { phrase } });
+  static async save(content: VO.PhraseToFilterOutType["content"]) {
+    await prisma.phraseToFilterOut.create({ data: { content } });
   }
 
   static async find(): Promise<VO.PhraseToFilterOutType[]> {
-    const result = await prisma.phraseToFilterOut.findMany({
+    return prisma.phraseToFilterOut.findMany({
       orderBy: { createdAt: "asc" },
     });
-
-    return result.map((item) => item.phrase);
   }
 }
