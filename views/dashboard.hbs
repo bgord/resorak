@@ -391,9 +391,13 @@
                 <button
                   {{#if this.skipReplyTweets}}
                   disabled
+                  data-variant="bare"
                   {{/if}}
+                  data-variant="secondary"
                   type="submit"
-                  data-variant="secondary" class="c-button" data-mr="12">
+                  class="c-button"
+                  data-mr="12"
+                >
                   Skip reply tweets
                 </button>
               </form>
@@ -402,11 +406,13 @@
                 <input type="hidden" name="_csrf" value="{{ ../_csrf }}" />
                 <button
                   {{#if this.skipReplyTweets}}
+                  data-variant="secondary"
                   {{else}}
+                  data-variant="bare"
                   disabled
                   {{/if}}
                   type="submit"
-                  data-variant="secondary" class="c-button"
+                  class="c-button"
                 >
                   Include reply tweets
                 </button>
