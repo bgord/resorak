@@ -20,6 +20,7 @@ import { IncludeReplyTweetsInRss } from "./routes/include-reply-tweets-in-rss";
 import { SuspendTwitterRss } from "./routes/suspend-twitter-rss";
 import { ActivateTwitterRss } from "./routes/activate-twitter-rss";
 import { AddPhraseToFilterOut } from "./routes/add-phrase-to-filter-out";
+import { DeletePhraseToFilterOut } from "./routes/delete-phrase-to-filter-out";
 
 import {
   TwitterUserDoesNotExistsError,
@@ -111,6 +112,13 @@ app.post(
   bg.CsrfShield.verify,
   AuthShield.verify,
   bg.Route(AddPhraseToFilterOut)
+);
+
+app.delete(
+  "/delete-phrase-to-filter-out/:id",
+  bg.CsrfShield.verify,
+  AuthShield.verify,
+  bg.Route(DeletePhraseToFilterOut)
 );
 
 app.get("*", (_request, response) => response.redirect("/"));

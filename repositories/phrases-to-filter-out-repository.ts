@@ -14,4 +14,8 @@ export class PhrasesToFilterOutRepository {
       orderBy: { createdAt: "asc" },
     });
   }
+
+  static async remove(phraseId: VO.PhraseToFilterOutType["id"]) {
+    return prisma.phraseToFilterOut.delete({ where: { id: phraseId } });
+  }
 }

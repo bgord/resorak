@@ -144,14 +144,21 @@
           "
         >
           <span>{{ this.content }}</span>
-          <button
-            class="c-button"
-            type="button"
-            data-variant="bare"
+
+          <form
+            action="/delete-phrase-to-filter-out/{{this.id}}?_method=delete"
+            method="POST"
             data-ml="auto"
           >
-            Remove
-          </button>
+            <input type="hidden" name="_csrf" value="{{ ../_csrf }}" />
+            <button
+              class="c-button"
+              type="submit"
+              data-variant="bare"
+            >
+              Remove
+            </button>
+          </form>
         </li>
         {{/each}}
       </ul>
