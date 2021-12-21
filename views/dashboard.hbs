@@ -19,18 +19,18 @@
   </a>
 </header>
 
-<main data-display="flex" data-mx="auto" style="max-width: 1296px">
-  <section>
+<main data-display="flex" data-mx="auto" data-main="between" style="max-width: 1296px">
+  <section style="max-width: 466px" data-width="100%" data-px="6">
     <form
       data-display="flex"
       data-direction="column"
       method="POST"
       action="/create-rss"
       data-mt="48"
-      data-mr="48"
       data-bg="gray-100"
       data-p="12"
       data-mb="auto"
+      data-width="100%"
       style="border: 1px solid #e5e7eb"
     >
       <input type="hidden" name="_csrf" value="{{ _csrf }}" />
@@ -39,8 +39,8 @@
         Create Twitter RSS feed
       </h2>
 
-      <div data-display="flex" data-cross="end">
-        <div data-display="flex" data-direction="column" data-mr="24">
+      <div data-display="flex" data-cross="end" data-wrap="nowrap">
+        <div data-display="flex" data-direction="column" data-mr="24" style="flex-grow: 1;">
           <label class="c-label" for="twitterUserName" data-mb="6" data-fs="16">
             Twitter username
           </label>
@@ -53,7 +53,7 @@
             required
             data-mr="auto"
             data-p="3"
-            style="min-width: 336px"
+            data-width="100%"
           />
         </div>
 
@@ -75,10 +75,11 @@
 
     <div
       data-mt="48"
-      data-mr="48"
+      data-md-mt="24"
       data-bg="gray-100"
       data-p="12"
       data-pb="0"
+      data-width="100%"
       style="border: 1px solid #e5e7eb"
     >
       <form method="POST" action="/add-pharse-to-filter-out">
@@ -88,8 +89,8 @@
           Phrases to filter out
         </h2>
 
-        <div data-display="flex" data-cross="end">
-          <div data-display="flex" data-direction="column" data-mr="24">
+        <div data-display="flex" data-cross="end" data-wrap="nowrap">
+          <div data-display="flex" data-direction="column" data-mr="24" style="flex-grow: 1">
             <label
               class="c-label"
               for="phraseToFilterOut"
@@ -106,7 +107,6 @@
               type="text"
               required
               data-p="3"
-              style="min-width: 336px"
             />
           </div>
 
@@ -130,7 +130,7 @@
       <small data-mr="24" data-mt="24">No phrases added</small>
       {{/unless}}
 
-      <ul data-mt="36">
+      <ul data-mt="12">
         {{#each phrasesToFilterOut}}
         <li
           data-display="flex"
@@ -165,7 +165,7 @@
     </div>
   </section>
 
-  <section data-display="flex" data-direction="column" style="max-width: 768px" data-width="100%">
+  <section data-display="flex" data-direction="column" style="max-width: 786px" data-width="100%">
     <div
       data-display="flex"
       data-main="between"
