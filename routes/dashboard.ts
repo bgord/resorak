@@ -33,6 +33,7 @@ export async function Dashboard(
       : null,
 
     phrasesToFilterOut: await PhrasesToFilterOutRepository.find(),
+    username: request.user,
 
     error: messages[0],
     ...CsrfShield.extract(request),
