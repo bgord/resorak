@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/bgord/resorak/compare/v1.2.0...v1.3.0) (2021-12-22)
+
+
+### Features
+
+* display username in header on dashboard ([983ee1e](https://github.com/bgord/resorak/commit/983ee1e6b84e6e09183f88b155eb016418b130d1))
+* make twitter rss feeds header and last feedly hit break line earlier ([c3a6c81](https://github.com/bgord/resorak/commit/c3a6c81d8a8ada39d42dd2a430916dc93e1f1dde))
+
 ## [1.2.0](https://github.com/bgord/resorak/compare/v1.1.0...v1.2.0) (2021-12-22)
 
 
