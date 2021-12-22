@@ -22,16 +22,17 @@
 <main data-display="flex" data-mx="auto" data-main="between" style="max-width: 1296px">
   <section style="max-width: 466px" data-width="100%" data-px="6" data-mx="auto">
     <form
-      data-display="flex"
-      data-direction="column"
       method="POST"
       action="/create-rss"
+      data-display="flex"
+      data-direction="column"
       data-mt="48"
       data-bg="gray-100"
       data-p="12"
       data-mb="auto"
       data-width="100%"
-      style="border: 1px solid #e5e7eb"
+      data-bw="1"
+      data-bc="gray-200"
     >
       <input type="hidden" name="_csrf" value="{{ _csrf }}" />
 
@@ -80,7 +81,8 @@
       data-p="12"
       data-pb="0"
       data-width="100%"
-      style="border: 1px solid #e5e7eb"
+      data-bw="1"
+      data-bc="gray-200"
     >
       <form method="POST" action="/add-pharse-to-filter-out">
         <input type="hidden" name="_csrf" value="{{ _csrf }}" />
@@ -138,10 +140,10 @@
           data-my="12"
           data-pb="12"
           data-pl="12"
-          style="
-            border-bottom: 1px solid #e5e7eb;
-            border-left: 1px solid #e5e7eb;
-          "
+          data-bwl="1"
+          data-bcl="gray-200"
+          data-bwb="1"
+          data-bcb="gray-200"
         >
           <span>{{ this.content }}</span>
 
@@ -216,7 +218,8 @@
         data-px="24"
         data-md-px="12"
         data-bg="gray-100"
-        style="border: 1px solid #e5e7eb; margin-top: -2px"
+        data-bw="1"
+        data-bc="gray-200"
       >
         <div
           data-display="flex"
@@ -350,7 +353,8 @@
           data-pb="24"
           data-mt="12"
           data-width="100%"
-          style="border-top: 1px solid #d1d5db"
+          data-bwt="1"
+          data-bct="gray-300"
         >
           <div>
             <h3
