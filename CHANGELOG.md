@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/bgord/resorak/compare/v1.1.0...v1.2.0) (2021-12-22)
+
+
+### Features
+
+* make feed/filter actions font smaller and dimmer ([c6da14b](https://github.com/bgord/resorak/commit/c6da14be18bd88ce5b44576d003ebee45eedd661))
+
 ## [1.1.0](https://github.com/bgord/resorak/compare/v1.0.0...v1.1.0) (2021-12-22)
 
 
