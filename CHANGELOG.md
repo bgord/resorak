@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/bgord/resorak/compare/v1.0.0...v1.1.0) (2021-12-22)
+
+
+### Features
+
+* change dashboard sections order on mobile ([362f2a8](https://github.com/bgord/resorak/commit/362f2a8692cc1440daa747454a8abcf9da9cc5ed))
+* make dashboard rss feed actions look good on mobile ([8c2a3d8](https://github.com/bgord/resorak/commit/8c2a3d87ded7703030a3e56f3aa20b4c8e2b590d))
+* make dashboard rss feed list look good on mobile ([cb2d7fc](https://github.com/bgord/resorak/commit/cb2d7fc1830b2dd9a442a860097519ce6f4f14e9))
+
 ## 1.0.0 (2021-12-22)
 
 
