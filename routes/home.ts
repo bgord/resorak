@@ -3,7 +3,6 @@ import { CsrfShield } from "@bgord/node";
 import { formatDistanceToNow } from "date-fns";
 
 import { FeedlyHitRepository } from "../repositories/feedly-hit-repository";
-import { PhrasesToFilterOutRepository } from "../repositories/phrases-to-filter-out-repository";
 import { TwitterRssFeed } from "../aggregates/twitter-rss-feed";
 import * as Services from "../services";
 import * as VO from "../value-objects";
@@ -31,8 +30,6 @@ export async function Home(
     lastFeedlyHitTimestamp: lastFeedlyHitTimestamp
       ? formatDistanceToNow(lastFeedlyHitTimestamp)
       : null,
-
-    phrasesToFilterOut: await PhrasesToFilterOutRepository.find(),
 
     error: messages[0],
     ...CsrfShield.extract(request),
