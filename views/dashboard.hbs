@@ -355,20 +355,15 @@
           data-status="inactive"
           data-display="flex"
           data-pt="12"
+          data-md-pt="unset"
           data-pb="24"
           data-mt="12"
           data-width="100%"
           data-bwt="1"
           data-bct="gray-300"
         >
-          <div>
-            <h3
-              data-mt="12"
-              data-fw="400"
-              data-fs="16"
-              data-ls="0.5"
-              data-color="gray-700"
-            >
+          <div data-mr="24" data-mt="24">
+            <h3 data-fw="400" data-fs="16" data-md-fs="14" data-ls="0.5" data-color="gray-700">
               Feed actions
             </h3>
             <div data-display="flex" data-mt="12">
@@ -404,17 +399,11 @@
             </div>
           </div>
 
-          <div data-ml="auto">
-            <h3
-              data-mt="12"
-              data-fw="400"
-              data-fs="16"
-              data-ls="0.5"
-              data-color="gray-700"
-            >
+          <div data-ml="auto" data-md-ml="unset" data-mt="24">
+            <h3 data-fw="400" data-fs="16" data-md-fs="14" data-ls="0.5" data-color="gray-700">
               Filter actions
             </h3>
-            <div data-display="flex" data-mt="12">
+            <div data-display="flex">
               <form action="/skip-reply-tweets-in-rss/{{this.twitterUserId}}" method="POST">
                 <input type="hidden" name="_csrf" value="{{ ../_csrf }}" />
                 <button
@@ -426,6 +415,7 @@
                   type="submit"
                   class="c-button"
                   data-mr="12"
+                  data-mt="12"
                 >
                   Skip reply tweets
                 </button>
@@ -441,6 +431,7 @@
                   disabled
                   {{/if}}
                   type="submit"
+                  data-mt="12"
                   class="c-button"
                 >
                   Include reply tweets
