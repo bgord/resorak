@@ -178,8 +178,8 @@
     <div
       data-display="flex"
       data-main="between"
+      data-cross="baseline"
       data-mt="48"
-      data-md-mt="24"
       data-md-px="6"
     >
       <h2 data-fs="20" data-fw="500" data-mr="24">Twitter RSS feeds</h2>
@@ -206,8 +206,6 @@
       data-display="flex"
       data-direction="column"
       data-my="24"
-      data-md-my="36"
-      data-md-mx="12"
     >
       {{#each feeds}}
       <li
@@ -265,11 +263,13 @@
           <div
             data-display="flex"
             data-direction="row"
+            data-main="center"
             data-ml="auto"
             data-md-ml="unset"
-            data-md-my="24"
+            data-md-mt="24"
+            data-md-mb="12"
           >
-            <a href="{{ this.link }}" download data-mr="12" tabindex="-1">
+            <a href="{{ this.link }}" download data-mr="12" data-md-my="6" tabindex="-1">
               <button
                 class="c-button"
                 data-variant="secondary"
@@ -285,13 +285,15 @@
               type="button"
               data-link="{{ this.link }}"
               data-ml="auto"
+              data-md-ml="unset"
               data-variant="primary"
+              data-md-my="6"
             >
               Copy link
             </button>
 
             {{#if this.isActive }}
-              <form action="/regenerate-rss/{{this.twitterUserId}}" method="POST">
+              <form action="/regenerate-rss/{{this.twitterUserId}}" method="POST" data-md-my="6">
                 <input type="hidden" name="_csrf" value="{{ ../_csrf }}" />
                 <button type="submit" class="c-button" data-variant="primary" data-ml="12">
                   Regenerate
@@ -308,9 +310,9 @@
           data-mt="12"
           data-md-mt="0"
         >
-          <div data-display="flex" data-cross="center" data-md-mx="auto">
+          <div data-display="flex" data-cross="center" data-md-mx="auto" data-md-my="6">
             <img height="20px" width="20px" src="/filter-icon.svg" alt="" />
-            <small data-ml="12" data-color="gray-900">
+            <small data-ml="6" data-mr="12" data-color="gray-900">
               {{#if this.skipReplyTweets}}
               Skipping reply tweets
               {{else}}
@@ -324,6 +326,7 @@
             data-timestamp="{{ this.lastUpdatedAtTimestamp }}"
             data-ml="auto"
             data-md-mx="auto"
+            data-md-my="6"
             data-color="gray-600"
           >
             Updated at
@@ -336,6 +339,8 @@
             class="c-button"
             data-variant="with-icon"
             data-ml="24"
+            data-md-mx="auto"
+            data-md-my="6"
             type="button"
           >
             <span data-mr="12">Actions</span>
