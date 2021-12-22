@@ -8,6 +8,9 @@ OUT_DIR="build"
 info "Environment: staging"
 export NODE_ENV="staging"
 
+check_if_file_exists .env.staging
+check_if_directory_exists node_modules
+
 # ==========================================================
 
 info "Building project!"
