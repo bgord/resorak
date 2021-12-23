@@ -8,7 +8,13 @@
   data-bg="gray-800"
 >
   <h1 data-fs="24" data-ls="2" data-color="gray-100" data-fw="500">resorak</h1>
-  <a data-color="white" data-ls="0.5" data-mr="12" data-md-mr="0" href="/login">
+  <a
+    class="c-link"
+    data-color="white"
+    data-mr="12"
+    data-md-mr="0"
+    href="/login"
+  >
     Dashboard
   </a>
 </header>
@@ -91,14 +97,16 @@
             >{{ this.status }}</small
           >
           <a
+            class="c-link"
             data-color="black"
+            data-variant="bare"
             href="https://twitter.com/{{ this.twitterUserName }}"
             target="_blank"
             data-mr="12"
             data-md-mx="0"
-            style="text-decoration: none"
-            >{{ this.twitterUserName }}</a
           >
+            {{ this.twitterUserName }}
+          </a>
         </div>
 
         <div

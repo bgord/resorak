@@ -2,14 +2,6 @@ h1 {
   margin: 0;
 }
 
-a {
-  text-underline-offset: 4px;
-}
-a:hover {
-  opacity: 0.75;
-  transition: opacity 300ms;
-}
-
 html,
 body {
   font-family: sans-serif;

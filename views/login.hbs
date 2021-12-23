@@ -8,7 +8,7 @@
   data-bg="gray-800"
 >
   <h1 data-fs="24" data-ls="2" data-color="gray-100" data-fw="500">resorak</h1>
-  <a data-color="white" data-ls="0.5" data-mr="12" data-md-mr="0" href="/">
+  <a class="c-link" data-color="white" data-mr="12" data-md-mr="0" href="/">
     Homepage
   </a>
 </header>
@@ -35,7 +35,7 @@
       Login
     </h2>
 
-    <input type="hidden" name="_csrf" value="{{_csrf}}" />
+    <input type="hidden" name="_csrf" value="{{ _csrf }}" />
 
     <div data-display="flex" data-direction="column" data-width="100%">
       <div data-display="flex" data-direction="column">
@@ -81,8 +81,8 @@
     </div>
 
     <a
+      class="c-link"
       data-color="gray-600"
-      data-ls="0.5"
       data-mt="48"
       data-md-mt="24"
       href="/"
