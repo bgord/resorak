@@ -13,6 +13,3 @@ export * from "./twitter-user";
 export * from "./feedly-hit-timestamp";
 export * from "./phrase-to-filter-out";
 export * from "./phrase-to-filter-out-content";
-
-export * from "./admin-username";
-export * from "./admin-password";

@@ -7,8 +7,6 @@ import { Env } from "./env";
 import { Scheduler } from "./jobs";
 import { ErrorHandler } from "./error-handler";
 
-import { AuthShield } from "./services/auth-shield";
-
 import { Home } from "./routes/home";
 import { Login } from "./routes/login";
 import { Dashboard } from "./routes/dashboard";
@@ -30,6 +28,10 @@ import {
 import { FeedlyHitLogger } from "./middlewares/feedly-hit-logger";
 
 const app = express();
+const AuthShield = new bg.EnvUserAuthShield({
+  ADMIN_USERNAME: Env.ADMIN_USERNAME,
+  ADMIN_PASSWORD: Env.ADMIN_PASSWORD,
+});
 
 const sentry = new bg.Sentry({
   dsn: Env.SENTRY_DSN,
@@ -53,7 +55,12 @@ app.use(FeedlyHitLogger.handle());
 app.get("/", bg.CsrfShield.attach, Home);
 
 app.get("/login", bg.CsrfShield.attach, Login);
-app.post("/login", bg.CsrfShield.verify, AuthShield.attach);
+app.post(
+  "/login",
+  bg.CsrfShield.verify,
+  AuthShield.attach,
+  (_request, response) => response.redirect("/dashboard")
+);
 app.get("/dashboard", AuthShield.verify, Dashboard);
 app.get("/logout", (request, response) => {
   request.logout();

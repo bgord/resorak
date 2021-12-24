@@ -17,14 +17,6 @@ export class ErrorHandler {
     /* eslint-disable no-console */
     console.error(error);
 
-    if (
-      error instanceof Errors.AccessDeniedError &&
-      error.reason === "api-key"
-    ) {
-      await request.flash("error", "Invalid API KEY");
-      return response.redirect("/");
-    }
-
     if (error instanceof Errors.AccessDeniedError && error.reason === "csrf") {
       await request.flash("error", "Please, try again later");
       return response.redirect("/");
@@ -44,6 +36,10 @@ export class ErrorHandler {
     }
 
     if (error instanceof Errors.InvalidCredentialsError) {
+      return response.redirect("/login");
+    }
+
+    if (error instanceof Errors.AccessDeniedError && error.reason === "auth") {
       return response.redirect("/");
     }
 
