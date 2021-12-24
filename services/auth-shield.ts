@@ -10,11 +10,11 @@ export class AuthShield {
     passport.use(
       new PassportLocalStrategy(async (username, password, callback) => {
         if (username !== Env.ADMIN_USERNAME) {
-          return callback(new InvalidCredentialsError());
+          return callback(new bg.Errors.InvalidCredentialsError());
         }
 
         if (password !== Env.ADMIN_PASSWORD) {
-          return callback(new InvalidCredentialsError());
+          return callback(new bg.Errors.InvalidCredentialsError());
         }
 
         return callback(null, username);
@@ -49,12 +49,5 @@ export class AuthShield {
     }
 
     return response.redirect("/");
-  }
-}
-
-export class InvalidCredentialsError extends Error {
-  constructor() {
-    super();
-    Object.setPrototypeOf(this, InvalidCredentialsError.prototype);
   }
 }

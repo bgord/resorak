@@ -6,8 +6,6 @@ import {
   TwitterRssFeedAlreadyExistsError,
 } from "./aggregates/twitter-rss-feed";
 
-import { InvalidCredentialsError } from "./services/auth-shield";
-
 export class ErrorHandler {
   static handle: express.ErrorRequestHandler = async (
     error,
@@ -45,7 +43,7 @@ export class ErrorHandler {
       return response.redirect("/");
     }
 
-    if (error instanceof InvalidCredentialsError) {
+    if (error instanceof Errors.InvalidCredentialsError) {
       return response.redirect("/");
     }
 
