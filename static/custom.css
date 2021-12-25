@@ -26,7 +26,6 @@ button[data-status="inactive"] > img[src="/arrow-up-icon.svg"] {
 .twitter-user-thumbnail {
   height: 48px;
   width: 48px;
-  border-radius: 50%;
 }
 
 [data-feed-status] {
