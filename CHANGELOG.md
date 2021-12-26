@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.1](https://github.com/bgord/resorak/compare/v1.3.0...v1.3.1) (2021-12-26)
+
+
+### Bug Fixes
+
+* admin username placeholder ([ba61739](https://github.com/bgord/resorak/commit/ba61739bd4239e3920701f43b43360df5cafa061))
+
 ## [1.3.0](https://github.com/bgord/resorak/compare/v1.2.0...v1.3.0) (2021-12-22)
 
 
