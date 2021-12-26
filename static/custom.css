@@ -22,8 +22,3 @@ button[data-status="inactive"] > img[src="/arrow-down-icon.svg"] {
 button[data-status="inactive"] > img[src="/arrow-up-icon.svg"] {
   display: none;
 }
-
-.twitter-user-thumbnail {
-  height: 48px;
-  width: 48px;
-}
