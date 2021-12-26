@@ -27,7 +27,3 @@ button[data-status="inactive"] > img[src="/arrow-up-icon.svg"] {
   height: 48px;
   width: 48px;
 }
-
-li {
-  list-style: none;
-}
