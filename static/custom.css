@@ -28,9 +28,6 @@ button[data-status="inactive"] > img[src="/arrow-up-icon.svg"] {
   width: 48px;
 }
 
-[data-feed-status] {
-  text-transform: uppercase;
-}
 [data-feed-status="active"] {
   color: green;
 }
