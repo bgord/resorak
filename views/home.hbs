@@ -91,13 +91,26 @@
           data-cross="baseline"
           data-md-mr="24"
         >
-          <small
+          {{#if this.isActive}}
+          <span
+            data-fs="12"
             data-ls="1"
-            data-fw="500"
             data-transform="uppercase"
-            data-feed-status="{{ this.status }}"
-            >{{ this.status }}</small
+            data-color="green-500"
           >
+            Active
+          </span>
+          {{/if}}
+          {{#if this.isSuspended}}
+          <span
+            data-fs="12"
+            data-ls="1"
+            data-transform="uppercase"
+            data-color="orange-400"
+          >
+            Suspended
+          </span>
+          {{/if}}
           <a
             class="c-link"
             data-color="black"

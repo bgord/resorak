@@ -28,13 +28,6 @@ button[data-status="inactive"] > img[src="/arrow-up-icon.svg"] {
   width: 48px;
 }
 
-[data-feed-status="active"] {
-  color: green;
-}
-[data-feed-status="suspended"] {
-  color: orange;
-}
-
 li {
   list-style: none;
 }
